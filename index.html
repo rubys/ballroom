@@ -445,7 +445,13 @@
               // construct reverse
               reverse = clone(result);
               for (var i=0; i<reverse.length; i++) {
-                if (typeof(reverse[i])=="number") {
+                if (reverse[i] == "c") {
+                  [].splice.apply(reverse,
+                    [i+3,0].concat(reverse.splice(i+1,2)))
+                  for (var j=1; j<5; j++) {
+                    reverse[i+j] = reverse[i + 6 - j%2] - reverse[i+j]
+                  }
+                } else if (typeof(reverse[i]) == "number") {
                   reverse[i] = -reverse[i];
                 }
               }
