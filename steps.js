@@ -36,6 +36,7 @@ var steps = [{
   count: 1,
   time: 2,
   text: 'slow',
+  note: 'half a box',
   leader: {left: 'forward'},
   follower: {right: 'back'}
 }, {
@@ -87,7 +88,7 @@ var steps = [{
   follower: {
     left: {
       position: {path: 'c106.066,106.066,141.421,141.421,282.843,-0'},
-      rotate: 135
+      rotate: 180
     },
     right: {rotate: 90}
   }
@@ -99,7 +100,7 @@ var steps = [{
   time: 2,
   text: 'slow',
   leader: {left: 'forward'},
-  follower: {right: {path: 'l0,50', rotate: 180}}
+  follower: {right: {path: 'l0,50', rotate: 90}}
 }, {
   time: -0.25,
   leader: {left: {heel: 'down'}, right: {heel: 'up'}},
@@ -109,8 +110,8 @@ var steps = [{
   text: 'quick ...',
   leader: {right: {path: 'c0,90,10,100,100,100'}},
   follower: {left: {
-    path: 'c100,50,200,0,200,-100',
-    rotate: 180
+    path: 'c35.355,106.066,141.421,141.421,212.132,70.711',
+    rotate: 135
   }}
 }, {
   time: -0.25,
@@ -120,7 +121,7 @@ var steps = [{
   time: 1,
   text: '... quick',
   leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'l-50,30'}}
+  follower: {right: {path: 'l30,50', rotate: 90}}
 }, {
   time: -0.25,
   leader: {left: {heel: "down"}, right: {heel: "up"}},
