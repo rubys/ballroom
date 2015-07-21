@@ -75,8 +75,8 @@ while (steps.length > 0) {
       if (!ops) return;
 
       // aliases for movement
-      if (ops == 'forward') ops = step[person][foot] = {path: 'v-100'}
-      if (ops == 'back') ops = step[person][foot] = {path: 'v100'}
+      if (ops == 'forward') ops = step[person][foot] = {path: 'v,100'}
+      if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
 
       // shorthand for position.path
       if (ops.path && !ops.position) {
@@ -129,7 +129,7 @@ while (steps.length > 0) {
 
         if (op.path) {
           // parse path
-          var result = []
+          var result = [];
           var index = 0;
           while (index < op.path.length) {
             var match = op.path.slice(index).
@@ -152,7 +152,6 @@ while (steps.length > 0) {
               result[i] = 'l';
             }
           }
-
           // determine rotation
           var angle = shoes[person][foot].rotate % 360;
           if (angle < 0) angle += 360;
@@ -171,8 +170,8 @@ while (steps.length > 0) {
           for (var i=result.length-1; i>0; i--) {
             if (typeof(result[i])=="number") {
               if (typeof(result[i-1])=="number") {
-                var x = result[i-1]*cos - result[i]*sin;
-                var y = result[i]*cos + result[i-1]*sin;
+                var x = result[i-1]*cos + result[i]*sin;
+                var y = - result[i]*cos + result[i-1]*sin;
                 result[i-1] = x;
                 result[i] = y;
                 i--;
