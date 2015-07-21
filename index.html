@@ -320,15 +320,20 @@
       // optionally reset count
       if (step.count) count = step.count;
 
-      // rollback time
+      // find step (adding to routine as needed)
       if (step.time < 0) {
-        var time = -step.time;
-        while (step.time < 0) {
-          routine.pop();
-          step.time += 0.25;
+        step.time = -step.time;
+      } else {
+        var ops = step;
+        for (var i=0; i<step.time*4; i++) {
+          if (count && routine.length % 4 == 0) {
+            ops.count = count++;
+          }
+          routine.push(ops);
+          ops = {}
         }
-        step.time = time;
       }
+      routine[routine.length-step.time*4] = step;
 
       // compile steps
       ["leader", "follower"].forEach(function(person) {
@@ -480,15 +485,6 @@
           });
         });
       });
-
-      // add step(s) to routine
-      tics = step.time*4
-      while (tics > 0) {
-        if (count && routine.length % 4 == 0) step.count = count++; 
-        routine.push(step);
-        step = {};
-        tics--;
-      }
     }
 
     // apply initial settings
