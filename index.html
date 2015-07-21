@@ -309,6 +309,18 @@
       return JSON.parse(JSON.stringify(object));
     }
 
+   function merge(destination, source) {
+     for (var property in source) {
+       if (typeof source[property] === "object") {
+         destination[property] = destination[property] || {};
+         merge(destination[property], source[property]);
+       } else {
+         destination[property] = source[property];
+       }
+     }
+     return destination;
+   };
+
     var shoes = clone(initial);
 
     // "compile" script
@@ -333,7 +345,7 @@
           ops = {}
         }
       }
-      routine[routine.length-step.time*4] = step;
+      merge(routine[routine.length-step.time*4], step);
 
       // compile steps
       ["leader", "follower"].forEach(function(person) {
@@ -384,10 +396,15 @@
             }
 
             // construct reverse
-            ops.reverse[attr] = clone(op); 
+            var last = routine[routine.length-1];
+            if (!last[person]) last[person] = {};
+            if (!last[person][foot]) last[person][foot] = {};
+            if (!last[person][foot].reverse) last[person][foot].reverse = {};
+            var reverse = last[person][foot].reverse;
+            reverse[attr] = clone(op); 
             if (op.from && op.to) {
-              ops.reverse[attr].from = op.to;
-              ops.reverse[attr].to = op.from;
+              reverse[attr].from = op.to;
+              reverse[attr].to = op.from;
             }
 
             if (op.path) {
@@ -448,16 +465,16 @@
               if (result[0] == 'M') result = result.slice(3)
 
               // construct reverse
-              reverse = clone(result);
-              for (var i=0; i<reverse.length; i++) {
-                if (reverse[i] == "c") {
-                  [].splice.apply(reverse,
-                    [i+3,0].concat(reverse.splice(i+1,2)))
+              rpath = clone(result);
+              for (var i=0; i<rpath.length; i++) {
+                if (rpath[i] == "c") {
+                  [].splice.apply(rpath,
+                    [i+3,0].concat(rpath.splice(i+1,2)))
                   for (var j=1; j<5; j++) {
-                    reverse[i+j] = reverse[i + 6 - j%2] - reverse[i+j]
+                    rpath[i+j] = rpath[i + 6 - j%2] - rpath[i+j]
                   }
-                } else if (typeof(reverse[i]) == "number") {
-                  reverse[i] = -reverse[i];
+                } else if (typeof(rpath[i]) == "number") {
+                  rpath[i] = -rpath[i];
                 }
               }
 
@@ -465,22 +482,22 @@
               result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
               shoes[person][foot].x += offset[0];
               shoes[person][foot].y += offset[1];
-              reverse.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+              rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
               
-              // serialize result, reverse
+              // serialize result, rpath
               for (var i=result.length-1; i>0; i--) {
                 if (typeof(result[i])=="number") {
                   if (typeof(result[i-1])=="number") {
                     result[i] = ',' + result[i];
-                    reverse[i] = ',' + reverse[i];
+                    rpath[i] = ',' + rpath[i];
                   } else {
                     result[i] = result[i].toString();
-                    reverse[i] = reverse[i].toString();
+                    rpath[i] = rpath[i].toString();
                   }
                 }
               }
               op.path = result.join('');
-              ops.reverse[attr].path = reverse.join('');
+              reverse[attr].path = rpath.join('');
             }
           });
         });
@@ -578,6 +595,7 @@
 	    shoe = shoes[person][foot];
 	    op = step[person][foot];
             op = (direction == -1 ? op.reverse : op.forward);
+            if (!op) continue;
 	    if (op.position) {
               if (op.position.path) {
                 path[person].setAttribute('d', op.position.path);
