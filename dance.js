@@ -261,6 +261,7 @@ var path = {
 
 // capture aside targets
 var aside = {
+  figure: document.getElementById('figure'),
   count: document.getElementById('count'),
   text: document.getElementById('text'),
   note: document.getElementById('note'),
@@ -296,6 +297,10 @@ setInterval(function() {
         advance--;
       }
     }
+  }
+
+  if (step.figure) {
+    aside.figure.textContent = step.figure;
   }
 
   if (step.count) {
