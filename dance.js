@@ -226,7 +226,7 @@ while (steps.length > 0) {
 }
 
 // apply initial settings
-shoes = initial;
+shoes = clone(initial);
 
 ["leader", "follower"].forEach(function(person) {
   var node = document.getElementById(person);
@@ -271,7 +271,7 @@ var aside = {
 }
 
 // dance
-setInterval(function() {
+setInterval(steps.length && function() {
   if (paused && !advance) return;
 
   step = routine[clock];

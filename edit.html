@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    html, body {height: 100%}
+    aside {height: 98%}
+    p {margin-left: 1em}
+    input {width: 13em}
+    input[type=checkbox] {width: 1em}
+    h2 {margin-left: 1em}
+    aside {position: absolute; width: 15em; background-color: #CCC}
+  </style>
+
+  <aside>
+    <h1>Rumba</h1>
+    <p><input name="figure" placeholder="figure"/></p>
+    <p>Beats:
+      <select name="duration">
+        <option>0.5</option>
+        <option selected>1</option>
+        <option>2</option>
+        <option>-0.25</option>
+      </select>
+    </p>
+    <p><input name="text" placeholder="text"/></p>
+    <p><input name="note" placeholder="note"/></p>
+    <hr/>
+    <p>Shoe: <span id="shoe"></span></p>
+    <p>Position: <code id="position"></code></p>
+    <p><input type="checkbox" id="ball" onclick="toggle(this)"/>
+      <label for="ball">Ball</label></p>
+    <p><input type="checkbox" id="heel" onclick="toggle(this)"/>
+      <label for="heel">Heel</label></p>
+  </aside>
+
+  <svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg">
+    <path id="leader-path" stroke="#999" fill="none"/>
+    <path id="follower-path" stroke="#C77" fill="none"/>
+
+    <g id="follower">
+      <g class="right" onclick="select(this)">
+        <title>follower right</title>
+	<g>
+	  <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
+            c-10,17-17,23-7,45c5,9,20,6,21,3">
+	    <animate class="ball" attributeName="fill" fill="freeze"/>
+	  </path>
+	  <path d="M-8,40c1,5-13,16-10-3z">
+	    <animate class="heel" attributeName="fill" fill="freeze"/>
+	  </path>
+	  <animateTransform attributeName="transform" type="rotate"
+	    fill="freeze"/>
+	</g>
+	<animateMotion fill="freeze"/>
+      </g>
+
+      <g class="left" onclick="select(this)">
+        <title>follower right</title>
+	<g>
+	  <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
+            c10,17,17,23,7,45c-5,9-20,6-21,3">
+	    <animate class="ball" attributeName="fill" fill="freeze"/>
+	  </path>
+          <path d="M8,40c-1,5,13,16,10-3z">
+	    <animate class="heel" attributeName="fill" fill="freeze"/>
+	  </path>
+	  <animateTransform attributeName="transform" type="rotate"
+	    fill="freeze"/>
+	</g>
+	<animateMotion fill="freeze"/>
+      </g>
+    </g>
+
+    <g id="leader">
+      <g class="left" onclick="select(this)">
+        <title>leader left</title>
+	<g>
+          <path d="M-8,9c-10-20-10-34,0-49c7-10,16-11,21,0c10,27,6,26,1,43z">
+	    <animate class="ball" attributeName="fill" fill="freeze">
+	  </path>
+          <path d="M-3,29c-6,26,38,28,21-4z">
+	    <animate class="heel" attributeName="fill" fill="freeze">
+	  </path>
+	  <animateTransform attributeName="transform" type="rotate"
+	    fill="freeze"/>
+	</g>
+	<animateMotion fill="freeze"/>
+      </g>
+
+      <g class="right" onclick="select(this)">
+        <title>leader right</title>
+	<g>
+          <path d="M8,9c10-20,10-34,0-49c-7-10-16-11-21,0c-10,27-6,26-1,43z">
+	    <animate class="ball" attributeName="fill" fill="freeze">
+	  </path>
+          <path d="M3,29c6,26-38,28-21-4z">
+	    <animate class="heel" attributeName="fill" fill="freeze">
+	  </path>
+	  <animateTransform attributeName="transform" type="rotate"
+	    fill="freeze"/>
+	</g>
+	<animateMotion fill="freeze"/>
+      </g>
+    </g>
+  </svg>
+
+  <script src="steps.js"></script>
+  <script>steps = []</script>
+  <script src="dance.js"></script>
+  <script>
+    var selected = null;
+
+    function toggle(part) {
+      var person = selected.node.parentNode.id;
+      var from, to;
+      if (part.checked) {
+        from = '#FFF';
+        to = shoes[person].color;
+      } else {
+        to = '#FFF';
+        from = shoes[person].color;
+      }
+      selected[part.id].node.parentNode.setAttribute('fill', to);
+      selected[part.id].node.setAttribute('from', from);
+      selected[part.id].node.setAttribute('to', to);
+      selected[part.id].node.setAttribute('dur', '0.5s');
+      selected[part.id].node.beginElement();
+      return false;
+    }
+
+    function select(shoe) {
+      if (selected) {
+        var stroke = shoes[selected.node.parentNode.id].color;
+        var paths = selected.node.querySelectorAll('path');
+        for (var i=0; i<paths.length; i++) {
+          paths[i].setAttribute('stroke', stroke);
+          paths[i].removeAttribute('stroke-width');
+        }
+      }
+
+      selected = shoes[shoe.parentNode.id][shoe.classList[0]];
+      var paths = selected.node.querySelectorAll('path');
+      for (var i=0; i<paths.length; i++) {
+        paths[i].setAttribute('stroke', '#0F0');
+        paths[i].setAttribute('stroke-width', 3);
+      }
+
+      document.getElementById("shoe").textContent = 
+        selected.node.parentNode.id + "'s " +selected.node.classList[0];
+
+      document.getElementById("position").textContent = 
+        selected.x + ', ' + selected.y;
+
+      if (selected.ball.node.parentNode.getAttribute('fill') == '#FFF') {
+        document.getElementById("ball").checked = false;
+      } else {
+        document.getElementById("ball").checked = true;
+      }
+
+      if (selected.heel.node.parentNode.getAttribute('fill') == '#FFF') {
+        document.getElementById("heel").checked = false;
+      } else {
+        document.getElementById("heel").checked = true;
+      }
+    }
+
+    select(document.querySelector("#follower .right"));
+  </script>
+</html>
