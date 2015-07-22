@@ -46,8 +46,7 @@ var shoes = clone(initial);
 // "compile" script
 var count = 0;
 var routine = []
-while (steps.length > 0) {
-  step = steps.shift();
+for (step of steps) {
 
   // optionally reset count
   if (step.count) count = step.count;
@@ -66,6 +65,7 @@ while (steps.length > 0) {
     }
   }
   merge(routine[routine.length-step.time*4], step);
+  step = routine[routine.length-step.time*4];
 
   // compile steps
   ["leader", "follower"].forEach(function(person) {
@@ -91,18 +91,19 @@ while (steps.length > 0) {
       }
 
       ops.forward = {};
-      ops.reverse = {};
+      if (!ops.reverse) ops.reverse = {};
 
       ["position", "orientation", "ball", "heel"].forEach(function(attr) {
-        // aliases for raising/lowering
-        if (ops[attr] == 'up') {
-          ops[attr] = {from: shoes[person].color, to: '#FFF'};
-        } else if (ops[attr] == 'down') {
-          ops[attr] = {to: shoes[person].color, from: '#FFF'};
-        }
-
         op = ops[attr];
         if (!op) return;
+
+        // aliases for raising/lowering
+        if (op == 'up') {
+          op = {from: shoes[person].color, to: '#FFF'};
+        } else if (op == 'down') {
+          op = {to: shoes[person].color, from: '#FFF'};
+        }
+
         ops.forward[attr] = op;
 
         if (step.time) op.dur = Math.abs(step.time) + 's';
@@ -235,26 +236,31 @@ shoes = clone(initial);
     var color = shoes[person].color;
     shoe.node = node.getElementsByClassName(side)[0];
     shoe.title = shoe.node.getElementsByTagName("title")[0];
+
+    // position
     shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
     shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
     shoe.position.setAttribute('dur', '0.01s');
+
+    // orientation
     shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
     shoe.orientation.setAttribute('from', '0');
     shoe.orientation.setAttribute('to', shoe.rotate);
     shoe.orientation.setAttribute('dur', '0.01s');
-    shoe.ball = {}
+
+    // ball
+    shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
     shoe.ball.node = shoe.node.querySelector("animate.ball");
-    shoe.ball.node.parentNode.setAttribute("fill", color);
+    shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
     shoe.ball.node.parentNode.setAttribute("stroke", color);
-    shoe.heel = {}
+
+    // heel
+    shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
     shoe.heel.node = shoe.node.querySelector("animate.heel");
-    shoe.heel.node.parentNode.setAttribute("fill", color);
+    shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
     shoe.heel.node.parentNode.setAttribute("stroke", color);
   });
 });
-
-shoes.leader.left.heel.node.parentNode.setAttribute("fill", "#FFF");
-shoes.follower.right.heel.node.parentNode.setAttribute("fill", "#FFF");
 
 // capture paths
 var path = {
@@ -271,7 +277,7 @@ var aside = {
 }
 
 // dance
-setInterval(steps.length && function() {
+setInterval(routine.length && function() {
   if (paused && !advance) return;
 
   step = routine[clock];
@@ -323,6 +329,7 @@ setInterval(steps.length && function() {
         op = step[person][foot];
         op = (direction == -1 ? op.reverse : op.forward);
         if (!op) continue;
+
         if (op.position) {
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
@@ -335,17 +342,28 @@ setInterval(steps.length && function() {
           }
           shoe.position.beginElement();
         }
+
         if (op.orientation) {
           for (var attr in op.orientation) {
             shoe.orientation.setAttribute(attr, op.orientation[attr]);
           }
           shoe.orientation.beginElement();
         }
-        if (op.heel) {
+
+        if (op.heel && op.heel.to != shoe.heel.fill) {
           for (var attr in op.heel) {
             shoe.heel.node.setAttribute(attr, op.heel[attr]);
           }
+          shoe.heel.fill = shoe.heel.to;
           shoe.heel.node.beginElement();
+        }
+
+        if (op.ball && op.ball.to != shoe.ball.fill) {
+          for (var attr in op.ball) {
+            shoe.ball.node.setAttribute(attr, op.ball[attr]);
+          }
+          shoe.ball.fill = shoe.ball.to;
+          shoe.ball.node.beginElement();
         }
       }
     }

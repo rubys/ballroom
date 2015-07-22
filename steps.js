@@ -3,12 +3,16 @@ var initial = {
     color: "#9B111E",
 
     right: {
+      ball: 'down',
+      heel: 'up',
       x: 520,
       y: 254,
       rotate: 180
     },
 
     left: {
+      ball: 'down',
+      heel: 'down',
       x: 600,
       y: 254,
       rotate: 180
@@ -19,12 +23,16 @@ var initial = {
     color: "#000",
 
     left: {
+      ball: 'down',
+      heel: 'up',
       x: 500,
       y: 384,
       rotate: 0
     },
 
     right: {
+      ball: 'down',
+      heel: 'down',
       x: 580,
       y: 384,
       rotate: 0
