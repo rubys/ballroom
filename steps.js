@@ -3,14 +3,14 @@ var initial = {
     color: "#9B111E",
 
     right: {
-      x: 607,
-      y: 304,
+      x: 520,
+      y: 254,
       rotate: 180
     },
 
     left: {
-      x: 677,
-      y: 304,
+      x: 600,
+      y: 254,
       rotate: 180
     }
   },
@@ -19,14 +19,14 @@ var initial = {
     color: "#000",
 
     left: {
-      x: 587,
-      y: 434,
+      x: 500,
+      y: 384,
       rotate: 0
     },
 
     right: {
-      x: 657,
-      y: 434,
+      x: 580,
+      y: 384,
       rotate: 0
     }
   }
@@ -37,7 +37,6 @@ var steps = [{
   count: 1,
   time: 2,
   text: 'slow',
-  note: 'half a box',
   leader: {left: 'forward'},
   follower: {right: 'back'}
 }, {
@@ -193,6 +192,118 @@ var steps = [{
   time: -0.25,
   leader: {right: {heel: "down"}, left: {heel: "up"}},
   follower: {left: {heel: "down"}, right: {heel: "up"}}
+},{
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'c0,-90,-10,-100,-100,-100'}},
+  follower: {right: {path: 'c0,90,10,100,100,100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'h-100'}},
+  follower: {left: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  figure: 'Cross Lead Box',
+  count: 1,
+  time: 2,
+  text: 'slow',
+  note: 'half a box',
+  leader: {left: 'forward'},
+  follower: {right: 'back'}
+}, {
+  time: -0.25,
+  leader: {left: {heel: 'down'}, right: {heel: 'up'}},
+  follower: {right: {heel: 'down'}, left: {heel: 'up'}}
+},{
+  time: 1,
+  text: 'quick ...',
+  leader: {right: {path: 'c0,90,10,100,100,100'}},
+  follower: {left: {path: 'c0,-90,-10,-100-100,-100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {left: {path: 'h100'}},
+  follower: {right: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 2,
+  text: 'slow',
+  leader: {right: {path: 'l20,-80', rotate: -45}},
+  follower: {left: {path: 'l20,80'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {right: {heel: "up"}, left: {heel: "down"}}
+},{
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'c0,100,0,-200,100,-200', rotate: -135}},
+  follower: {right: {path: 'l80,200'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'l-70.004,-19.092', rotate: -90}},
+  follower: {left: {path: 'l130,260'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {left: {path: 'l-46.669,46.669', rotate: -45}},
+  follower: {right: {path: 'c250,100,0,326,-170,326', rotate: -180},
+    left: {rotate: -180}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'l0.707,174.655', rotate: -45}},
+  follower: {left: {path: 'l10,-186'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'h80'}},
+  follower: {right: {path: 'h-70'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 2,
+  text: 'slow',
+  leader: {right: 'back'},
+  follower: {left: 'forward'}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {right: {heel: "up"}, left: {heel: "down"}}
 },{
   time: 1,
   text: 'quick ...',

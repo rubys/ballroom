@@ -199,9 +199,11 @@ while (steps.length > 0) {
 
           // insert move commands
           result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+          result.dest = result.slice(1,3).join(',')
           shoes[person][foot].x += offset[0];
           shoes[person][foot].y += offset[1];
           rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+          ops.forward.dest = rpath.slice(1,3).join(',')
           
           // serialize result, rpath
           for (var i=result.length-1; i>0; i--) {
@@ -232,6 +234,7 @@ shoes = initial;
     var shoe = shoes[person][side];
     var color = shoes[person].color;
     shoe.node = node.getElementsByClassName(side)[0];
+    shoe.title = shoe.node.getElementsByTagName("title")[0];
     shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
     shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
     shoe.position.setAttribute('dur', '0.01s');
@@ -323,6 +326,9 @@ setInterval(function() {
         if (op.position) {
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
+          }
+          if (op.dest) {
+            shoes[person][foot].title.textContent = op.dest;
           }
           for (var attr in op.position) {
             shoe.position.setAttribute(attr, op.position[attr]);
