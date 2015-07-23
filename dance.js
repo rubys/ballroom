@@ -5,6 +5,7 @@ var direction = +1;
 
 function pause() {
   paused = true;
+  advance = true;
 }
 
 function play() {
@@ -19,7 +20,7 @@ function next() {
 }
 
 function prev() {
-  if (!paused) return;
+  if (!paused || !clock) return;
   advance = 2;
   clock--;
   direction = -1;
@@ -213,8 +214,8 @@ for (step of steps) {
                 result[i] = ',' + result[i];
                 rpath[i] = ',' + rpath[i];
               } else {
-                result[i] = result[i].toString();
-                rpath[i] = rpath[i].toString();
+                result[i] = result[i];
+                rpath[i] = rpath[i];
               }
             }
           }
@@ -282,7 +283,7 @@ setInterval(routine.length && function() {
 
   step = routine[clock];
 
-  if (!step || (clock == 0 && direction == -1)) {
+  if (!step) {
     aside.text.textContent = '';
     aside.note.textContent = '';
     path.leader.setAttribute('d', 'M0,0');
@@ -292,6 +293,14 @@ setInterval(routine.length && function() {
   }
 
   clock += direction;
+
+  if (step.figure) {
+    aside.figure.textContent = step.figure;
+  }
+
+  if (step.count) {
+    aside.count.textContent = 'count: ' + step.count;
+  }
 
   if (advance && step.count && (step.leader || step.follower)) {
     if (advance == 1) {
@@ -306,14 +315,6 @@ setInterval(routine.length && function() {
         advance--;
       }
     }
-  }
-
-  if (step.figure) {
-    aside.figure.textContent = step.figure;
-  }
-
-  if (step.count) {
-    aside.count.textContent = 'count: ' + step.count;
   }
 
   for (var attr in step) {

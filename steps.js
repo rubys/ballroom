@@ -152,7 +152,7 @@ var steps = [{
   leader: {right: {path: 'h-100'}},
   follower: {
     left: {
-      position: {path: 'c106.066,106.066,141.421,141.421,282.843,-0'},
+      position: {path: 'c106.066,106.066,141.421,141.421,282.843,0'},
       rotate: 180
     },
     right: {rotate: 90}
