@@ -180,15 +180,16 @@
       if (!selected || !selected.move || !selected.move.event) return;
       if (!selected.move.x) selected.move.x = 0;
       if (!selected.move.y) selected.move.y = 0;
-      var dx = event.clientX-selected.move.event.clientX;
-      var dy = event.clientY-selected.move.event.clientY;
-      selected.move.x += dx;
-      selected.move.y += dy;
+
+      selected.move.x += event.clientX-selected.move.event.clientX;
+      selected.move.y += event.clientY-selected.move.event.clientY;
       selected.move.event = event;
-      var line = "M0,0L" + 
-        (selected.x + selected.move.x) + ',' + (selected.y + selected.move.y);
-      selected.position.setAttribute('path', line);
-      selected.position.beginElement();
+
+      selected.position.removeAttribute('path');
+      selected.position.endElement();
+      selected.position.parentNode.setAttribute('transform', 'translate(' + 
+        (selected.x + selected.move.x) + ',' + 
+        (selected.y + selected.move.y) + ')');
 
       document.getElementById("move").textContent = 
         (selected.x + selected.move.x) + ', ' + (selected.y + selected.move.y);
@@ -203,6 +204,7 @@
     for (var i=0; i<targets.length; i++) {
       targets[i].addEventListener('mousedown', select);
       targets[i].addEventListener('mouseup', deselect);
+      targets[i].addEventListener('mouseout', deselect);
       targets[i].addEventListener('mousemove', move);
     }
 
