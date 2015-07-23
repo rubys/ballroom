@@ -8,6 +8,7 @@
     input[type=checkbox] {width: 1em}
     h2 {margin-left: 1em}
     aside {position: absolute; width: 15em; background-color: #CCC}
+    .right,.left {cursor: move}
   </style>
 
   <aside>
@@ -30,6 +31,7 @@
       <label for="ball">Ball</label></p>
     <p><input type="checkbox" id="heel" onclick="toggle(this)"/>
       <label for="heel">Heel</label></p>
+    <p>Move: <code id="move"></code></p>
   </aside>
 
   <svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +39,7 @@
     <path id="follower-path" stroke="#C77" fill="none"/>
 
     <g id="follower">
-      <g class="right" onclick="select(this)">
+      <g class="right">
         <title>follower right</title>
 	<g>
 	  <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
@@ -53,7 +55,7 @@
 	<animateMotion fill="freeze"/>
       </g>
 
-      <g class="left" onclick="select(this)">
+      <g class="left">
         <title>follower right</title>
 	<g>
 	  <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
@@ -71,7 +73,7 @@
     </g>
 
     <g id="leader">
-      <g class="left" onclick="select(this)">
+      <g class="left">
         <title>leader left</title>
 	<g>
           <path d="M-8,9c-10-20-10-34,0-49c7-10,16-11,21,0c10,27,6,26,1,43z">
@@ -86,7 +88,7 @@
 	<animateMotion fill="freeze"/>
       </g>
 
-      <g class="right" onclick="select(this)">
+      <g class="right">
         <title>leader right</title>
 	<g>
           <path d="M8,9c10-20,10-34,0-49c-7-10-16-11-21,0c-10,27-6,26-1,43z">
@@ -127,7 +129,7 @@
       return false;
     }
 
-    function select(shoe) {
+    function select(event) {
       if (selected) {
         var stroke = shoes[selected.node.parentNode.id].color;
         var paths = selected.node.querySelectorAll('path');
@@ -137,7 +139,14 @@
         }
       }
 
+      shoe = event.currentTarget;
       selected = shoes[shoe.parentNode.id][shoe.classList[0]];
+
+      if (event.clientX) {
+        if (!selected.move) selected.move = {};
+        selected.move.event = event;
+      }
+
       var paths = selected.node.querySelectorAll('path');
       for (var i=0; i<paths.length; i++) {
         paths[i].setAttribute('stroke', '#0F0');
@@ -163,6 +172,40 @@
       }
     }
 
-    select(document.querySelector("#follower .right"));
+    function deselect(event) {
+      if (selected.move && selected.move.event) delete selected.move['event'];
+    }
+
+    function move(event) {
+      if (!selected || !selected.move || !selected.move.event) return;
+      if (!selected.move.x) selected.move.x = 0;
+      if (!selected.move.y) selected.move.y = 0;
+      var dx = event.clientX-selected.move.event.clientX;
+      var dy = event.clientY-selected.move.event.clientY;
+      selected.move.x += dx;
+      selected.move.y += dy;
+      selected.move.event = event;
+      var line = "M0,0L" + 
+        (selected.x + selected.move.x) + ',' + (selected.y + selected.move.y);
+      selected.position.setAttribute('path', line);
+      selected.position.beginElement();
+
+      document.getElementById("move").textContent = 
+        (selected.x + selected.move.x) + ', ' + (selected.y + selected.move.y);
+
+      var person = selected.node.parentNode.id;
+      var line = "M" + selected.x + ',' + selected.y + "L" + 
+        (selected.x + selected.move.x) + ',' + (selected.y + selected.move.y);
+      path[person].setAttribute('d', line);
+    }
+
+    var targets = document.querySelectorAll('.right,.left');
+    for (var i=0; i<targets.length; i++) {
+      targets[i].addEventListener('mousedown', select);
+      targets[i].addEventListener('mouseup', deselect);
+      targets[i].addEventListener('mousemove', move);
+    }
+
+    select({currentTarget: document.querySelector("#follower .right")});
   </script>
 </html>
