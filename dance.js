@@ -127,6 +127,14 @@ function compile() {
 	    var shoe = shoes[person][foot];
 	    op.from = shoe.rotate; 
 	    op.to = shoe.rotate + op.rotate;
+            while (op.from <= 0 && op.to <= 0) {
+               op.from += 360;
+               op.to += 360;
+            }
+            while (op.from >=360 && op.to >= 360) {
+               op.from -= 360;
+               op.to -= 360;
+            }
 	    shoe.rotate += op.rotate;
 	  }
 
