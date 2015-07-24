@@ -285,7 +285,7 @@ var steps = [{
   time: 2,
   text: 'slow',
   leader: {left: {path: 'l-46.669,46.669', rotate: -45}},
-  follower: {right: {path: 'c250,100,0,326,-170,326', rotate: -180},
+  follower: {right: {path: 'c250,100,0,320,-120,320', rotate: -180},
     left: {rotate: -180}},
   image: 'images/rumba/1d-cross-body-lead/pictures1214.png'
 }, {
@@ -296,7 +296,7 @@ var steps = [{
   time: 1,
   text: 'quick ...',
   leader: {right: {path: 'l0.707,174.655', rotate: -45}},
-  follower: {left: {path: 'l10,-186'}},
+  follower: {left: {path: 'l-40,-180'}},
   image: 'images/rumba/1d-cross-body-lead/pictures1234.png'
 }, {
   time: -0.25,
@@ -327,7 +327,7 @@ var steps = [{
   text: 'quick ...',
   leader: {left: {path: 'c0,-90,-10,-100,-100,-100'}},
   follower: {right: {path: 'c0,90,10,100,100,100'}},
-  image: 'images/rumba/1d-cross-body-lead/pictures1309.png'
+  image: 'images/rumba/1d-cross-body-lead/pictures1287.png'
 }, {
   time: -0.25,
   leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -337,9 +337,10 @@ var steps = [{
   text: '... quick',
   leader: {right: {path: 'h-100'}},
   follower: {left: {path: 'h100'}},
-  image: 'images/rumba/1d-cross-body-lead/pictures1346.png'
+  image: 'images/rumba/1d-cross-body-lead/pictures1309.png'
 }, {
   time: -0.25,
   leader: {right: {heel: "down"}, left: {heel: "up"}},
-  follower: {left: {heel: "down"}, right: {heel: "up"}}
+  follower: {left: {heel: "down"}, right: {heel: "up"}},
+  image: 'images/rumba/1d-cross-body-lead/pictures1346.png'
 }];
