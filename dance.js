@@ -68,6 +68,11 @@ for (step of steps) {
   merge(routine[routine.length-step.time*4], step);
   step = routine[routine.length-step.time*4];
 
+  // start image one 'frame' early
+  if (step.image && routine.length > step.time*4) {
+    routine[routine.length-step.time*4-1].image = step.image;
+  }
+
   // compile steps
   ["leader", "follower"].forEach(function(person) {
     if (!step[person]) return;
@@ -275,6 +280,7 @@ var aside = {
   count: document.getElementById('count'),
   text: document.getElementById('text'),
   note: document.getElementById('note'),
+  image: document.getElementsByTagName('img')[0]
 }
 
 // dance
@@ -300,6 +306,10 @@ setInterval(routine.length && function() {
 
   if (step.count) {
     aside.count.textContent = 'count: ' + step.count;
+  }
+
+  if (step.image) {
+    aside.image.setAttribute('src', step.image);
   }
 
   if (advance && step.count && (step.leader || step.follower)) {
