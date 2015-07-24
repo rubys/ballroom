@@ -219,6 +219,134 @@ var steps = [{
   leader: {right: {heel: "down"}, left: {heel: "up"}},
   follower: {left: {heel: "down"}, right: {heel: "up"}}
 }, {
+  figure: 'Quick Chasses',
+  count: 1,
+  time: 2,
+  text: 'slow',
+  leader: {left: 'forward'},
+  follower: {right: 'back'}
+}, {
+  time: -0.25,
+  leader: {left: {heel: 'down'}, right: {heel: 'up'}},
+  follower: {right: {heel: 'down'}, left: {heel: 'up'}}
+},{
+  time: 1,
+  text: 'quick ...',
+  leader: {right: {path: 'c0,90,10,100,100,100'}},
+  follower: {left: {path: 'c0,-90,-10,-100-100,-100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {left: {path: 'h100'}},
+  follower: {right: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: 'quick ...',
+  leader: {right: {path: 'h100'}},
+  follower: {left: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {left: {path: 'h100'}},
+  follower: {right: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: 'quick ...',
+  leader: {right: {path: 'h100'}},
+  follower: {left: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {left: {path: 'h100'}},
+  follower: {right: {path: 'h-100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 2,
+  text: 'slow',
+  leader: {right: 'back'},
+  follower: {left: 'forward'}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {right: {heel: "up"}, left: {heel: "down"}}
+},{
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'c0,-90,-10,-100,-100,-100'}},
+  follower: {right: {path: 'c0,90,10,100,100,100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'h-100'}},
+  follower: {left: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'h-100'}},
+  follower: {right: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'h-100'}},
+  follower: {left: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
+  time: 1,
+  text: 'quick ...',
+  leader: {left: {path: 'h-100'}},
+  follower: {right: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {left: {heel: "down"}, right: {heel: "up"}},
+  follower: {right: {heel: "down"}, left: {heel: "up"}}
+}, {
+  time: 1,
+  text: '... quick',
+  leader: {right: {path: 'h-100'}},
+  follower: {left: {path: 'h100'}}
+}, {
+  time: -0.25,
+  leader: {right: {heel: "down"}, left: {heel: "up"}},
+  follower: {left: {heel: "down"}, right: {heel: "up"}}
+}, {
   figure: 'Cross Lead Box',
   count: 1,
   time: 2,
