@@ -48,8 +48,8 @@ var shoes = clone(initial);
 var count = 0;
 var routine = []
 function compile() {
-  bpm = parseFloat(aside.beats.value);
-  aside.bpm.textContent = bpm;
+  if (aside.beats) bpm = parseFloat(aside.beats.value);
+  if (aside.bpm) aside.bpm.textContent = bpm;
 
   var save = shoes;
   shoes = clone(initial);
@@ -246,6 +246,7 @@ function compile() {
 // apply initial settings
 ["leader", "follower"].forEach(function(person) {
   var node = document.getElementById(person);
+  if (!node) return;
   ["left", "right"].forEach(function(side) {
     var shoe = shoes[person][side];
     var color = shoes[person].color;
@@ -296,7 +297,9 @@ var aside = {
 
 // dance
 var timer = null;
-var bpm = parseFloat(aside.beats.value);
+var bpm = 60;
+
+if (aside.beats) parseFloat(aside.beats.value);
 
 function tic() {
   if (paused && !advance) return;
