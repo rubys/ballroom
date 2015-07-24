@@ -392,7 +392,7 @@ var steps = [{
 },{
   time: 1,
   text: 'quick ...',
-  leader: {left: {path: 'c0,100,0,-200,100,-200', rotate: -135}},
+  leader: {left: {path: 'c0,-100,0,-200,100,-200', rotate: -135}},
   follower: {right: {path: 'l80,200'}},
   image: 'images/rumba/1d-cross-body-lead/pictures1175.png'
 }, {
