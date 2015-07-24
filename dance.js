@@ -21,7 +21,9 @@ function next() {
 
 function prev() {
   if (!paused || !clock) return;
+  clock--;
   advance = 2;
+  direction = -1;
 }
 
 function clone(object) {
