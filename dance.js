@@ -22,8 +22,6 @@ function next() {
 function prev() {
   if (!paused || !clock) return;
   advance = 2;
-  clock--;
-  direction = -1;
 }
 
 function clone(object) {
@@ -47,194 +45,203 @@ var shoes = clone(initial);
 // "compile" script
 var count = 0;
 var routine = []
-for (step of steps) {
+function compile() {
+  bpm = parseFloat(aside.beats.value);
+  aside.bpm.textContent = bpm;
 
-  // optionally reset count
-  if (step.count) count = step.count;
+  var save = shoes;
+  shoes = clone(initial);
+  routine.length = 0;
 
-  // find step (adding to routine as needed)
-  if (step.time < 0) {
-    step.time = -step.time;
-  } else {
-    var ops = step;
-    for (var i=0; i<step.time*4; i++) {
-      if (count && routine.length % 4 == 0) {
-        ops.count = count++;
+  for (step of clone(steps)) {
+
+    // optionally reset count
+    if (step.count) count = step.count;
+
+    // find step (adding to routine as needed)
+    if (step.time < 0) {
+      step.time = -step.time;
+    } else {
+      var ops = step;
+      for (var i=0; i<step.time*4; i++) {
+	if (count && routine.length % 4 == 0) {
+	  ops.count = count++;
+	}
+	routine.push(ops);
+	ops = {}
       }
-      routine.push(ops);
-      ops = {}
     }
-  }
-  merge(routine[routine.length-step.time*4], step);
-  step = routine[routine.length-step.time*4];
+    merge(routine[routine.length-step.time*4], step);
+    step = routine[routine.length-step.time*4];
 
-  // start image one 'frame' early
-  if (step.image && routine.length > step.time*4) {
-    routine[routine.length-step.time*4-1].image = step.image;
-  }
+    // start image one 'frame' early
+    if (step.image && routine.length > step.time*4) {
+      routine[routine.length-step.time*4-1].image = step.image;
+    }
 
-  // compile steps
-  ["leader", "follower"].forEach(function(person) {
-    if (!step[person]) return;
-    ["left", "right"].forEach(function(foot) {
-      var ops = step[person][foot];
-      if (!ops) return;
+    // compile steps
+    ["leader", "follower"].forEach(function(person) {
+      if (!step[person]) return;
+      ["left", "right"].forEach(function(foot) {
+	var ops = step[person][foot];
+	if (!ops) return;
 
-      // aliases for movement
-      if (ops == 'forward') ops = step[person][foot] = {path: 'v,100'}
-      if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
+	// aliases for movement
+	if (ops == 'forward') ops = step[person][foot] = {path: 'v,100'}
+	if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
 
-      // shorthand for position.path
-      if (ops.path && !ops.position) {
-        ops.position = {path: ops.path};
-        delete ops.path;
-      }
+	// shorthand for position.path
+	if (ops.path && !ops.position) {
+	  ops.position = {path: ops.path};
+	  delete ops.path;
+	}
 
-      // shorthand for orientation.rotate
-      if (ops.rotate && !ops.orientation) {
-        ops.orientation = {rotate: ops.rotate};
-        delete ops.rotate;
-      }
+	// shorthand for orientation.rotate
+	if (ops.rotate && !ops.orientation) {
+	  ops.orientation = {rotate: ops.rotate};
+	  delete ops.rotate;
+	}
 
-      ops.forward = {};
-      if (!ops.reverse) ops.reverse = {};
+	ops.forward = {};
+	if (!ops.reverse) ops.reverse = {};
 
-      ["position", "orientation", "ball", "heel"].forEach(function(attr) {
-        op = ops[attr];
-        if (!op) return;
+	["position", "orientation", "ball", "heel"].forEach(function(attr) {
+	  op = ops[attr];
+	  if (!op) return;
 
-        // aliases for raising/lowering
-        if (op == 'up') {
-          op = {from: shoes[person].color, to: '#FFF'};
-        } else if (op == 'down') {
-          op = {to: shoes[person].color, from: '#FFF'};
-        }
+	  // aliases for raising/lowering
+	  if (op == 'up') {
+	    op = {from: shoes[person].color, to: '#FFF'};
+	  } else if (op == 'down') {
+	    op = {to: shoes[person].color, from: '#FFF'};
+	  }
 
-        ops.forward[attr] = op;
+	  ops.forward[attr] = op;
 
-        if (step.time) op.dur = Math.abs(step.time) + 's';
+	  if (step.time) op.dur = Math.abs(60/bpm*step.time) + 's';
 
-        // apply rotation
-        if (op.rotate) {
-          var shoe = shoes[person][foot];
-          op.from = shoe.rotate; 
-          op.to = shoe.rotate + op.rotate;
-          shoe.rotate += op.rotate;
-        }
+	  // apply rotation
+	  if (op.rotate) {
+	    var shoe = shoes[person][foot];
+	    op.from = shoe.rotate; 
+	    op.to = shoe.rotate + op.rotate;
+	    shoe.rotate += op.rotate;
+	  }
 
-        // construct reverse
-        var last = routine[routine.length-1];
-        if (!last[person]) last[person] = {};
-        if (!last[person][foot]) last[person][foot] = {};
-        if (!last[person][foot].reverse) last[person][foot].reverse = {};
-        var reverse = last[person][foot].reverse;
-        reverse[attr] = clone(op); 
-        if (op.from && op.to) {
-          reverse[attr].from = op.to;
-          reverse[attr].to = op.from;
-        }
+	  // construct reverse
+	  var last = routine[routine.length-1];
+	  if (!last[person]) last[person] = {};
+	  if (!last[person][foot]) last[person][foot] = {};
+	  if (!last[person][foot].reverse) last[person][foot].reverse = {};
+	  var reverse = last[person][foot].reverse;
+	  reverse[attr] = clone(op); 
+	  if (op.from && op.to) {
+	    reverse[attr].from = op.to;
+	    reverse[attr].to = op.from;
+	  }
 
-        if (op.path) {
-          // parse path
-          var result = [];
-          var index = 0;
-          while (index < op.path.length) {
-            var match = op.path.slice(index).
-              match(/[ ,]*([a-zA-Z]|[+-]?\d+\.?\d*)/);
-            if (match[1].match(/^[-\d]/)) {
-              result.push(parseFloat(match[1]));
-            } else {
-              result.push(match[1]);
-            }
-            index += match[0].length;
-          }
+	  if (op.path) {
+	    // parse path
+	    var result = [];
+	    var index = 0;
+	    while (index < op.path.length) {
+	      var match = op.path.slice(index).
+		match(/[ ,]*([a-zA-Z]|[+-]?\d+\.?\d*)/);
+	      if (match[1].match(/^[-\d]/)) {
+		result.push(parseFloat(match[1]));
+	      } else {
+		result.push(match[1]);
+	      }
+	      index += match[0].length;
+	    }
 
-          // normalize paths
-          for (var i=result.length-1; i>=0; i--) {
-            if (result[i] == 'v') {
-              result.splice(i+1, 0, 0);
-              result[i] = 'l';
-            } else if (result[i] == 'h') {
-              result.splice(i+2, 0, 0);
-              result[i] = 'l';
-            }
-          }
-          // determine rotation
-          var angle = shoes[person][foot].rotate % 360;
-          if (angle < 0) angle += 360;
-          var sin, cos;
-          if (angle < 180) {
-            var radians = angle/180*Math.PI
-            sin = Math.sin(radians)
-            cos = Math.cos(radians)
-          } else {
-            var radians = (angle-180)/180*Math.PI
-            sin = -Math.sin(radians)
-            cos = -Math.cos(radians)
-          }
+	    // normalize paths
+	    for (var i=result.length-1; i>=0; i--) {
+	      if (result[i] == 'v') {
+		result.splice(i+1, 0, 0);
+		result[i] = 'l';
+	      } else if (result[i] == 'h') {
+		result.splice(i+2, 0, 0);
+		result[i] = 'l';
+	      }
+	    }
+	    // determine rotation
+	    var angle = shoes[person][foot].rotate % 360;
+	    if (angle < 0) angle += 360;
+	    var sin, cos;
+	    if (angle < 180) {
+	      var radians = angle/180*Math.PI
+	      sin = Math.sin(radians)
+	      cos = Math.cos(radians)
+	    } else {
+	      var radians = (angle-180)/180*Math.PI
+	      sin = -Math.sin(radians)
+	      cos = -Math.cos(radians)
+	    }
 
-          // perform rotation
-          for (var i=result.length-1; i>0; i--) {
-            if (typeof(result[i])=="number") {
-              if (typeof(result[i-1])=="number") {
-                var x = result[i-1]*cos + result[i]*sin;
-                var y = - result[i]*cos + result[i-1]*sin;
-                result[i-1] = x;
-                result[i] = y;
-                i--;
-              }
-            }
-          }
+	    // perform rotation
+	    for (var i=result.length-1; i>0; i--) {
+	      if (typeof(result[i])=="number") {
+		if (typeof(result[i-1])=="number") {
+		  var x = result[i-1]*cos + result[i]*sin;
+		  var y = - result[i]*cos + result[i-1]*sin;
+		  result[i-1] = x;
+		  result[i] = y;
+		  i--;
+		}
+	      }
+	    }
 
-          // extract, normalize offset
-          var offset = result.slice(-2);
-          if (result[0] == 'M') result = result.slice(3)
+	    // extract, normalize offset
+	    var offset = result.slice(-2);
+	    if (result[0] == 'M') result = result.slice(3)
 
-          // construct reverse
-          rpath = clone(result);
-          for (var i=0; i<rpath.length; i++) {
-            if (rpath[i] == "c") {
-              [].splice.apply(rpath,
-                [i+3,0].concat(rpath.splice(i+1,2)))
-              for (var j=1; j<5; j++) {
-                rpath[i+j] = rpath[i + 6 - j%2] - rpath[i+j]
-              }
-            } else if (typeof(rpath[i]) == "number") {
-              rpath[i] = -rpath[i];
-            }
-          }
+	    // construct reverse
+	    rpath = clone(result);
+	    for (var i=0; i<rpath.length; i++) {
+	      if (rpath[i] == "c") {
+		[].splice.apply(rpath,
+		  [i+3,0].concat(rpath.splice(i+1,2)))
+		for (var j=1; j<5; j++) {
+		  rpath[i+j] = rpath[i + 6 - j%2] - rpath[i+j]
+		}
+	      } else if (typeof(rpath[i]) == "number") {
+		rpath[i] = -rpath[i];
+	      }
+	    }
 
-          // insert move commands
-          result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
-          result.dest = result.slice(1,3).join(',')
-          shoes[person][foot].x += offset[0];
-          shoes[person][foot].y += offset[1];
-          rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
-          ops.forward.dest = rpath.slice(1,3).join(',')
-          
-          // serialize result, rpath
-          for (var i=result.length-1; i>0; i--) {
-            if (typeof(result[i])=="number") {
-              if (typeof(result[i-1])=="number") {
-                result[i] = ',' + result[i];
-                rpath[i] = ',' + rpath[i];
-              } else {
-                result[i] = result[i];
-                rpath[i] = rpath[i];
-              }
-            }
-          }
-          op.path = result.join('');
-          reverse[attr].path = rpath.join('');
-        }
+	    // insert move commands
+	    result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+	    result.dest = result.slice(1,3).join(',')
+	    shoes[person][foot].x += offset[0];
+	    shoes[person][foot].y += offset[1];
+	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+	    ops.forward.dest = rpath.slice(1,3).join(',')
+	    
+	    // serialize result, rpath
+	    for (var i=result.length-1; i>0; i--) {
+	      if (typeof(result[i])=="number") {
+		if (typeof(result[i-1])=="number") {
+		  result[i] = ',' + result[i];
+		  rpath[i] = ',' + rpath[i];
+		} else {
+		  result[i] = result[i];
+		  rpath[i] = rpath[i];
+		}
+	      }
+	    }
+	    op.path = result.join('');
+	    reverse[attr].path = rpath.join('');
+	  }
+	});
       });
     });
-  });
+  }
+
+  shoes = save;
 }
 
 // apply initial settings
-shoes = clone(initial);
-
 ["leader", "follower"].forEach(function(person) {
   var node = document.getElementById(person);
   ["left", "right"].forEach(function(side) {
@@ -280,11 +287,16 @@ var aside = {
   count: document.getElementById('count'),
   text: document.getElementById('text'),
   note: document.getElementById('note'),
-  image: document.getElementsByTagName('img')[0]
+  image: document.getElementsByTagName('img')[0],
+  beats: document.getElementById('beats'),
+  bpm: document.getElementById('bpm')
 }
 
 // dance
-setInterval(routine.length && function() {
+var timer = null;
+var bpm = parseFloat(aside.beats.value);
+
+function tic() {
   if (paused && !advance) return;
 
   step = routine[clock];
@@ -379,4 +391,13 @@ setInterval(routine.length && function() {
       }
     }
   }
-}, 250);
+
+  if (bpm != parseFloat(aside.beats.value)) {
+    clearInterval(timer);
+    compile();
+    timer = setInterval(tic, 60000/bpm/4);
+  }
+}
+
+compile();
+timer = setInterval(tic, 60000/bpm/4);
