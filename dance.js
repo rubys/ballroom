@@ -55,7 +55,10 @@ function compile() {
   shoes = clone(initial);
   routine.length = 0;
 
-  for (step of clone(steps)) {
+  var step;
+  var queue = clone(steps);
+  while (queue.length) {
+    step = queue.shift();
 
     // optionally reset count
     if (step.count) count = step.count;
@@ -246,6 +249,16 @@ function compile() {
 	});
       });
     });
+
+    // queue up any substeps that are defined
+    if (step.delay) {
+      while (step.delay.length) {
+        var substep = step.delay.pop();
+        if (substep.time > 0) substep.time -= step.time;
+        queue.unshift(substep);
+      }
+      delete step.delay;
+    }
   }
 
   shoes = save;
