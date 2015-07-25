@@ -145,7 +145,7 @@ function compile() {
 	  if (!last[person][foot].reverse) last[person][foot].reverse = {};
 	  var reverse = last[person][foot].reverse;
 	  reverse[attr] = clone(op); 
-	  if (op.from && op.to) {
+	  if (op.from !== undefined && op.to !== undefined) {
 	    reverse[attr].from = op.to;
 	    reverse[attr].to = op.from;
 	  }
