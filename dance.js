@@ -49,6 +49,7 @@ var count = 0;
 var routine = []
 var floor = {}
 function compile() {
+  var figure = null;
   if (aside.beats) bpm = parseFloat(aside.beats.value);
   if (aside.bpm) aside.bpm.textContent = bpm;
 
@@ -102,6 +103,12 @@ function compile() {
     // start image one 'frame' early
     if (step.image && routine.length > step.time*4) {
       routine[routine.length-step.time*4-1].image = step.image;
+    }
+
+    // bookend figure (used for reverse)
+    if (step.figure) {
+      if (figure) routine[routine.length-step.time*4-1].figure = figure;
+      figure = step.figure;
     }
 
     // compile steps
