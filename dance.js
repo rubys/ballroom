@@ -490,7 +490,7 @@ var svg = document.getElementsByTagName('svg')[0];
 
 svg.setAttribute('viewBox',
  [floor.minx-100, floor.miny-100, floor.maxx+100, floor.maxy+100].join(',')) 
-svg.setAttribute('height', document.documentElement.clientHeight);
+svg.setAttribute('height', document.documentElement.clientHeight - 5);
 svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
 
 timer = setInterval(tic, 60000/bpm/4);
