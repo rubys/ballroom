@@ -445,7 +445,7 @@ var steps = [{
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
-    follower: {left: {heel: "down"}, right: {heel: "up"}}
+    follower: {right: {heel: "up"}}
   }]
 }, {
   time: 2,
@@ -457,7 +457,7 @@ var steps = [{
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
-    follower: {left: {heel: "down"}, right: {heel: "up"}}
+    follower: {right: {heel: "down"}}
   }]
 }, {
   time: 1,
