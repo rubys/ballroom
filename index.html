@@ -2,7 +2,6 @@
 <html>
   <style>
     html, body {height: 100%}
-    aside {height: 98%}
     p {margin-left: 2em}
     button {line-height: 2em}
     h2 {margin-left: 1em}
@@ -13,9 +12,16 @@
       width: 400px;
       z-index: -1;
     }
+    aside {
+     float: left;
+     width: 15em;
+     background-color: #CCC;
+     height: 98%;
+     z-index: -1;
+    }
   </style>
 
-  <aside style='position: absolute; width: 15em; background-color: #CCC'>
+  <aside>
     <h1>Rumba</h1>
     <h2 id="figure"></h2>
     <p>
@@ -36,7 +42,7 @@
 
   <img/>
 
-  <svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg">
+  <svg xmlns="http://www.w3.org/2000/svg">
     <path id="leader-path" stroke="#999" fill="none"/>
     <path id="follower-path" stroke="#C77" fill="none"/>
 

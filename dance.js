@@ -47,9 +47,29 @@ var shoes = clone(initial);
 // "compile" script
 var count = 0;
 var routine = []
+var floor = {}
 function compile() {
   if (aside.beats) bpm = parseFloat(aside.beats.value);
   if (aside.bpm) aside.bpm.textContent = bpm;
+
+  floor = {
+    minx: Math.min.apply(Math, [
+      initial.follower.right.x, initial.follower.left.x,
+      initial.leader.right.x, initial.leader.left.x
+    ]),
+    miny: Math.min.apply(Math, [
+      initial.follower.right.y, initial.follower.left.y,
+      initial.leader.right.y, initial.leader.left.y
+    ]),
+    maxx: Math.max.apply(Math, [
+      initial.follower.right.x, initial.follower.left.x,
+      initial.leader.right.x, initial.leader.left.x
+    ]),
+    maxy: Math.max.apply(Math, [
+      initial.follower.right.y, initial.follower.left.y,
+      initial.leader.right.y, initial.leader.left.y
+    ])
+  }
 
   var save = shoes;
   shoes = clone(initial);
@@ -233,11 +253,15 @@ function compile() {
 
 	    // insert move commands
 	    result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
-	    result.dest = result.slice(1,3).join(',')
 	    shoes[person][foot].x += offset[0];
 	    shoes[person][foot].y += offset[1];
 	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
 	    ops.forward.dest = rpath.slice(1,3).join(',')
+
+            if (floor.minx > rpath[1]) floor.minx = rpath[1];
+            if (floor.maxx < rpath[1]) floor.maxx = rpath[1];
+            if (floor.miny > rpath[2]) floor.miny = rpath[2];
+            if (floor.maxy < rpath[2]) floor.maxy = rpath[2];
 	    
 	    // serialize result, rpath
 	    for (var i=result.length-1; i>0; i--) {
@@ -321,7 +345,7 @@ var aside = {
   note: document.getElementById('note'),
   image: document.getElementsByTagName('img')[0],
   beats: document.getElementById('beats'),
-  bpm: document.getElementById('bpm')
+  bpm: document.getElementById('bpm'),
 }
 
 // dance
@@ -434,4 +458,32 @@ function tic() {
 }
 
 compile();
+
+floor.width = floor.maxx - floor.minx + 200;
+floor.height = floor.maxy - floor.miny + 200;
+
+aside.width = document.getElementsByTagName('aside')[0].offsetWidth + 16;
+
+var aspect = {
+  x: (document.documentElement.clientWidth - aside.width)/floor.width,
+  y: document.documentElement.clientHeight/floor.height
+};
+
+if (aspect.x < aspect.y) {
+  var adjust = (aspect.y/aspect.x - 1)*floor.width/2
+  floor.miny -= adjust;
+  floor.maxy += adjust;
+} else {
+  var adjust = (aspect.x/aspect.y - 1)*floor.width/2
+  floor.minx -= adjust;
+  floor.maxx += adjust;
+}
+
+var svg = document.getElementsByTagName('svg')[0];
+
+svg.setAttribute('viewBox',
+ [floor.minx-100, floor.miny-100, floor.maxx+100, floor.maxy+100].join(',')) 
+svg.setAttribute('height', document.documentElement.clientHeight);
+svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
+
 timer = setInterval(tic, 60000/bpm/4);
