@@ -466,31 +466,37 @@ function tic() {
 
 compile();
 
-floor.width = floor.maxx - floor.minx + 200;
-floor.height = floor.maxy - floor.miny + 200;
+function resize() {
+  var view = clone(floor);
+  view.width = view.maxx - view.minx + 200;
+  view.height = view.maxy - view.miny + 200;
 
-aside.width = document.getElementsByTagName('aside')[0].offsetWidth + 16;
+  aside.width = document.getElementsByTagName('aside')[0].offsetWidth + 16;
 
-var aspect = {
-  x: (document.documentElement.clientWidth - aside.width)/floor.width,
-  y: document.documentElement.clientHeight/floor.height
-};
+  var aspect = {
+    x: (document.documentElement.clientWidth - aside.width)/view.width,
+    y: document.documentElement.clientHeight/view.height
+  };
 
-if (aspect.x < aspect.y) {
-  var adjust = (aspect.y/aspect.x - 1)*floor.width/2
-  floor.miny -= adjust;
-  floor.maxy += adjust;
-} else {
-  var adjust = (aspect.x/aspect.y - 1)*floor.width/2
-  floor.minx -= adjust;
-  floor.maxx += adjust;
+  if (aspect.x < aspect.y) {
+    var adjust = (aspect.y/aspect.x - 1)*view.width/2
+    view.miny -= adjust;
+    view.maxy += adjust;
+  } else {
+    var adjust = (aspect.x/aspect.y - 1)*view.width/2
+    view.minx -= adjust;
+    view.maxx += adjust;
+  }
+
+  var svg = document.getElementsByTagName('svg')[0];
+
+  svg.setAttribute('viewBox',
+   [view.minx-100, view.miny-100, view.maxx+100, view.maxy+100].join(',')) 
+  svg.setAttribute('height', document.documentElement.clientHeight - 5);
+  svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
 }
 
-var svg = document.getElementsByTagName('svg')[0];
-
-svg.setAttribute('viewBox',
- [floor.minx-100, floor.miny-100, floor.maxx+100, floor.maxy+100].join(',')) 
-svg.setAttribute('height', document.documentElement.clientHeight - 5);
-svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
+resize();
+window.addEventListener('resize', resize);
 
 timer = setInterval(tic, 60000/bpm/4);
