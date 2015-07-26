@@ -94,6 +94,14 @@ function compile() {
 	// aliases for movement
 	if (ops == 'forward') ops = step[person][foot] = {path: 'v,100'}
 	if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
+	if (ops == 'side') {
+          if (foot == 'left') ops = step[person][foot] = {path: 'h-100'}
+          if (foot == 'right')  ops = step[person][foot] = {path: 'h100'}
+        }
+	if (ops == 'together') {
+          if (foot == 'right') ops = step[person][foot] = {path: 'h-100'}
+          if (foot == 'left')  ops = step[person][foot] = {path: 'h100'}
+        }
 
 	// shorthand for position.path
 	if (ops.path && !ops.position) {

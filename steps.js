@@ -65,8 +65,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -95,8 +95,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -128,8 +128,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -160,7 +160,7 @@ var steps = [{
   time: 1,
   text: '... quick',
   note: 'follower passes under arms',
-  leader: {right: {path: 'h-100'}},
+  leader: {right: 'together'},
   follower: {
     left: {
       position: {path: 'c106.066,106.066,141.421,141.421,282.843,0'},
@@ -199,7 +199,7 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
+  leader: {left: 'together'},
   follower: {right: {path: 'l30,50', rotate: 90}},
   delay: [{
     time: -0.25,
@@ -229,8 +229,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -261,8 +261,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -271,8 +271,8 @@ var steps = [{
 }, {
   time: 1,
   text: 'quick ...',
-  leader: {right: {path: 'h100'}},
-  follower: {left: {path: 'h-100'}},
+  leader: {right: 'side'},
+  follower: {left: 'side'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -281,8 +281,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -291,8 +291,8 @@ var steps = [{
 }, {
   time: 1,
   text: 'quick ...',
-  leader: {right: {path: 'h100'}},
-  follower: {left: {path: 'h-100'}},
+  leader: {right: 'side'},
+  follower: {left: 'side'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -301,8 +301,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -331,8 +331,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -341,8 +341,8 @@ var steps = [{
 }, {
   time: 1,
   text: 'quick ...',
-  leader: {left: {path: 'h-100'}},
-  follower: {right: {path: 'h100'}},
+  leader: {left: 'side'},
+  follower: {right: 'side'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -351,8 +351,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -361,8 +361,8 @@ var steps = [{
 }, {
   time: 1,
   text: 'quick ...',
-  leader: {left: {path: 'h-100'}},
-  follower: {right: {path: 'h100'}},
+  leader: {left: 'side'},
+  follower: {right: 'side'},
   delay: [{
     time: -0.25,
     leader: {left: {heel: "down"}, right: {heel: "up"}},
@@ -371,8 +371,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   delay: [{
     time: -0.25,
     leader: {right: {heel: "down"}, left: {heel: "up"}},
@@ -406,8 +406,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {left: {path: 'h100'}},
-  follower: {right: {path: 'h-100'}},
+  leader: {left: 'together'},
+  follower: {right: 'together'},
   image: 'images/rumba/1d-cross-body-lead/pictures1144.png',
   delay: [{
     time: -0.25,
@@ -506,8 +506,8 @@ var steps = [{
 }, {
   time: 1,
   text: '... quick',
-  leader: {right: {path: 'h-100'}},
-  follower: {left: {path: 'h100'}},
+  leader: {right: 'together'},
+  follower: {left: 'together'},
   image: 'images/rumba/1d-cross-body-lead/pictures1309.png',
   delay: [{
     time: -0.25,
