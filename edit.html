@@ -109,6 +109,15 @@
   <script>steps = []</script>
   <script src="dance.js"></script>
   <script>
+    var svg = document.getElementsByTagName('svg')[0];
+    var viewBox = svg.getAttribute('viewBox').split(/[, ]+/);
+    viewBox[0] -= viewBox[2];
+    viewBox[1] -= viewBox[3];
+    viewBox[2] *= 3;
+    viewBox[3] *= 3;
+    svg.setAttribute('viewBox', viewBox);
+    var scale = viewBox[3] / document.documentElement.clientHeight;
+
     var selected = null;
 
     function toggle(part) {
@@ -181,8 +190,8 @@
       if (!selected.move.x) selected.move.x = 0;
       if (!selected.move.y) selected.move.y = 0;
 
-      selected.move.x += event.clientX-selected.move.event.clientX;
-      selected.move.y += event.clientY-selected.move.event.clientY;
+      selected.move.x += (event.clientX-selected.move.event.clientX)*scale;
+      selected.move.y += (event.clientY-selected.move.event.clientY)*scale;
       selected.move.event = event;
 
       selected.position.removeAttribute('path');
@@ -192,7 +201,8 @@
         (selected.y + selected.move.y) + ')');
 
       document.getElementById("move").textContent = 
-        (selected.x + selected.move.x) + ', ' + (selected.y + selected.move.y);
+        (selected.x + selected.move.x).toFixed() + ', ' + 
+        (selected.y + selected.move.y).toFixed();
 
       var person = selected.node.parentNode.id;
       var line = "M" + selected.x + ',' + selected.y + "L" + 

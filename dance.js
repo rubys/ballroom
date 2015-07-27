@@ -386,7 +386,7 @@ function tic() {
   }
 
   if (step.image) {
-    aside.image.setAttribute('src', step.image);
+//  aside.image.setAttribute('src', step.image);
   }
 
   if (advance && step.count && (step.leader || step.follower)) {
@@ -471,7 +471,7 @@ function resize() {
   view.width = view.maxx - view.minx + 200;
   view.height = view.maxy - view.miny + 200;
 
-  aside.width = document.getElementsByTagName('aside')[0].offsetWidth + 16;
+  aside.width = document.getElementsByTagName('aside')[0].offsetWidth;
 
   var aspect = {
     x: (document.documentElement.clientWidth - aside.width)/view.width,
@@ -479,21 +479,27 @@ function resize() {
   };
 
   if (aspect.x < aspect.y) {
-    var adjust = (aspect.y/aspect.x - 1)*view.width/2
-    view.miny -= adjust;
-    view.maxy += adjust;
+    var mid = (view.miny + view.maxy)/2;
+    view.height = view.height / aspect.x * aspect.y;
+    view.miny = mid - view.height/2;
+    view.maxy = mid - view.height/2;
   } else {
-    var adjust = (aspect.x/aspect.y - 1)*view.width/2
-    view.minx -= adjust;
-    view.maxx += adjust;
+    var mid = (view.minx + view.maxx)/2;
+    view.width = view.width / aspect.y * aspect.x;
+    view.minx = mid - view.width/2;
+    view.maxx = mid - view.width/2;
   }
 
   var svg = document.getElementsByTagName('svg')[0];
 
   svg.setAttribute('viewBox',
-   [view.minx-100, view.miny-100, view.maxx+100, view.maxy+100].join(',')) 
-  svg.setAttribute('height', document.documentElement.clientHeight - 5);
+   [view.minx-100, view.miny-100, view.width, view.height].join(',')) 
+  svg.setAttribute('height', document.documentElement.clientHeight);
   svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
+
+  document.getElementById('wall').setAttribute('d',
+    "M" + (view.minx-90) + "," + (view.miny-90) + 'h' + (view.width-20) + 
+    'v' + (view.height-20) + 'h-' + (view.width-20) + "z");
 }
 
 resize();
