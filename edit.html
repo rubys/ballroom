@@ -148,7 +148,7 @@
         }
       }
 
-      shoe = event.currentTarget;
+      shoe = (event.localName ? event : event.currentTarget);
       selected = shoes[shoe.parentNode.id][shoe.classList[0]];
 
       if (event.clientX) {
@@ -185,7 +185,7 @@
       if (selected.move && selected.move.event) delete selected.move['event'];
     }
 
-    function move(event) {
+    function mouseMove(event) {
       if (!selected || !selected.move || !selected.move.event) return;
       if (!selected.move.x) selected.move.x = 0;
       if (!selected.move.y) selected.move.y = 0;
@@ -194,6 +194,10 @@
       selected.move.y += (event.clientY-selected.move.event.clientY)*scale;
       selected.move.event = event;
 
+      draw(selected);
+    }
+
+    function draw(shoe) {
       selected.position.removeAttribute('path');
       selected.position.endElement();
       selected.position.parentNode.setAttribute('transform', 'translate(' + 
@@ -208,6 +212,31 @@
       var line = "M" + selected.x + ',' + selected.y + "L" + 
         (selected.x + selected.move.x) + ',' + (selected.y + selected.move.y);
       path[person].setAttribute('d', line);
+    } 
+
+    function move(x, y) {
+      if (!selected.move) selected.move = {};
+      if (!selected.move.x) selected.move.x = 0;
+      if (!selected.move.y) selected.move.y = 0;
+
+      // determine rotation
+      var angle = selected.rotate % 360;
+      if (angle < 0) angle += 360;
+      var sin, cos;
+      if (angle < 180) {
+        var radians = angle/180*Math.PI;
+        sin = Math.sin(radians);
+        cos = Math.cos(radians);
+      } else {
+        var radians = (angle-180)/180*Math.PI;
+        sin = -Math.sin(radians);
+        cos = -Math.cos(radians);
+      }
+
+      selected.move.x += x*cos + y*sin;
+      selected.move.y += -y*cos + x*sin;
+
+      draw(selected);
     }
 
     var targets = document.querySelectorAll('.right,.left');
@@ -215,9 +244,41 @@
       targets[i].addEventListener('mousedown', select);
       targets[i].addEventListener('mouseup', deselect);
       targets[i].addEventListener('mouseout', deselect);
-      targets[i].addEventListener('mousemove', move);
+      targets[i].addEventListener('mousemove', mouseMove);
     }
 
     select({currentTarget: document.querySelector("#follower .right")});
+
+    window.addEventListener('keydown', function(event) {
+      var step = 100;
+      if (event.shiftKey) step = 10;
+      if (event.ctrlKey) step = 1;
+
+      if (event.keyCode == 32) {
+        if (shoes.follower.right == selected) {
+          select(shoes.leader.left.node);
+        } else if (shoes.leader.left == selected) {
+          select(shoes.follower.left.node);
+        } else if (shoes.follower.left == selected) {
+          select(shoes.leader.right.node);
+        } else {
+          select(shoes.follower.right.node);
+        }
+
+        event.preventDefault();
+      } else if (event.keyCode == 37) {
+        move(-step, 0);
+        event.preventDefault();
+      } else if (event.keyCode == 38) {
+        move(0, step);
+        event.preventDefault();
+      } else if (event.keyCode == 39) {
+        move(step, 0);
+        event.preventDefault();
+      } else if (event.keyCode == 40) {
+        move(0, -step);
+        event.preventDefault();
+      }
+    });
   </script>
 </html>
