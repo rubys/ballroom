@@ -368,8 +368,8 @@ function tic() {
   step = routine[clock];
 
   if (!step) {
-    aside.text.textContent = '';
-    aside.note.textContent = '';
+    if (aside.text) aside.text.textContent = '';
+    if (aside.note) aside.note.textContent = '';
     path.leader.setAttribute('d', 'M0,0');
     path.follower.setAttribute('d', 'M0,0');
     paused = true;
@@ -498,7 +498,8 @@ function resize() {
   svg.setAttribute('height', document.documentElement.clientHeight);
   svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
 
-  document.getElementById('wall').setAttribute('d',
+  var wall = document.getElementById('wall');
+  if (wall) wall.setAttribute('d',
     "M" + (view.minx-90) + "," + (view.miny-90) + 'h' + (view.width-20) + 
     'v' + (view.height-20) + 'h-' + (view.width-20) + "z");
 }
