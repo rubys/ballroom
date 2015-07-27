@@ -1,0 +1,52 @@
+html, body {
+  height: 100%;
+}
+
+html, body, svg {
+  margin:0;
+  padding:0;
+}
+
+p {
+  margin-left: 2em;
+}
+
+button {
+  line-height: 2em;
+}
+
+h2 {
+  margin-left: 1em;
+}
+
+img {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  z-index: -1;
+}
+
+#wall {
+  z-index: -2;
+}
+
+aside {
+ float: left;
+ width: 15em;
+ background-color: #CCC;
+ height: 100%;
+ z-index: -1;
+}
+
+#edit input {
+  width: 13em
+}
+
+#edit input[type=checkbox] {
+  width: 1em
+}
+
+#edit .right,#edit .left {
+  cursor: move
+}

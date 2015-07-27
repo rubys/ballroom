@@ -1,0 +1,7 @@
+input[type=checkbox] {
+  width: 1em
+}
+
+.right,#edit .left {
+  cursor: move
+}

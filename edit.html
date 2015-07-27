@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    html, body {height: 100%}
-    aside {height: 98%}
-    p {margin-left: 1em}
-    input {width: 13em}
-    input[type=checkbox] {width: 1em}
-    h2 {margin-left: 1em}
-    aside {position: absolute; width: 15em; background-color: #CCC}
-    .right,.left {cursor: move}
-  </style>
+  <link rel="stylesheet" href="ballroom.css"/>
+  <link rel="stylesheet" href="edit.css"/>
 
   <aside>
     <h1>Rumba</h1>
@@ -27,11 +19,13 @@
     <hr/>
     <p>Shoe: <span id="shoe"></span></p>
     <p>Position: <code id="position"></code></p>
+    <p>Orientation: <code id="orientation"></code></p>
     <p><input type="checkbox" id="ball" onclick="toggle(this)"/>
       <label for="ball">Ball</label></p>
     <p><input type="checkbox" id="heel" onclick="toggle(this)"/>
       <label for="heel">Heel</label></p>
     <p>Move: <code id="move"></code></p>
+    <p>Rotate: <code id="rotate"></code></p>
   </aside>
 
   <svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg">
@@ -41,66 +35,66 @@
     <g id="follower">
       <g class="right">
         <title>follower right</title>
-	<g>
-	  <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
+        <g>
+          <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
             c-10,17-17,23-7,45c5,9,20,6,21,3">
-	    <animate class="ball" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <path d="M-8,40c1,5-13,16-10-3z">
-	    <animate class="heel" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+            <animate class="ball" attributeName="fill" fill="freeze"/>
+          </path>
+          <path d="M-8,40c1,5-13,16-10-3z">
+            <animate class="heel" attributeName="fill" fill="freeze"/>
+          </path>
+          <animateTransform attributeName="transform" type="rotate"
+            fill="freeze"/>
+        </g>
+        <animateMotion fill="freeze"/>
       </g>
 
       <g class="left">
         <title>follower right</title>
-	<g>
-	  <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
+        <g>
+          <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
             c10,17,17,23,7,45c-5,9-20,6-21,3">
-	    <animate class="ball" attributeName="fill" fill="freeze"/>
-	  </path>
+            <animate class="ball" attributeName="fill" fill="freeze"/>
+          </path>
           <path d="M8,40c-1,5,13,16,10-3z">
-	    <animate class="heel" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+            <animate class="heel" attributeName="fill" fill="freeze"/>
+          </path>
+          <animateTransform attributeName="transform" type="rotate"
+            fill="freeze"/>
+        </g>
+        <animateMotion fill="freeze"/>
       </g>
     </g>
 
     <g id="leader">
       <g class="left">
         <title>leader left</title>
-	<g>
+        <g>
           <path d="M-8,9c-10-20-10-34,0-49c7-10,16-11,21,0c10,27,6,26,1,43z">
-	    <animate class="ball" attributeName="fill" fill="freeze">
-	  </path>
+            <animate class="ball" attributeName="fill" fill="freeze">
+          </path>
           <path d="M-3,29c-6,26,38,28,21-4z">
-	    <animate class="heel" attributeName="fill" fill="freeze">
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+            <animate class="heel" attributeName="fill" fill="freeze">
+          </path>
+          <animateTransform attributeName="transform" type="rotate"
+            fill="freeze"/>
+        </g>
+        <animateMotion fill="freeze"/>
       </g>
 
       <g class="right">
         <title>leader right</title>
-	<g>
+        <g>
           <path d="M8,9c10-20,10-34,0-49c-7-10-16-11-21,0c-10,27-6,26-1,43z">
-	    <animate class="ball" attributeName="fill" fill="freeze">
-	  </path>
+            <animate class="ball" attributeName="fill" fill="freeze">
+          </path>
           <path d="M3,29c6,26-38,28-21-4z">
-	    <animate class="heel" attributeName="fill" fill="freeze">
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+            <animate class="heel" attributeName="fill" fill="freeze">
+          </path>
+          <animateTransform attributeName="transform" type="rotate"
+            fill="freeze"/>
+        </g>
+        <animateMotion fill="freeze"/>
       </g>
     </g>
   </svg>
