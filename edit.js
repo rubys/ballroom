@@ -183,7 +183,7 @@ function transform(input, angle, result) {
 }
 
 function move(x, y) {
-  var movement = transform({x: x, y: y});
+  var movement = transform({x: x, y: y}, selected.rotate);
 
   selected.move.x += movement.x;
   selected.move.y += movement.y;
