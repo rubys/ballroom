@@ -9,6 +9,7 @@ function pause() {
 }
 
 function play() {
+  if (clock == routine.length) reset();
   paused = false;
   direction = +1;
 }
@@ -305,39 +306,46 @@ function compile() {
 }
 
 // apply initial settings
-["leader", "follower"].forEach(function(person) {
-  var node = document.getElementById(person);
-  if (!node) return;
-  ["left", "right"].forEach(function(side) {
-    var shoe = shoes[person][side];
-    var color = shoes[person].color;
-    shoe.node = node.getElementsByClassName(side)[0];
-    shoe.title = shoe.node.getElementsByTagName("title")[0];
+function reset() {
+  shoes = clone(initial);
 
-    // position
-    shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
-    shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
-    shoe.position.setAttribute('dur', '0.01s');
+  ["leader", "follower"].forEach(function(person) {
+    var node = document.getElementById(person);
+    if (!node) return;
+    ["left", "right"].forEach(function(side) {
+      var shoe = shoes[person][side];
+      var color = shoes[person].color;
+      shoe.node = node.getElementsByClassName(side)[0];
+      shoe.title = shoe.node.getElementsByTagName("title")[0];
 
-    // orientation
-    shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
-    shoe.orientation.setAttribute('from', '0');
-    shoe.orientation.setAttribute('to', shoe.rotate);
-    shoe.orientation.setAttribute('dur', '0.01s');
+      // position
+      shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
+      shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
+      shoe.position.setAttribute('dur', '0.01s');
 
-    // ball
-    shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
-    shoe.ball.node = shoe.node.querySelector("animate.ball");
-    shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
-    shoe.ball.node.parentNode.setAttribute("stroke", color);
+      // orientation
+      shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
+      shoe.orientation.setAttribute('from', '0');
+      shoe.orientation.setAttribute('to', shoe.rotate);
+      shoe.orientation.setAttribute('dur', '0.01s');
 
-    // heel
-    shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
-    shoe.heel.node = shoe.node.querySelector("animate.heel");
-    shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
-    shoe.heel.node.parentNode.setAttribute("stroke", color);
+      // ball
+      shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
+      shoe.ball.node = shoe.node.querySelector("animate.ball");
+      shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
+      shoe.ball.node.parentNode.setAttribute("stroke", color);
+
+      // heel
+      shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
+      shoe.heel.node = shoe.node.querySelector("animate.heel");
+      shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
+      shoe.heel.node.parentNode.setAttribute("stroke", color);
+    });
   });
-});
+
+  clock = 0;
+}
+reset();
 
 // capture paths
 var path = {
