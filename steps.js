@@ -5,16 +5,16 @@ var initial = {
     right: {
       ball: 'down',
       heel: 'up',
-      x: 520,
-      y: 254,
+      x: -30,
+      y: -65,
       rotate: 180
     },
 
     left: {
       ball: 'down',
       heel: 'down',
-      x: 600,
-      y: 254,
+      x: 50,
+      y: -65,
       rotate: 180
     }
   },
@@ -25,16 +25,16 @@ var initial = {
     left: {
       ball: 'down',
       heel: 'up',
-      x: 500,
-      y: 384,
+      x: -50,
+      y: 65,
       rotate: 0
     },
 
     right: {
       ball: 'down',
       heel: 'down',
-      x: 580,
-      y: 384,
+      x: 30,
+      y: 65,
       rotate: 0
     }
   }
