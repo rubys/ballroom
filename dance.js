@@ -320,11 +320,13 @@ function reset() {
 
       // position
       shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
+      shoe.position.parentNode.removeAttribute('transform');
       shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
       shoe.position.setAttribute('dur', '0.01s');
 
       // orientation
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
+      shoe.orientation.parentNode.removeAttribute('transform');
       shoe.orientation.setAttribute('from', '0');
       shoe.orientation.setAttribute('to', shoe.rotate);
       shoe.orientation.setAttribute('dur', '0.01s');

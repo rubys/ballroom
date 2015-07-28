@@ -2,15 +2,23 @@ var aspect = "position";
 
 var svg = document.getElementsByTagName('svg')[0];
 
-var base_resize = resize;
+window.removeEventListener('resize', resize);
 
-var viewBox = svg.getAttribute('viewBox').split(/[, ]+/);
-viewBox[0] -= viewBox[2];
-viewBox[1] -= viewBox[3];
-viewBox[2] *= 3;
-viewBox[3] *= 3;
-svg.setAttribute('viewBox', viewBox);
-var scale = viewBox[3] / document.documentElement.clientHeight;
+var scale;
+function resize() {
+  var viewBox = svg.getAttribute('viewBox').split(/[, ]+/);
+  viewBox[0] -= viewBox[2];
+  viewBox[1] -= viewBox[3];
+  viewBox[2] *= 3;
+  viewBox[3] *= 3;
+  viewBox = viewBox.map(function(n) {return parseFloat(n).toFixed()});
+  svg.setAttribute('viewBox', viewBox);
+  svg.setAttribute('height', document.documentElement.clientHeight);
+  svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
+  scale = viewBox[3] / document.documentElement.clientHeight;
+};
+window.addEventListener('resize', resize);
+resize();
 
 var selected = null;
 
@@ -153,6 +161,8 @@ function draw(shoe) {
 } 
 
 function transform(input, angle, result) {
+  if (!result) result = {};
+
   angle = angle % 360;
   if (angle < 0) angle += 360;
   var sin, cos;
@@ -168,11 +178,12 @@ function transform(input, angle, result) {
 
   result.x = input.x*cos + input.y*sin;
   result.y = -input.y*cos + input.x*sin;
+
+  return result;
 }
 
 function move(x, y) {
-  var movement = {}
-  transform({x: x, y: y}, selected.rotate, movement);
+  var movement = transform({x: x, y: y});
 
   selected.move.x += movement.x;
   selected.move.y += movement.y;
@@ -284,8 +295,7 @@ window.addEventListener('keydown', function(event) {
           if (!step[person]) step[person] = {}
           step[person][foot] = {}
           if (shoe.move.x || shoe.move.y) {
-            var movement = {};
-            transform(shoe.move, -shoe.rotate, movement);
+            var movement = transform(shoe.move, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
             step[person][foot].path = "l" + movement.x + ',' + movement.y;
@@ -302,7 +312,9 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    console.log(JSON.stringify(step, null, 2));
+    steps.push(step);
+    compile();
+    clock = routine.length;
     select(selected.node);
   }
 });
