@@ -1,6 +1,9 @@
 var aspect = "position";
 
 var svg = document.getElementsByTagName('svg')[0];
+
+var base_resize = resize;
+
 var viewBox = svg.getAttribute('viewBox').split(/[, ]+/);
 viewBox[0] -= viewBox[2];
 viewBox[1] -= viewBox[3];
@@ -60,7 +63,7 @@ function select(event) {
     selected.node.parentNode.id + "'s " +selected.node.classList[0];
 
   document.getElementById("position").textContent = 
-    selected.x + ', ' + selected.y;
+    selected.x.toFixed() + ', ' + selected.y.toFixed();
   document.getElementById("orientation").textContent = selected.rotate;
 
   if (selected.ball.node.parentNode.getAttribute('fill') == '#FFF') {
@@ -74,6 +77,8 @@ function select(event) {
   } else {
     document.getElementById("heel").checked = true;
   }
+
+  draw(selected);
 }
 
 function deselect(event) {
@@ -107,7 +112,7 @@ function mouseMove(event) {
     var dy = (event.clientY-rect.top)*scale+viewBox.y -
       selected.y-selected.move.y;
     var dx = (event.clientX-rect.left)*scale+viewBox.x -
-      selected.x - selected.move.y;
+      selected.x - selected.move.x;
     var angle = Math.atan2(-dx, dy) / Math.PI * 180;
     while (angle < selected.move.rotate - 180) angle += 360;
     while (angle > selected.move.rotate + 180) angle -= 360;
@@ -119,37 +124,36 @@ function mouseMove(event) {
 
 function draw(shoe) {
   // remove animation
-  selected.position.removeAttribute('path');
-  selected.position.endElement();
-  selected.orientation.removeAttribute('from');
-  selected.orientation.removeAttribute('to');
-  selected.orientation.endElement();
+  shoe.position.removeAttribute('path');
+  shoe.position.endElement();
+  shoe.orientation.removeAttribute('from');
+  shoe.orientation.removeAttribute('to');
+  shoe.orientation.endElement();
 
   // move(translate) and rotate shoe
-  selected.position.parentNode.setAttribute('transform', 'translate(' + 
-    (selected.x + selected.move.x) + ',' + 
-    (selected.y + selected.move.y) + ')');
-  selected.orientation.parentNode.setAttribute('transform', 'rotate(' + 
-    (selected.move.rotate || selected.rotate) + ')');
+  shoe.position.parentNode.setAttribute('transform', 'translate(' + 
+    (shoe.x + shoe.move.x) + ',' + 
+    (shoe.y + shoe.move.y) + ')');
+  shoe.orientation.parentNode.setAttribute('transform', 'rotate(' + 
+    (shoe.move.rotate || shoe.rotate) + ')');
 
   // update aside
   document.getElementById("move").textContent = 
-    (selected.x + selected.move.x).toFixed() + ', ' + 
-    (selected.y + selected.move.y).toFixed();
+    (shoe.x + shoe.move.x).toFixed() + ', ' + 
+    (shoe.y + shoe.move.y).toFixed();
   document.getElementById("rotate").textContent = 
-    selected.move.rotate ? (selected.move.rotate/5).toFixed()*5 : 0;
+    shoe.move.rotate ? (shoe.move.rotate/5).toFixed()*5 : 0;
 
   // draw path line
-  var line = "M" + selected.x + ',' + selected.y + "L" + 
-    (selected.x + selected.move.x) + ',' + (selected.y + selected.move.y);
-  path[selected.node.parentNode.id].setAttribute('d', line);
+  var line = "M" + shoe.x + ',' + shoe.y + "L" + 
+    (shoe.x + shoe.move.x) + ',' + (shoe.y + shoe.move.y);
+  path[shoe.node.parentNode.id].setAttribute('d', line);
 
   window.getSelection().removeAllRanges();
 } 
 
-function move(x, y) {
-  // determine rotation
-  var angle = selected.rotate % 360;
+function transform(input, angle, result) {
+  angle = angle % 360;
   if (angle < 0) angle += 360;
   var sin, cos;
   if (angle < 180) {
@@ -162,8 +166,16 @@ function move(x, y) {
     cos = -Math.cos(radians);
   }
 
-  selected.move.x += x*cos + y*sin;
-  selected.move.y += -y*cos + x*sin;
+  result.x = input.x*cos + input.y*sin;
+  result.y = -input.y*cos + input.x*sin;
+}
+
+function move(x, y) {
+  var movement = {}
+  transform({x: x, y: y}, selected.rotate, movement);
+
+  selected.move.x += movement.x;
+  selected.move.y += movement.y;
 
   draw(selected);
 }
@@ -190,9 +202,14 @@ for (var i=0; i<targets.length; i++) {
 select({currentTarget: document.querySelector("#follower .right")});
 
 window.addEventListener('keydown', function(event) {
+  if (document.activeElement.tagName.toLowerCase() == 'input') {
+    if (event.keyCode != 13) return;
+  }
+
   var step = 100;
   if (event.shiftKey) step = 10;
   if (event.ctrlKey) step = 1;
+  if (event.metaKey) step = 1;
 
   if (event.keyCode == 32) {
     if (shoes.follower.right == selected) {
@@ -226,5 +243,66 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 40) {
     move(0, -step);
     event.preventDefault();
+  } else if (event.keyCode == 27) {
+    ["leader", "follower"].forEach(function(person) {
+      ["left", "right"].forEach(function(foot) {
+        var shoe = shoes[person][foot];
+        shoe.move = {x: 0, y: 0, rotate: shoe.rotate};
+        draw(shoe);
+      });
+    });
+    select(selected.node);
+  } else if (event.keyCode == 49) {
+    document.getElementById('duration').value = '1';
+  } else if (event.keyCode == 50) {
+    document.getElementById('duration').value = '2';
+
+  } else if (event.keyCode == 13) {
+
+    var step = {time: document.getElementById('duration').value};
+    if (routine.length == 0) {
+      step.figure = document.getElementById('figure').value;
+    }
+
+    var text = document.getElementById('text').value;
+    if (text) {
+      step.text = text;
+      document.getElementById('text').value = '';
+    }
+
+    var note = document.getElementById('note').value;
+    if (note) {
+      step.note = note;
+      document.getElementById('note').value = '';
+    }
+
+    ["leader", "follower"].forEach(function(person) {
+      ["left", "right"].forEach(function(foot) {
+        var shoe = shoes[person][foot];
+        if (!shoe.move) return;
+        if (shoe.move.x || shoe.move.y || shoe.move.rotate != shoe.rotate) {
+          if (!step[person]) step[person] = {}
+          step[person][foot] = {}
+          if (shoe.move.x || shoe.move.y) {
+            var movement = {};
+            transform(shoe.move, -shoe.rotate, movement);
+            movement.x = parseFloat(movement.x.toFixed(3));
+            movement.y = parseFloat(movement.y.toFixed(3));
+            step[person][foot].path = "l" + movement.x + ',' + movement.y;
+            shoe.x += shoe.move.x;
+            shoe.y += shoe.move.y;
+          }
+          if (shoe.move.rotate != shoe.rotate) {
+            shoe.move.rotate = (shoe.move.rotate/5).toFixed()*5;
+            step[person][foot].rotate = shoe.move.rotate - shoe.rotate;
+            shoe.rotate = shoe.move.rotate;
+          }
+        }
+        shoe.move = {x: 0, y: 0, rotate: shoe.rotate};
+        draw(shoe);
+      });
+    });
+    console.log(JSON.stringify(step, null, 2));
+    select(selected.node);
   }
 });
