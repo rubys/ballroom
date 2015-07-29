@@ -4,6 +4,10 @@
 
   <aside>
     <h1>Rumba</h1>
+
+    <ul id="routine">
+    </ul>
+
     <h2 id="figure"></h2>
     <p>
       <input id="beats" type="range" min="30" max="120" value="60"/>
@@ -23,7 +27,13 @@
 
   <img/>
 
-  <svg xmlns="http://www.w3.org/2000/svg">
+  <div id="syllabus">
+    <h2>Available steps</h2>
+    <table>
+    </table>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" id="floor">
     <path id="wall" stroke="#CCC" fill="none" stroke-width="10"/>
     <path id="leader-path" stroke="#999" fill="none"/>
     <path id="follower-path" stroke="#C77" fill="none"/>
@@ -97,4 +107,5 @@
 
   <script src="steps.js"></script>
   <script src="dance.js"></script>
+  <script src="pick.js"></script>
 </html>

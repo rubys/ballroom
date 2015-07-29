@@ -1,0 +1,27 @@
+[
+  {
+    "figure": "1",
+    "name": "Rumba Box",
+    "file": "rumba-box.json"
+  },
+  {
+    "figure": "1a",
+    "name": "Underarm Turn",
+    "file": "underarm-turn.json"
+  },
+  {
+    "figure": "1b",
+    "name": "Quick Chasses",
+    "file": "quick-chasses.json"
+  },
+  {
+    "figure": "1c",
+    "name": "Cross Lead Box",
+    "file": "cross-lead-box.json"
+  },
+  {
+    "figure": "1d",
+    "name": "Cross Body Lead",
+    "file": "cross-body-lead.json"
+  }
+] 

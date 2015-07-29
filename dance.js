@@ -1,14 +1,25 @@
+var dance = 'rumba'
+
 var clock = 0;
-var paused = false;
+var paused = true;
 var advance = false;
 var direction = +1;
 
+function showStage() {
+  compile();
+  document.getElementById('syllabus').style.display="none";
+  resize();
+  document.getElementById('floor').style.display="block";
+}
+
 function pause() {
+  if (steps.length == 0) showStage();
+  advance = !paused;
   paused = true;
-  advance = true;
 }
 
 function play() {
+  if (steps.length == 0) showStage();
   if (clock == routine.length) reset();
   paused = false;
   direction = +1;
@@ -92,6 +103,14 @@ function compile() {
   var save = shoes;
   shoes = clone(initial);
   routine.length = 0;
+
+  if (steps.length == 0) {
+    var list = document.querySelectorAll("#routine li");
+    for (var i=0; i<list.length; i++) {
+      var index = list[i].getAttribute('data-index');
+      steps.push.apply(steps, syllabus[dance][index].steps);
+    }
+  }
 
   var step;
   var queue = clone(steps);
@@ -384,9 +403,16 @@ var aside = {
 
 // dance
 var timer = null;
-var bpm = 60;
+var bpm = aside.beats ? aside.beats.value : 60;
+if (aside.bpm) aside.bpm.textContent = bpm;
 
-if (aside.beats) parseFloat(aside.beats.value);
+// track slider in real-time when paused
+if (aside.beats) {
+  aside.beats.addEventListener('input', function(event) {
+    if (!paused) return;
+    if (aside.bpm) aside.bpm.textContent = aside.beats.value;
+  });
+}
 
 function tic() {
   if (paused && !advance) return;
@@ -491,9 +517,9 @@ function tic() {
   }
 }
 
-compile();
-
 function resize() {
+  if (!floor.minx) return;
+
   var view = clone(floor);
   view.width = view.maxx - view.minx + 200;
   view.height = view.maxy - view.miny + 200;
@@ -530,7 +556,6 @@ function resize() {
     'v' + (view.height-20) + 'h-' + (view.width-20) + "z");
 }
 
-resize();
 window.addEventListener('resize', resize);
 
 timer = setInterval(tic, 60000/bpm/4);

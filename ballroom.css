@@ -50,3 +50,16 @@ aside {
 #edit .right,#edit .left {
   cursor: move
 }
+
+#syllabus h2 {
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+#syllabus table {
+  padding-left: 2em;
+}
+
+#syllabus tr {
+  cursor: pointer;
+}
