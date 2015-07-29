@@ -32,11 +32,10 @@ img {
 }
 
 aside {
- float: left;
- width: 15em;
+ position: fixed;
+ width: 240px;
  background-color: #CCC;
  height: 100%;
- z-index: -1;
 }
 
 #edit input {
@@ -49,6 +48,10 @@ aside {
 
 #edit .right,#edit .left {
   cursor: move
+}
+
+#floor, #syllabus {
+  margin-left: 240px;
 }
 
 #syllabus h2 {
