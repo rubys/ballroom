@@ -521,8 +521,12 @@ function resize() {
   if (!floor.minx) return;
 
   var view = clone(floor);
-  view.width = view.maxx - view.minx + 200;
-  view.height = view.maxy - view.miny + 200;
+  view.minx -= 100;
+  view.maxx += 100;
+  view.miny -= 100;
+  view.maxy += 100;
+  view.width = view.maxx - view.minx;
+  view.height = view.maxy - view.miny;
 
   aside.width = document.getElementsByTagName('aside')[0].offsetWidth;
 
@@ -546,13 +550,13 @@ function resize() {
   var svg = document.getElementsByTagName('svg')[0];
 
   svg.setAttribute('viewBox',
-   [view.minx-100, view.miny-100, view.width, view.height].join(',')) 
+   [view.minx, view.miny, view.width, view.height].join(',')) 
   svg.setAttribute('height', document.documentElement.clientHeight);
   svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
 
   var wall = document.getElementById('wall');
   if (wall) wall.setAttribute('d',
-    "M" + (view.minx-90) + "," + (view.miny-90) + 'h' + (view.width-20) + 
+    "M" + (view.minx+10) + "," + (view.miny+10) + 'h' + (view.width-20) + 
     'v' + (view.height-20) + 'h-' + (view.width-20) + "z");
 }
 
