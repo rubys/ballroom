@@ -50,7 +50,15 @@ function select(event) {
     }
   }
 
-  shoe = (event.localName ? event : event.currentTarget);
+  var shoe;
+  if (event.node) {
+    shoe = event.localName;
+  } else if (event.localName) {
+    shoe = event;
+  } else {
+    shoe = event.currentTarget;
+  }
+
   selected = shoes[shoe.parentNode.id][shoe.classList[0]];
   if (!selected.move) selected.move = {};
   if (!selected.move.x) selected.move.x = 0;
@@ -160,7 +168,7 @@ function draw(shoe) {
   window.getSelection().removeAllRanges();
 } 
 
-function transform(input, angle, result) {
+function rotate(input, angle, result) {
   if (!result) result = {};
 
   angle = angle % 360;
@@ -183,7 +191,9 @@ function transform(input, angle, result) {
 }
 
 function move(x, y) {
-  var movement = transform({x: x, y: y}, selected.rotate);
+  var movement = rotate({x: x, y: y}, selected.rotate);
+
+  if (!selected.move) selected.move = {x: 0, y: 0, rotate: selected.rotate};
 
   selected.move.x += movement.x;
   selected.move.y += movement.y;
@@ -191,7 +201,7 @@ function move(x, y) {
   draw(selected);
 }
 
-function rotate(angle) {
+function turn(angle) {
   selected.move.rotate = 
     ((selected.move.rotate + angle)/angle).toFixed() * angle;
   draw(selected);
@@ -222,7 +232,7 @@ window.addEventListener('keydown', function(event) {
   if (event.ctrlKey) step = 1;
   if (event.metaKey) step = 1;
 
-  if (event.keyCode == 32) {
+  if (event.keyCode == 32) { // space
     if (shoes.follower.right == selected) {
       select(shoes.leader.left.node);
     } else if (shoes.leader.left == selected) {
@@ -234,27 +244,35 @@ window.addEventListener('keydown', function(event) {
     }
 
     event.preventDefault();
-  } else if (event.keyCode == 37) {
+  } else if (event.keyCode == 37) { // left
     if (!event.altKey) {
       move(-step, 0);
     } else {
-      rotate(event.shiftKey ? -5 : -45);
+      turn(event.shiftKey ? -5 : -45);
     }
     event.preventDefault();
-  } else if (event.keyCode == 38) {
+  } else if (event.keyCode == 38) { // up
     move(0, step);
     event.preventDefault();
-  } else if (event.keyCode == 39) {
+  } else if (event.keyCode == 39) { // right
     if (!event.altKey) {
       move(step, 0);
     } else {
-      rotate(event.shiftKey ? 5 : 45);
+      turn(event.shiftKey ? 5 : 45);
     }
     event.preventDefault();
-  } else if (event.keyCode == 40) {
+  } else if (event.keyCode == 40) { // down
     move(0, -step);
     event.preventDefault();
-  } else if (event.keyCode == 27) {
+  } else if (event.keyCode == 52) { // 4
+    if (selected == shoes.follower.right) {
+      select(shoes.leader.left.node);
+      move(0, 100);
+      select(shoes.follower.right.node);
+      move(0, -100);
+    }
+    event.preventDefault();
+  } else if (event.keyCode == 27) { // esc
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
         var shoe = shoes[person][foot];
@@ -263,12 +281,12 @@ window.addEventListener('keydown', function(event) {
       });
     });
     select(selected.node);
-  } else if (event.keyCode == 49) {
+  } else if (event.keyCode == 81) { // q
     document.getElementById('duration').value = '1';
-  } else if (event.keyCode == 50) {
+  } else if (event.keyCode == 83) { // s
     document.getElementById('duration').value = '2';
 
-  } else if (event.keyCode == 13) {
+  } else if (event.keyCode == 13) { // enter
 
     var step = {time: document.getElementById('duration').value};
     if (routine.length == 0) {
@@ -295,7 +313,7 @@ window.addEventListener('keydown', function(event) {
           if (!step[person]) step[person] = {}
           step[person][foot] = {}
           if (shoe.move.x || shoe.move.y) {
-            var movement = transform(shoe.move, shoe.rotate);
+            var movement = rotate(shoe.move, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
             step[person][foot].path = "l" + movement.x + ',' + movement.y;
@@ -316,5 +334,7 @@ window.addEventListener('keydown', function(event) {
     compile();
     clock = routine.length;
     select(selected.node);
+  } else {
+    console.log(event.keyCode);
   }
 });

@@ -43,6 +43,22 @@ function merge(destination, source) {
  return destination;
 };
 
+initial.gap = {
+  people: {
+    x: (Math.abs(initial.leader.right.x - initial.follower.left.x) +
+        Math.abs(initial.leader.left.x - initial.follower.right.x))/2,
+    y: (Math.abs(initial.leader.right.y - initial.follower.left.y) +
+        Math.abs(initial.leader.left.y - initial.follower.right.y))/2
+  },
+  legs: {
+    x: (Math.abs(initial.leader.right.x - initial.leader.left.x) +
+        Math.abs(initial.follower.left.x - initial.follower.right.x))/2,
+    y: (Math.abs(initial.leader.right.y - initial.leader.left.y) +
+        Math.abs(initial.follower.left.y - initial.follower.right.y))/2
+  }
+};
+
+
 var shoes = clone(initial);
 
 // "compile" script
