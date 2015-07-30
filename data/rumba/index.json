@@ -1,27 +1,65 @@
-[
-  {
-    "figure": "1",
-    "name": "Rumba Box",
-    "file": "rumba-box.json"
+{
+  "initial": {
+    "follower": {
+      "color": "#9B111E",
+      "right": {
+        "ball": "down",
+        "heel": "up",
+        "x": -30,
+        "y": -65,
+        "rotate": 180
+      },
+      "left": {
+        "ball": "down",
+        "heel": "down",
+        "x": 50,
+        "y": -65,
+        "rotate": 180
+      }
+    },
+    "leader": {
+      "color": "#000",
+      "left": {
+        "ball": "down",
+        "heel": "up",
+        "x": -50,
+        "y": 65,
+        "rotate": 0
+      },
+      "right": {
+        "ball": "down",
+        "heel": "down",
+        "x": 30,
+        "y": 65,
+        "rotate": 0
+      }
+    }
   },
-  {
-    "figure": "1a",
-    "name": "Underarm Turn",
-    "file": "underarm-turn.json"
-  },
-  {
-    "figure": "1b",
-    "name": "Quick Chasses",
-    "file": "quick-chasses.json"
-  },
-  {
-    "figure": "1c",
-    "name": "Cross Lead Box",
-    "file": "cross-lead-box.json"
-  },
-  {
-    "figure": "1d",
-    "name": "Cross Body Lead",
-    "file": "cross-body-lead.json"
-  }
-] 
+  "figures": [
+    {
+      "figure": "1",
+      "name": "Rumba Box",
+      "file": "rumba-box.json"
+    },
+    {
+      "figure": "1a",
+      "name": "Underarm Turn",
+      "file": "underarm-turn.json"
+    },
+    {
+      "figure": "1b",
+      "name": "Quick Chasses",
+      "file": "quick-chasses.json"
+    },
+    {
+      "figure": "1c",
+      "name": "Cross Lead Box",
+      "file": "cross-lead-box.json"
+    },
+    {
+      "figure": "1d",
+      "name": "Cross Body Lead",
+      "file": "cross-body-lead.json"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ var advance = false;
 var direction = +1;
 
 function showStage() {
+  reset();
   compile();
   document.getElementById('syllabus').style.display="none";
   resize();
@@ -50,7 +51,7 @@ function compile() {
   if (aside.bpm) aside.bpm.textContent = bpm;
 
   var save = shoes;
-  shoes = clone(initial);
+  shoes = clone(syllabus[dance].initial);
   routine.length = 0;
 
   floor = {
@@ -289,7 +290,7 @@ function compile() {
 
 // apply initial settings
 function reset() {
-  shoes = clone(initial);
+  shoes = clone(syllabus[dance].initial);
 
   shoes.gap = {
     people: {
@@ -320,6 +321,7 @@ function reset() {
       shoe.position.parentNode.removeAttribute('transform');
       shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
       shoe.position.setAttribute('dur', '0.01s');
+      shoe.position.beginElement();
 
       // orientation
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
@@ -327,24 +329,26 @@ function reset() {
       shoe.orientation.setAttribute('from', '0');
       shoe.orientation.setAttribute('to', shoe.rotate);
       shoe.orientation.setAttribute('dur', '0.01s');
+      shoe.orientation.beginElement();
 
       // ball
       shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
       shoe.ball.node = shoe.node.querySelector("animate.ball");
       shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
       shoe.ball.node.parentNode.setAttribute("stroke", color);
+      shoe.ball.node.beginElement();
 
       // heel
       shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
       shoe.heel.node = shoe.node.querySelector("animate.heel");
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
+      shoe.heel.node.beginElement();
     });
   });
 
   clock = 0;
 }
-reset();
 
 // capture paths
 var path = {

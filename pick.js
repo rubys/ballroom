@@ -1,7 +1,8 @@
 var syllabus = {};
 
-fetch('rumba', 'index.json', function(menu) {
-  syllabus.rumba = menu;
+fetch('rumba', 'index.json', function(definition) {
+  syllabus.rumba = definition;
+  var figures = definition.figures;
 
   var tbody = document.getElementsByTagName('tbody')[0];
   if (!tbody) {
@@ -12,30 +13,30 @@ fetch('rumba', 'index.json', function(menu) {
 
   var routine = document.getElementById('routine');
 
-  for (var i=0; i<menu.length; i++) {
+  for (var i=0; i<figures.length; i++) {
     var tr = document.createElement('tr');
     tr.setAttribute('data-index', i);
     var td = document.createElement('td');
-    td.textContent = menu[i].figure;
+    td.textContent = figures[i].figure;
     tr.appendChild(td);
     td = document.createElement('td');
-    td.textContent = menu[i].name;
+    td.textContent = figures[i].name;
     tr.appendChild(td);
     tbody.appendChild(tr);
 
-    var figure = menu[i].figure;
+    var figure = figures[i].figure;
 
     tr.addEventListener('click', function(event) {
       var index = event.currentTarget.getAttribute('data-index');
       var li = document.createElement('li');
       li.setAttribute('data-index', index);
       var span = document.createElement('span');
-      span.textContent = menu[index].name;
+      span.textContent = figures[index].name;
       li.appendChild(span);
       routine.appendChild(li);
-      if (!menu[index].steps) {
-        fetch('rumba', menu[index].file, function(steps) {
-          menu[index].steps = steps;
+      if (!figures[index].steps) {
+        fetch('rumba', figures[index].file, function(steps) {
+          figures[index].steps = steps;
         });
       }
     });
@@ -49,7 +50,7 @@ function collectSteps() {
   for (var i=0; i<list.length; i++) {
     var index = list[i].getAttribute('data-index');
     var length = steps.length;
-    steps.push.apply(steps, clone(syllabus[dance][index].steps));
+    steps.push.apply(steps, clone(syllabus[dance].figures[index].steps));
     if (steps.length != length) {
       steps[length].listItem = list[i];
       steps[steps.length-1].listItem = list[i];
