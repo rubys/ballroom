@@ -184,15 +184,12 @@ function move(x, y) {
 }
 
 function moveTo(base, offset) {
-  console.log(base, offset);
   var movement = rotate(offset, base.rotate);
-  console.log(movement);
 
   if (!selected.move) selected.move = {x: 0, y: 0, rotate: selected.rotate};
 
   selected.move.x = selected.x - (base.x + movement.x);
   selected.move.y = selected.y - (base.y - movement.y);
-  console.log(selected);
 
   draw(selected);
 }
@@ -308,9 +305,6 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 13) { // enter
 
     var step = {time: document.getElementById('duration').value};
-    if (routine.length == 0) {
-      step.figure = document.getElementById('figure').value;
-    }
 
     var text = document.getElementById('text').value;
     if (text) {
