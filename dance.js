@@ -487,9 +487,7 @@ function tic() {
 
 var scale;
 function resize() {
-console.log('resize');
   if (!floor.minx) return;
-console.log('floor');
 
   var view = clone(floor);
   view.minx -= 100;

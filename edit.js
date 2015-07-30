@@ -1,15 +1,23 @@
 var aspect = "position";
 
 document.getElementById('editmode').addEventListener('click', function() {
-  console.log('editmode');
   document.getElementById('edit').style.display = 'block';
   showStage();
+  if (scale < 1) {
+    floor.minx /= scale/2;
+    floor.miny /= scale/2;
+    floor.maxx /= scale/2;
+    floor.maxy /= scale/2;
+  }
+  resize();
   reset();
+  select(document.querySelector("#follower .right"));
+  document.querySelector("#wall").style.display = "none";
 });
 
 var svg = document.getElementsByTagName('svg')[0];
 
-var selected = null;
+var selected = null
 
 function toggle(part) {
   var person = selected.node.parentNode.id;
@@ -30,7 +38,7 @@ function toggle(part) {
 }
 
 function select(event) {
-  if (selected) {
+  if (selected && selected.node) {
     var stroke = shoes[selected.node.parentNode.id].color;
     var paths = selected.node.querySelectorAll('path');
     for (var i=0; i<paths.length; i++) {
@@ -41,7 +49,7 @@ function select(event) {
 
   var shoe;
   if (event.node) {
-    shoe = event.localName;
+    shoe = event.node;
   } else if (event.localName) {
     shoe = event;
   } else {
@@ -87,7 +95,6 @@ function select(event) {
 }
 
 function deselect(event) {
-  if (event.type == 'mouseout' && aspect == 'orientation') return;
   if (selected.move && selected.move.event) delete selected.move['event'];
 }
 
@@ -99,13 +106,16 @@ function selectHeel(event) {
   aspect = "orientation";
 }
 
-function vectorLength(event) {
-  return Math.sqrt((event.clientX-selected.x)*(event.clientX-selected.x) +
-      (event.clientY-selected.y)*(event.clientY-selected.y));
-}
-
 function mouseMove(event) {
-  if (!selected || !selected.move || !selected.move.event) return;
+  if (!selected || !selected.move || !selected.move.event) {
+    if (event.button == 1 || event.buttons == 1) {
+      if (!selected) selected = {};
+      selected.move = {event: event, x: 0, y: 0};
+      aspect = 'pan';
+    } else {
+      return;
+    }
+  }
 
   if (aspect == 'position') {
     selected.move.x += (event.clientX-selected.move.event.clientX)*scale;
@@ -122,6 +132,11 @@ function mouseMove(event) {
     while (angle < selected.move.rotate - 180) angle += 360;
     while (angle > selected.move.rotate + 180) angle -= 360;
     selected.move.rotate = angle;
+  } else if (aspect == 'pan') {
+    var viewBox = svg.viewBox.baseVal;
+    viewBox.x -= (event.clientX-selected.move.event.clientX)*scale;
+    viewBox.y -= (event.clientY-selected.move.event.clientY)*scale;
+    selected.move.event = event;
   }
 
   draw(selected);
@@ -187,10 +202,6 @@ for (var i=0; i<targets.length; i++) {
   heel.addEventListener('mousedown', selectHeel);
 }
 
-/*
-select({currentTarget: document.querySelector("#follower .right")});
-*/
-
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
@@ -203,13 +214,13 @@ window.addEventListener('keydown', function(event) {
 
   if (event.keyCode == 32) { // space
     if (shoes.follower.right == selected) {
-      select(shoes.leader.left.node);
+      select(shoes.leader.left);
     } else if (shoes.leader.left == selected) {
-      select(shoes.follower.left.node);
+      select(shoes.follower.left);
     } else if (shoes.follower.left == selected) {
-      select(shoes.leader.right.node);
+      select(shoes.leader.right);
     } else {
-      select(shoes.follower.right.node);
+      select(shoes.follower.right);
     }
 
     event.preventDefault();
@@ -235,9 +246,9 @@ window.addEventListener('keydown', function(event) {
     event.preventDefault();
   } else if (event.keyCode == 52) { // 4
     if (selected == shoes.follower.right) {
-      select(shoes.leader.left.node);
+      select(shoes.leader.left);
       move(0, 100);
-      select(shoes.follower.right.node);
+      select(shoes.follower.right);
       move(0, -100);
     }
     event.preventDefault();
@@ -249,7 +260,7 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    select(selected.node);
+    select(selected);
   } else if (event.keyCode == 81) { // q
     document.getElementById('duration').value = '1';
   } else if (event.keyCode == 83) { // s
@@ -302,7 +313,7 @@ window.addEventListener('keydown', function(event) {
     steps.push(step);
     compile();
     clock = routine.length;
-    select(selected.node);
+    select(selected);
   } else {
     console.log(event.keyCode);
   }
