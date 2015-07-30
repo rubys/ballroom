@@ -1,24 +1,13 @@
 var aspect = "position";
 
+document.getElementById('editmode').addEventListener('click', function() {
+  console.log('editmode');
+  document.getElementById('edit').style.display = 'block';
+  showStage();
+  reset();
+});
+
 var svg = document.getElementsByTagName('svg')[0];
-
-window.removeEventListener('resize', resize);
-
-var scale;
-function resize() {
-  var viewBox = svg.getAttribute('viewBox').split(/[, ]+/);
-  viewBox[0] -= viewBox[2];
-  viewBox[1] -= viewBox[3];
-  viewBox[2] *= 3;
-  viewBox[3] *= 3;
-  viewBox = viewBox.map(function(n) {return parseFloat(n).toFixed()});
-  svg.setAttribute('viewBox', viewBox);
-  svg.setAttribute('height', document.documentElement.clientHeight);
-  svg.setAttribute('width', document.documentElement.clientWidth - aside.width);
-  scale = viewBox[3] / document.documentElement.clientHeight;
-};
-window.addEventListener('resize', resize);
-resize();
 
 var selected = null;
 
@@ -198,7 +187,9 @@ for (var i=0; i<targets.length; i++) {
   heel.addEventListener('mousedown', selectHeel);
 }
 
+/*
 select({currentTarget: document.querySelector("#follower .right")});
+*/
 
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {

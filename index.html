@@ -8,6 +8,23 @@
     <ul id="routine">
     </ul>
 
+    <div id='edit'>
+      <p><input id="text" placeholder="text"/></p>
+      <p><input id="note" placeholder="note"/></p>
+
+      <hr/>
+
+      <p>Shoe: <span id="shoe"></span></p>
+      <p>Position: <code id="position"></code></p>
+      <p>Orientation: <code id="orientation"></code></p>
+      <p><input type="checkbox" id="ball" onclick="toggle(this)"/>
+        <label for="ball">Ball</label></p>
+      <p><input type="checkbox" id="heel" onclick="toggle(this)"/>
+        <label for="heel">Heel</label></p>
+      <p>Move: <code id="move"></code></p>
+      <p>Rotate: <code id="rotate"></code></p>
+    </div>
+
     <p>
       <button onclick="prev()">&#x2590;&#x25C0;&#xA0;</button>
       <button onclick="pause()">&#x258C;&#x258C;</button>
@@ -29,81 +46,85 @@
     <h2>Available steps</h2>
     <table>
     </table>
+    <button id="editmode">new step</button>
   </div>
 
-  <svg xmlns="http://www.w3.org/2000/svg" id="floor">
-    <path id="wall" stroke="#CCC" fill="none" stroke-width="10"/>
-    <path id="leader-path" stroke="#999" fill="none"/>
-    <path id="follower-path" stroke="#C77" fill="none"/>
+  <div id="floor">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <path id="wall" stroke="#CCC" fill="none" stroke-width="10"/>
+      <path id="leader-path" stroke="#999" fill="none"/>
+      <path id="follower-path" stroke="#C77" fill="none"/>
 
-    <g id="follower">
-      <g class="right">
-        <title>follower right</title>
-	<g>
-	  <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
-            c-10,17-17,23-7,45c5,9,20,6,21,3">
-	    <animate class="ball" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <path d="M-8,40c1,5-13,16-10-3z">
-	    <animate class="heel" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+      <g id="follower">
+        <g class="right">
+          <title>follower right</title>
+          <g>
+            <path d="M8,9c8,-11,5-29,1-48c-2-11-10-11-15-0
+              c-10,17-17,23-7,45c5,9,20,6,21,3">
+              <animate class="ball" attributeName="fill" fill="freeze"/>
+            </path>
+            <path d="M-8,40c1,5-13,16-10-3z">
+              <animate class="heel" attributeName="fill" fill="freeze"/>
+            </path>
+            <animateTransform attributeName="transform" type="rotate"
+              fill="freeze"/>
+          </g>
+          <animateMotion fill="freeze"/>
+        </g>
+
+        <g class="left">
+          <title>follower right</title>
+          <g>
+            <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
+              c10,17,17,23,7,45c-5,9-20,6-21,3">
+              <animate class="ball" attributeName="fill" fill="freeze"/>
+            </path>
+            <path d="M8,40c-1,5,13,16,10-3z">
+              <animate class="heel" attributeName="fill" fill="freeze"/>
+            </path>
+            <animateTransform attributeName="transform" type="rotate"
+              fill="freeze"/>
+          </g>
+          <animateMotion fill="freeze"/>
+        </g>
       </g>
 
-      <g class="left">
-        <title>follower right</title>
-	<g>
-	  <path d="M-8,9c-8-11-5-29-1-48c2-11,10-11,15,0
-            c10,17,17,23,7,45c-5,9-20,6-21,3">
-	    <animate class="ball" attributeName="fill" fill="freeze"/>
-	  </path>
-          <path d="M8,40c-1,5,13,16,10-3z">
-	    <animate class="heel" attributeName="fill" fill="freeze"/>
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
-      </g>
-    </g>
+      <g id="leader">
+        <g class="left">
+          <title>leader left</title>
+          <g>
+            <path d="M-8,9c-10-20-10-34,0-49c7-10,16-11,21,0c10,27,6,26,1,43z">
+              <animate class="ball" attributeName="fill" fill="freeze">
+            </path>
+            <path d="M-3,29c-6,26,38,28,21-4z">
+              <animate class="heel" attributeName="fill" fill="freeze">
+            </path>
+            <animateTransform attributeName="transform" type="rotate"
+              fill="freeze"/>
+          </g>
+          <animateMotion fill="freeze"/>
+        </g>
 
-    <g id="leader">
-      <g class="left">
-        <title>leader left</title>
-	<g>
-          <path d="M-8,9c-10-20-10-34,0-49c7-10,16-11,21,0c10,27,6,26,1,43z">
-	    <animate class="ball" attributeName="fill" fill="freeze">
-	  </path>
-          <path d="M-3,29c-6,26,38,28,21-4z">
-	    <animate class="heel" attributeName="fill" fill="freeze">
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
+        <g class="right">
+          <title>leader right</title>
+          <g>
+            <path d="M8,9c10-20,10-34,0-49c-7-10-16-11-21,0c-10,27-6,26-1,43z">
+              <animate class="ball" attributeName="fill" fill="freeze">
+            </path>
+            <path d="M3,29c6,26-38,28-21-4z">
+              <animate class="heel" attributeName="fill" fill="freeze">
+            </path>
+            <animateTransform attributeName="transform" type="rotate"
+              fill="freeze"/>
+          </g>
+          <animateMotion fill="freeze"/>
+        </g>
       </g>
-
-      <g class="right">
-        <title>leader right</title>
-	<g>
-          <path d="M8,9c10-20,10-34,0-49c-7-10-16-11-21,0c-10,27-6,26-1,43z">
-	    <animate class="ball" attributeName="fill" fill="freeze">
-	  </path>
-          <path d="M3,29c6,26-38,28-21-4z">
-	    <animate class="heel" attributeName="fill" fill="freeze">
-	  </path>
-	  <animateTransform attributeName="transform" type="rotate"
-	    fill="freeze"/>
-	</g>
-	<animateMotion fill="freeze"/>
-      </g>
-    </g>
-  </svg>
+    </svg>
+  </div>
 
   <script src="utils.js"></script>
   <script src="dance.js"></script>
   <script src="pick.js"></script>
+  <script src="edit.js"></script>
 </html>

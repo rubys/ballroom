@@ -10,7 +10,6 @@ function showStage() {
   compile();
   document.getElementById('syllabus').style.display="none";
   resize();
-  document.getElementById('floor').style.display="block";
 }
 
 function pause() {
@@ -486,8 +485,11 @@ function tic() {
   }
 }
 
+var scale;
 function resize() {
+console.log('resize');
   if (!floor.minx) return;
+console.log('floor');
 
   var view = clone(floor);
   view.minx -= 100;
@@ -497,7 +499,9 @@ function resize() {
   view.width = view.maxx - view.minx;
   view.height = view.maxy - view.miny;
 
-  aside.width = document.getElementsByTagName('aside')[0].offsetWidth;
+  var svg = document.getElementsByTagName('svg')[0];
+  svg.style.display='block';
+  aside.width = svg.parentNode.offsetLeft;
 
   var aspect = {
     x: (document.documentElement.clientWidth - aside.width)/view.width,
@@ -516,7 +520,7 @@ function resize() {
     view.maxx = mid - view.width/2;
   }
 
-  var svg = document.getElementsByTagName('svg')[0];
+  scale = 1/Math.min(aspect.x, aspect.y);
 
   svg.setAttribute('viewBox',
    [view.minx, view.miny, view.width, view.height].join(',')) 

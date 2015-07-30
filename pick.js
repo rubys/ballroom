@@ -59,5 +59,3 @@ function collectSteps() {
 
   return steps;
 }
-
-document.getElementById('floor').style.display="none";
