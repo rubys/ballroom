@@ -38,23 +38,7 @@ function prev() {
   direction = -1;
 }
 
-initial.gap = {
-  people: {
-    x: (Math.abs(initial.leader.right.x - initial.follower.left.x) +
-        Math.abs(initial.leader.left.x - initial.follower.right.x))/2,
-    y: (Math.abs(initial.leader.right.y - initial.follower.left.y) +
-        Math.abs(initial.leader.left.y - initial.follower.right.y))/2
-  },
-  legs: {
-    x: (Math.abs(initial.leader.right.x - initial.leader.left.x) +
-        Math.abs(initial.follower.left.x - initial.follower.right.x))/2,
-    y: (Math.abs(initial.leader.right.y - initial.leader.left.y) +
-        Math.abs(initial.follower.left.y - initial.follower.right.y))/2
-  }
-};
-
-
-var shoes = clone(initial);
+var shoes;
 
 // "compile" script
 var count = 0;
@@ -65,28 +49,28 @@ function compile() {
   if (aside.beats) bpm = parseFloat(aside.beats.value);
   if (aside.bpm) aside.bpm.textContent = bpm;
 
-  floor = {
-    minx: Math.min.apply(Math, [
-      initial.follower.right.x, initial.follower.left.x,
-      initial.leader.right.x, initial.leader.left.x
-    ]),
-    miny: Math.min.apply(Math, [
-      initial.follower.right.y, initial.follower.left.y,
-      initial.leader.right.y, initial.leader.left.y
-    ]),
-    maxx: Math.max.apply(Math, [
-      initial.follower.right.x, initial.follower.left.x,
-      initial.leader.right.x, initial.leader.left.x
-    ]),
-    maxy: Math.max.apply(Math, [
-      initial.follower.right.y, initial.follower.left.y,
-      initial.leader.right.y, initial.leader.left.y
-    ])
-  }
-
   var save = shoes;
   shoes = clone(initial);
   routine.length = 0;
+
+  floor = {
+    minx: Math.min.apply(Math, [
+      shoes.follower.right.x, shoes.follower.left.x,
+      shoes.leader.right.x, shoes.leader.left.x
+    ]),
+    miny: Math.min.apply(Math, [
+      shoes.follower.right.y, shoes.follower.left.y,
+      shoes.leader.right.y, shoes.leader.left.y
+    ]),
+    maxx: Math.max.apply(Math, [
+      shoes.follower.right.x, shoes.follower.left.x,
+      shoes.leader.right.x, shoes.leader.left.x
+    ]),
+    maxy: Math.max.apply(Math, [
+      shoes.follower.right.y, shoes.follower.left.y,
+      shoes.leader.right.y, shoes.leader.left.y
+    ])
+  }
 
   var step;
   var queue = collectSteps();
@@ -306,6 +290,21 @@ function compile() {
 // apply initial settings
 function reset() {
   shoes = clone(initial);
+
+  shoes.gap = {
+    people: {
+      x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
+	  Math.abs(shoes.leader.left.x - shoes.follower.right.x))/2,
+      y: (Math.abs(shoes.leader.right.y - shoes.follower.left.y) +
+	  Math.abs(shoes.leader.left.y - shoes.follower.right.y))/2
+    },
+    legs: {
+      x: (Math.abs(shoes.leader.right.x - shoes.leader.left.x) +
+	  Math.abs(shoes.follower.left.x - shoes.follower.right.x))/2,
+      y: (Math.abs(shoes.leader.right.y - shoes.leader.left.y) +
+	  Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
+    }
+  };
 
   ["leader", "follower"].forEach(function(person) {
     var node = document.getElementById(person);
