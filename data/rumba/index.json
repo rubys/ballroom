@@ -1,5 +1,6 @@
 {
   "initial": {
+    "step": 100,
     "follower": {
       "color": "#9B111E",
       "right": {

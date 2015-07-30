@@ -183,6 +183,20 @@ function move(x, y) {
   draw(selected);
 }
 
+function moveTo(base, offset) {
+  console.log(base, offset);
+  var movement = rotate(offset, base.rotate);
+  console.log(movement);
+
+  if (!selected.move) selected.move = {x: 0, y: 0, rotate: selected.rotate};
+
+  selected.move.x = selected.x - (base.x + movement.x);
+  selected.move.y = selected.y - (base.y - movement.y);
+  console.log(selected);
+
+  draw(selected);
+}
+
 function turn(angle) {
   selected.move.rotate = 
     ((selected.move.rotate + angle)/angle).toFixed() * angle;
@@ -244,14 +258,39 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 40) { // down
     move(0, -step);
     event.preventDefault();
+
   } else if (event.keyCode == 52) { // 4
     if (selected == shoes.follower.right) {
-      select(shoes.leader.left);
-      move(0, 100);
+      if (!event.shiftKey) {
+        select(shoes.leader.left);
+        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: shoes.step});
+      }
       select(shoes.follower.right);
-      move(0, -100);
+      moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: -shoes.step});
+    } else if (selected == shoes.follower.left) {
+      if (!event.shiftKey) {
+        select(shoes.leader.right);
+        moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: shoes.step});
+      }
+      select(shoes.follower.left);
+      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: -shoes.step});
+    } else if (selected == shoes.leader.left) {
+      if (!event.shiftKey) {
+        select(shoes.follower.right);
+        moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: -shoes.step});
+      }
+      select(shoes.leader.left);
+      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: shoes.step});
+    } else if (selected == shoes.leader.right) {
+      if (!event.shiftKey) {
+        select(shoes.follower.left);
+        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: -shoes.step});
+      }
+      select(shoes.leader.right);
+      moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: shoes.step});
     }
     event.preventDefault();
+
   } else if (event.keyCode == 27) { // esc
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
