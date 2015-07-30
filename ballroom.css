@@ -66,3 +66,11 @@ aside {
 #syllabus tr {
   cursor: pointer;
 }
+
+li.active {
+  color: red;
+}
+
+li span {
+  color: black;
+}

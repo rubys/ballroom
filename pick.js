@@ -45,7 +45,9 @@ fetch('rumba', 'index.json', function(menu) {
       var index = event.currentTarget.getAttribute('data-index');
       var li = document.createElement('li');
       li.setAttribute('data-index', index);
-      li.textContent = menu[index].name;
+      var span = document.createElement('span');
+      span.textContent = menu[index].name;
+      li.appendChild(span);
       routine.appendChild(li);
       if (!menu[index].steps) {
         fetch('rumba', menu[index].file, function(steps) {
@@ -55,5 +57,22 @@ fetch('rumba', 'index.json', function(menu) {
     });
   }
 });
+
+function collectSteps() {
+  var steps = [];
+
+  var list = document.querySelectorAll("#routine li");
+  for (var i=0; i<list.length; i++) {
+    var index = list[i].getAttribute('data-index');
+    var length = steps.length;
+    steps.push.apply(steps, syllabus[dance][index].steps);
+    if (steps.length != length) {
+      steps[length].listItem = list[i];
+      steps[steps.length-1].listItem = list[i];
+    }
+  }
+
+  return steps;
+}
 
 document.getElementById('floor').style.display="none";

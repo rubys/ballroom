@@ -13,13 +13,13 @@ function showStage() {
 }
 
 function pause() {
-  if (steps.length == 0) showStage();
+  if (routine.length == 0) showStage();
   advance = !paused;
   paused = true;
 }
 
 function play() {
-  if (steps.length == 0) showStage();
+  if (routine.length == 0) showStage();
   if (clock == routine.length) reset();
   paused = false;
   direction = +1;
@@ -44,7 +44,9 @@ function clone(object) {
 
 function merge(destination, source) {
  for (var property in source) {
-   if (typeof source[property] === "object") {
+   if (source[property] instanceof HTMLElement) {
+     destination[property] = source[property];
+   } else if (typeof source[property] === "object") {
      destination[property] = destination[property] || {};
      merge(destination[property], source[property]);
    } else {
@@ -77,7 +79,7 @@ var count = 0;
 var routine = []
 var floor = {}
 function compile() {
-  var figure = null;
+  var listItem = null;
   if (aside.beats) bpm = parseFloat(aside.beats.value);
   if (aside.bpm) aside.bpm.textContent = bpm;
 
@@ -104,16 +106,8 @@ function compile() {
   shoes = clone(initial);
   routine.length = 0;
 
-  if (steps.length == 0) {
-    var list = document.querySelectorAll("#routine li");
-    for (var i=0; i<list.length; i++) {
-      var index = list[i].getAttribute('data-index');
-      steps.push.apply(steps, syllabus[dance][index].steps);
-    }
-  }
-
   var step;
-  var queue = clone(steps);
+  var queue = collectSteps();
   while (queue.length) {
     step = queue.shift();
 
@@ -141,10 +135,11 @@ function compile() {
       routine[routine.length-step.time*4-1].image = step.image;
     }
 
-    // bookend figure (used for reverse)
-    if (step.figure) {
-      if (figure) routine[routine.length-step.time*4-1].figure = figure;
-      figure = step.figure;
+    // bookend listItem (used for reverse)
+    if (step.listItem) {
+      routine[routine.length-step.time*4].listItem = step.listItem;
+      if (listItem) routine[routine.length-step.time*4-1].listItem = listItem;
+      listItem = step.listItem;
     }
 
     // compile steps
@@ -392,7 +387,6 @@ var path = {
 
 // capture aside targets
 var aside = {
-  figure: document.getElementById('figure'),
   count: document.getElementById('count'),
   text: document.getElementById('text'),
   note: document.getElementById('note'),
@@ -425,13 +419,17 @@ function tic() {
     path.leader.setAttribute('d', 'M0,0');
     path.follower.setAttribute('d', 'M0,0');
     paused = true;
+    if (aside.listItem) aside.listItem.classList.remove('active');
+    aside.listItem = null;
     return;
   }
 
   clock += direction;
 
-  if (step.figure) {
-    aside.figure.textContent = step.figure;
+  if (step.listItem) {
+    if (aside.listItem) aside.listItem.classList.remove('active');
+    step.listItem.classList.add('active');
+    aside.listItem = step.listItem;
   }
 
   if (step.count) {

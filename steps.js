@@ -39,5 +39,3 @@ var initial = {
     }
   }
 };
-
-var steps = [];
