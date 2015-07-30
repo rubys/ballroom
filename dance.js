@@ -38,24 +38,6 @@ function prev() {
   direction = -1;
 }
 
-function clone(object) {
-  return JSON.parse(JSON.stringify(object));
-}
-
-function merge(destination, source) {
- for (var property in source) {
-   if (source[property] instanceof HTMLElement) {
-     destination[property] = source[property];
-   } else if (typeof source[property] === "object") {
-     destination[property] = destination[property] || {};
-     merge(destination[property], source[property]);
-   } else {
-     destination[property] = source[property];
-   }
- }
- return destination;
-};
-
 initial.gap = {
   people: {
     x: (Math.abs(initial.leader.right.x - initial.follower.left.x) +
@@ -245,28 +227,14 @@ function compile() {
 	      }
 	    }
 
-	    // determine rotation
-	    var angle = shoes[person][foot].rotate % 360;
-	    if (angle < 0) angle += 360;
-	    var sin, cos;
-	    if (angle < 180) {
-	      var radians = angle/180*Math.PI;
-	      sin = Math.sin(radians);
-	      cos = Math.cos(radians);
-	    } else {
-	      var radians = (angle-180)/180*Math.PI;
-	      sin = -Math.sin(radians);
-	      cos = -Math.cos(radians);
-	    }
-
 	    // perform rotation
+	    var angle = shoes[person][foot].rotate;
 	    for (var i=result.length-1; i>0; i--) {
 	      if (typeof(result[i])=="number") {
 		if (typeof(result[i-1])=="number") {
-		  var x = result[i-1]*cos + result[i]*sin;
-		  var y = - result[i]*cos + result[i-1]*sin;
-		  result[i-1] = x;
-		  result[i] = y;
+                  var movement = rotate({x: result[i-1], y: result[i]}, angle);
+		  result[i-1] = movement.x;
+		  result[i] = movement.y;
 		  i--;
 		}
 	      }

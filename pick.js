@@ -1,19 +1,3 @@
-function fetch(dance, file, callback) {
-  var xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var data = xhr.response || JSON.parse(xhr.responseText);
-      callback(data);
-    }
-  }
-
-  xhr.open('GET', 'data/' + dance + '/' + file, true);
-  xhr.setRequestHeader("Accept", "application/json");
-  xhr.responseType = 'json';
-  xhr.send();
-}
-
 var syllabus = {};
 
 fetch('rumba', 'index.json', function(menu) {

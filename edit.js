@@ -168,28 +168,6 @@ function draw(shoe) {
   window.getSelection().removeAllRanges();
 } 
 
-function rotate(input, angle, result) {
-  if (!result) result = {};
-
-  angle = angle % 360;
-  if (angle < 0) angle += 360;
-  var sin, cos;
-  if (angle < 180) {
-    var radians = angle/180*Math.PI;
-    sin = Math.sin(radians);
-    cos = Math.cos(radians);
-  } else {
-    var radians = (angle-180)/180*Math.PI;
-    sin = -Math.sin(radians);
-    cos = -Math.cos(radians);
-  }
-
-  result.x = input.x*cos + input.y*sin;
-  result.y = -input.y*cos + input.x*sin;
-
-  return result;
-}
-
 function move(x, y) {
   var movement = rotate({x: x, y: y}, selected.rotate);
 
