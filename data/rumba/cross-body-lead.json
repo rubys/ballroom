@@ -1,6 +1,10 @@
 [
   {
+    "figure": "Cross Body Lead",
+    "count": 1,
     "time": 2,
+    "text": "slow",
+    "note": "half a box",
     "leader": {
       "left": {
         "path": "l0,100"
@@ -35,6 +39,7 @@
   },
   {
     "time": 1,
+    "text": "quick ...",
     "leader": {
       "right": {
         "path": "c0,90,10,100,100,100"
@@ -69,6 +74,7 @@
   },
   {
     "time": 1,
+    "text": "... quick",
     "leader": {
       "left": {
         "path": "l100,0"
@@ -103,6 +109,8 @@
   },
   {
     "time": 2,
+    "text": "slow",
+    "note": "leader positions follower on left side",
     "leader": {
       "right": {
         "path": "l100,0"
@@ -110,7 +118,7 @@
     },
     "follower": {
       "left": {
-        "path": "l-100,0"
+        "path": "l-50,0"
       }
     },
     "delay": [
@@ -137,14 +145,16 @@
   },
   {
     "time": 1,
+    "text": "quick ...",
+    "note": "small step",
     "leader": {
       "left": {
-        "path": "c90,0,100,10,100,100"
+        "path": "c45,0,50,5,50,50"
       }
     },
     "follower": {
       "right": {
-        "path": "c-90,0,-100,-10,-100,-100"
+        "path": "c-45,0,-50,-5,-50,-50"
       }
     },
     "delay": [
@@ -171,6 +181,8 @@
   },
   {
     "time": 1,
+    "text": "... quick",
+    "note": "leader rocks back / follower rocks forward",
     "delay": [
       {
         "time": -0.25,
@@ -195,9 +207,11 @@
   },
   {
     "time": 2,
+    "text": "slow",
+    "note": "leader steps to the side / follower steps forward",
     "leader": {
       "left": {
-        "path": "l79.558,-230.123",
+        "path": "c0,-150,10,-180,129.558,-180.123",
         "rotate": -150
       },
       "right": {
@@ -206,7 +220,7 @@
     },
     "follower": {
       "right": {
-        "path": "l49.554,226.091"
+        "path": "l-0.446,176.091"
       }
     },
     "delay": [
@@ -233,6 +247,8 @@
   },
   {
     "time": 1,
+    "text": "quick ...",
+    "note": "leader rocks back / follower steps forward",
     "leader": {
       "right": {
         "path": "l30.122,-22.159",
@@ -241,7 +257,7 @@
     },
     "follower": {
       "left": {
-        "path": "l96.011,254.997"
+        "path": "l46.011,254.997"
       }
     },
     "delay": [
@@ -268,6 +284,8 @@
   },
   {
     "time": 1,
+    "text": "... quick",
+    "note": "leader rotates left foot / follower pivots back",
     "leader": {
       "left": {
         "rotate": -30
@@ -278,7 +296,7 @@
         "rotate": -180
       },
       "right": {
-        "path": "l-94.979,251.9",
+        "path": "c150,100,-10,300,-94.979,251.9",
         "rotate": -180
       }
     },
@@ -306,6 +324,8 @@
   },
   {
     "time": 2,
+    "text": "slow",
+    "note": "side",
     "leader": {
       "right": {
         "path": "l143.972,206.154",
@@ -341,14 +361,16 @@
   },
   {
     "time": 1,
+    "text": "quick ...",
+    "note": "leader steps forward / follower steps back",
     "leader": {
       "left": {
-        "path": "l100,100"
+        "path": "c90,0,100,10,100,100"
       }
     },
     "follower": {
       "right": {
-        "path": "l-65,-117"
+        "path": "c-60,0,-65,-10,-65,-117"
       }
     },
     "delay": [
@@ -375,6 +397,8 @@
   },
   {
     "time": 1,
+    "text": "... quick",
+    "note": "leader rocks back / follower rocks forward",
     "delay": [
       {
         "time": -0.25,
@@ -399,38 +423,37 @@
   },
   {
     "time": 2,
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
+    "text": "slow",
+    "note": "leader rocks forward / follower rocks back",
     "leader": {
       "right": {
-        "path": "l100,100"
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
       }
     },
     "follower": {
       "left": {
-        "path": "l-100,-100"
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "side",
+    "leader": {
+      "right": {
+        "path": "c0,90,10,100,100,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c0,-90,-10,-100,-100,-100"
       }
     },
     "delay": [
@@ -457,6 +480,8 @@
   },
   {
     "time": 1,
+    "text": "... quick",
+    "note": "together",
     "leader": {
       "left": {
         "path": "l100,0"
