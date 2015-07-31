@@ -1,13 +1,21 @@
 var aspect = "position";
 var newFigure;
 
+aside.input = {
+  duration: document.getElementById('duration'),
+  text: document.querySelector('input[name=text]'),
+  note: document.querySelector('input[name=note]')
+}
+
 document.getElementById('editmode').addEventListener('click', function() {
 
+  // create a new figure in the syllabus
   var name = document.getElementById('stepname').value;
   name = name || 'New Figure';
   newFigure = [];
   syllabus[dance].figures.push({figure: '-', name: name, steps: newFigure});
 
+  // add it to the routine
   var routine = document.getElementById('routine');
   var index = syllabus[dance].figures.length - 1;
   var li = document.createElement('li');
@@ -17,9 +25,10 @@ document.getElementById('editmode').addEventListener('click', function() {
   li.appendChild(span);
   routine.appendChild(li);
 
-  count = 0;
-  aside.count.textContent = 'count: ' + count;
+  // display count
+  aside.count.textContent = 'count: ' + (count = 0);
 
+  // resize floor
   document.getElementById('edit').style.display = 'block';
   showStage();
   if (scale < 1) {
@@ -30,7 +39,11 @@ document.getElementById('editmode').addEventListener('click', function() {
   }
   resize();
   reset();
+
+  // select first foot
   select(document.querySelector("#follower .right"));
+
+  // eliminate wall
   document.querySelector("#wall").style.display = "none";
 });
 
@@ -396,24 +409,24 @@ window.addEventListener('keydown', function(event) {
     });
     select(selected);
   } else if (event.keyCode == 81) { // q
-    document.getElementById('duration').value = '1';
+    aside.input.duration.value = '1';
   } else if (event.keyCode == 83) { // s
-    document.getElementById('duration').value = '2';
+    aside.input.duration.value = '2';
 
   } else if (event.keyCode == 13) { // enter
 
-    var step = {time: parseFloat(document.getElementById('duration').value)};
+    var step = {time: parseFloat(aside.input.duration.value)};
 
-    var text = document.getElementById('text').value;
+    var text = aside.input.text.value;
     if (text) {
       step.text = text;
-      document.getElementById('text').value = '';
+      aside.input.text.value = '';
     }
 
-    var note = document.getElementById('note').value;
+    var note = aside.input.note.value;
     if (note) {
       step.note = note;
-      document.getElementById('note').value = '';
+      aside.input.note.value = '';
     }
 
     ["leader", "follower"].forEach(function(person) {
