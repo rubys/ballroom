@@ -1,6 +1,25 @@
 var aspect = "position";
+var newFigure;
 
 document.getElementById('editmode').addEventListener('click', function() {
+
+  var name = document.getElementById('stepname').value;
+  name = name || 'New Figure';
+  newFigure = [];
+  syllabus[dance].figures.push({figure: '-', name: name, steps: newFigure});
+
+  var routine = document.getElementById('routine');
+  var index = syllabus[dance].figures.length - 1;
+  var li = document.createElement('li');
+  li.setAttribute('data-index', index);
+  var span = document.createElement('span');
+  span.textContent = syllabus[dance].figures[index].name;
+  li.appendChild(span);
+  routine.appendChild(li);
+
+  count = 1;
+  aside.count.textContent = 'count: ' + count;
+
   document.getElementById('edit').style.display = 'block';
   showStage();
   if (scale < 1) {
@@ -110,6 +129,7 @@ function mouseMove(event) {
   if (!selected || !selected.move || !selected.move.event) {
     if (event.button == 1 || event.buttons == 1) {
       if (!selected) selected = {};
+      if (selected.move && (selected.move.x || selected.move.y)) return;
       selected.move = {event: event, x: 0, y: 0};
       aspect = 'pan';
     } else {
@@ -133,6 +153,11 @@ function mouseMove(event) {
     while (angle > selected.move.rotate + 180) angle -= 360;
     selected.move.rotate = angle;
   } else if (aspect == 'pan') {
+    if (!event.button && !event.buttons) {
+      aspect = 'position';
+      delete selected.move;
+      return;
+    }
     var viewBox = svg.viewBox.baseVal;
     viewBox.x -= (event.clientX-selected.move.event.clientX)*scale;
     viewBox.y -= (event.clientY-selected.move.event.clientY)*scale;
@@ -188,10 +213,16 @@ function moveTo(base, offset) {
 
   if (!selected.move) selected.move = {x: 0, y: 0, rotate: selected.rotate};
 
-  selected.move.x = selected.x - (base.x + movement.x);
-  selected.move.y = selected.y - (base.y - movement.y);
+  selected.move.x = (base.x + movement.x) - selected.x;
+  selected.move.y = (base.y + movement.y) - selected.y;
 
   draw(selected);
+}
+
+function moveToPosition(event) {
+  var forward;
+  if (event.keyCode == 50) { // 2
+  }
 }
 
 function turn(angle) {
@@ -256,6 +287,70 @@ window.addEventListener('keydown', function(event) {
     move(0, -step);
     event.preventDefault();
 
+  } else if (event.keyCode == 49) { // 1
+    if (selected == shoes.follower.right) {
+      if (!event.shiftKey) {
+        select(shoes.leader.left);
+        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: 0});
+      }
+      select(shoes.follower.right);
+      moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: 0});
+    } else if (selected == shoes.follower.left) {
+      if (!event.shiftKey) {
+        select(shoes.leader.right);
+        moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: 0});
+      }
+      select(shoes.follower.left);
+      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: 0});
+    } else if (selected == shoes.leader.left) {
+      if (!event.shiftKey) {
+        select(shoes.follower.right);
+        moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: 0});
+      }
+      select(shoes.leader.left);
+      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: 0});
+    } else if (selected == shoes.leader.right) {
+      if (!event.shiftKey) {
+        select(shoes.follower.left);
+        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: 0});
+      }
+      select(shoes.leader.right);
+      moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: 0});
+    }
+    event.preventDefault();
+
+  } else if (event.keyCode == 50) { // 2
+    if (selected == shoes.follower.right) {
+      if (!event.shiftKey) {
+        select(shoes.leader.left);
+        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
+      }
+      select(shoes.follower.right);
+      moveTo(shoes.follower.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
+    } else if (selected == shoes.follower.left) {
+      if (!event.shiftKey) {
+        select(shoes.leader.right);
+        moveTo(shoes.leader.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
+      }
+      select(shoes.follower.left);
+      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
+    } else if (selected == shoes.leader.left) {
+      if (!event.shiftKey) {
+        select(shoes.follower.right);
+        moveTo(shoes.follower.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
+      }
+      select(shoes.leader.left);
+      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
+    } else if (selected == shoes.leader.right) {
+      if (!event.shiftKey) {
+        select(shoes.follower.left);
+        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
+      }
+      select(shoes.leader.right);
+      moveTo(shoes.leader.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
+    }
+    event.preventDefault();
+
   } else if (event.keyCode == 52) { // 4
     if (selected == shoes.follower.right) {
       if (!event.shiftKey) {
@@ -304,7 +399,7 @@ window.addEventListener('keydown', function(event) {
 
   } else if (event.keyCode == 13) { // enter
 
-    var step = {time: document.getElementById('duration').value};
+    var step = {time: parseFloat(document.getElementById('duration').value)};
 
     var text = document.getElementById('text').value;
     if (text) {
@@ -343,9 +438,10 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    steps.push(step);
-    compile();
-    clock = routine.length;
+    newFigure.push(step);
+
+    aside.count.textContent = 'count: ' + (count+=step.time);
+
     select(selected);
   } else {
     console.log(event.keyCode);
