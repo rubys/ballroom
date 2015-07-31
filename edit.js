@@ -45,6 +45,12 @@ document.getElementById('editmode').addEventListener('click', function() {
 
   // eliminate wall
   document.querySelector("#wall").style.display = "none";
+
+  // chrome workaround
+  setInterval(function() {
+    resize();
+    select(selected);
+  }, 200);
 });
 
 var svg = document.getElementsByTagName('svg')[0];
