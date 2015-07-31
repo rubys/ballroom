@@ -17,7 +17,7 @@ document.getElementById('editmode').addEventListener('click', function() {
   li.appendChild(span);
   routine.appendChild(li);
 
-  count = 1;
+  count = 0;
   aside.count.textContent = 'count: ' + count;
 
   document.getElementById('edit').style.display = 'block';
@@ -244,6 +244,18 @@ for (var i=0; i<targets.length; i++) {
   heel.addEventListener('mousedown', selectHeel);
 }
 
+function selectNextFoot() {
+  if (shoes.follower.right == selected) {
+    select(shoes.leader.left);
+  } else if (shoes.leader.left == selected) {
+    select(shoes.follower.left);
+  } else if (shoes.follower.left == selected) {
+    select(shoes.leader.right);
+  } else {
+    select(shoes.follower.right);
+  }
+}
+
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
@@ -255,16 +267,7 @@ window.addEventListener('keydown', function(event) {
   if (event.metaKey) step = 1;
 
   if (event.keyCode == 32) { // space
-    if (shoes.follower.right == selected) {
-      select(shoes.leader.left);
-    } else if (shoes.leader.left == selected) {
-      select(shoes.follower.left);
-    } else if (shoes.follower.left == selected) {
-      select(shoes.leader.right);
-    } else {
-      select(shoes.follower.right);
-    }
-
+    selectNextFoot();
     event.preventDefault();
   } else if (event.keyCode == 37) { // left
     if (!event.altKey) {
@@ -442,7 +445,8 @@ window.addEventListener('keydown', function(event) {
 
     aside.count.textContent = 'count: ' + (count+=step.time);
 
-    select(selected);
+    selectNextFoot();
+    selectNextFoot();
   } else {
     console.log(event.keyCode);
   }
