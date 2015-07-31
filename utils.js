@@ -32,6 +32,21 @@ function fetch(dance, file, callback) {
   xhr.send();
 }
 
+function post(url, data, callback) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      callback({status: xhr.status, text: xhr.responseText});
+    }
+  }
+
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
+  xhr.responseType = 'text';
+  xhr.send(JSON.stringify(data));
+}
+
 function rotate(input, angle, result) {
   if (!result) result = {};
 

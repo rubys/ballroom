@@ -12,6 +12,7 @@ fetch('rumba', 'index.json', function(definition) {
   }
 
   var routine = document.getElementById('routine');
+  var section = '1';
 
   for (var i=0; i<figures.length; i++) {
     var tr = document.createElement('tr');
@@ -24,22 +25,30 @@ fetch('rumba', 'index.json', function(definition) {
     tr.appendChild(td);
     tbody.appendChild(tr);
 
-    var figure = figures[i].figure;
+    if (figures[i].figure[0] != section) {
+      tr.classList.add('section-break');
+      section = figures[i].figure[0];
+    }
 
-    tr.addEventListener('click', function(event) {
-      var index = event.currentTarget.getAttribute('data-index');
-      var li = document.createElement('li');
-      li.setAttribute('data-index', index);
-      var span = document.createElement('span');
-      span.textContent = figures[index].name;
-      li.appendChild(span);
-      routine.appendChild(li);
-      if (!figures[index].steps) {
-        fetch('rumba', figures[index].file, function(steps) {
-          figures[index].steps = steps;
-        });
-      }
-    });
+
+    if (figures[i].file) {
+      tr.addEventListener('click', function(event) {
+        var index = event.currentTarget.getAttribute('data-index');
+        var li = document.createElement('li');
+        li.setAttribute('data-index', index);
+        var span = document.createElement('span');
+        span.textContent = figures[index].name;
+        li.appendChild(span);
+        routine.appendChild(li);
+        if (!figures[index].steps) {
+          fetch('rumba', figures[index].file, function(steps) {
+            figures[index].steps = steps;
+          });
+        }
+      });
+    } else {
+      tr.classList.add('unavailable');
+    }
   }
 });
 

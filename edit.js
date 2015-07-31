@@ -12,8 +12,8 @@ document.getElementById('editmode').addEventListener('click', function() {
   // create a new figure in the syllabus
   var name = document.getElementById('stepname').value;
   name = name || 'New Figure';
-  newFigure = [];
-  syllabus[dance].figures.push({figure: '-', name: name, steps: newFigure});
+  newFigure = {figure: '-', name: name, steps: []};
+  syllabus[dance].figures.push(newFigure);
 
   // add it to the routine
   var routine = document.getElementById('routine');
@@ -275,6 +275,18 @@ function selectNextFoot() {
   }
 }
 
+function saveFigure() {
+  post('post.cgi', 
+    {dance: dance, figure: newFigure.name, steps: newFigure.steps},
+    function(response) {
+      if (response.status == 200) {
+        console.log("file saved as: " + response.text);
+      } else {
+        console.log(response);
+      }
+    });
+}
+
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
@@ -417,7 +429,12 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 81) { // q
     aside.input.duration.value = '1';
   } else if (event.keyCode == 83) { // s
-    aside.input.duration.value = '2';
+    if (event.ctrlKey) {
+      saveFigure();
+    } else {
+      aside.input.duration.value = '2';
+    }
+    event.preventDefault();
 
   } else if (event.keyCode == 13) { // enter
 
@@ -460,13 +477,13 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    newFigure.push(step);
+    newFigure.steps.push(step);
 
     aside.count.textContent = 'count: ' + (count+=step.time);
 
     selectNextFoot();
     selectNextFoot();
   } else {
-    console.log(event.keyCode);
+    lastKey = event.keyCode;
   }
 });

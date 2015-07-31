@@ -61,6 +61,42 @@
       "figure": "1d",
       "name": "Cross Body Lead",
       "file": "cross-body-lead.json"
+    },
+    {
+      "figure": "2",
+      "name": "Fifth Position Breaks"
+    },
+    {
+      "figure": "2a",
+      "name": "Open Break & Under Arm Turn"
+    },
+    {
+      "figure": "2b",
+      "name": "Second Position Breaks"
+    },
+    {
+      "figure": "2c",
+      "name": "Open Progressive Rocks"
+    },
+    {
+      "figure": "2d",
+      "name": "??? Breaks"
+    },
+    {
+      "figure": "3",
+      "name": "Cuban Walks"
+    },
+    {
+      "figure": "3a",
+      "name": "Open Cuban Walks"
+    },
+    {
+      "figure": "3b",
+      "name": "Underarm Back Pass"
+    },
+    {
+      "figure": "3c",
+      "name": "Parallel Walks"
     }
   ]
 }
