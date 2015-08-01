@@ -199,7 +199,8 @@ function draw(shoe) {
     (shoe.x + shoe.move.x) + ',' + 
     (shoe.y + shoe.move.y) + ')');
   shoe.orientation.parentNode.setAttribute('transform', 'rotate(' + 
-    (shoe.move.rotate || shoe.rotate) + ')');
+    (typeof shoe.move.rotate == 'undefined' ? shoe.rotate : shoe.move.rotate) +
+    ')');
 
   // update aside
   document.getElementById("move").textContent = 

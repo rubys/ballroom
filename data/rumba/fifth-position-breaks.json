@@ -2,6 +2,7 @@
   {
     "time": 2,
     "count": 1,
+    "text": "slow",
     "leader": {
       "left": {
         "path": "l0,100"
@@ -36,210 +37,7 @@
   },
   {
     "time": 1,
-    "leader": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 2,
-    "leader": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 2,
-    "leader": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
+    "text": "quick ...",
     "leader": {
       "right": {
         "path": "c0,90,10,100,100,100"
@@ -274,6 +72,7 @@
   },
   {
     "time": 1,
+    "text": "... quick",
     "leader": {
       "left": {
         "path": "l100,0"
@@ -308,6 +107,400 @@
   },
   {
     "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "l100,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l-100,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c90,-90,95,-105,185,-105",
+        "rotate": -30
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c-90,-90,-95,-105,-185,-105",
+        "rotate": 30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    },
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "left": {
+        "path": "c-40,0,-40,130,-21.112,133.433",
+        "rotate": 30
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c40,0,40,130,21.112,133.433",
+        "rotate": -30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c0,-90,-10,-105,-85,-105",
+        "rotate": 30
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l85,-105",
+        "path": "c0,-90,10,-105,85,-105",
+        "rotate": -30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "follower": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "c40,0,40,130,21.112,133.433",
+        "rotate": -30
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c-40,0,-40,130,-21.112,133.433",
+        "rotate": 30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c0,-90,10,-105,85,-105",
+        "rotate": -30
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c0,-90,-10,-105,-85,-105",
+        "rotate": 30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "left": {
+        "path": "c-40,40,-40,120,28.888,220.035",
+        "rotate": 30
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l71.112,46.83",
+        "rotate": -30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c0,90,10,100,100,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c0,-90,-10,-100,-100,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "path": "l100,0"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l-100,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
     "leader": {
       "right": {
         "path": "l0,-100"
@@ -342,210 +535,7 @@
   },
   {
     "time": 1,
-    "leader": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 2,
-    "leader": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
-    "leader": {
-      "left": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "right": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 2,
-    "leader": {
-      "right": {
-        "path": "l0,-200"
-      }
-    },
-    "follower": {
-      "left": {
-        "path": "l0,200"
-      }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 1,
+    "text": "quick ...",
     "leader": {
       "left": {
         "path": "c0,-90,-10,-100,-100,-100"
@@ -580,6 +570,7 @@
   },
   {
     "time": 1,
+    "text": "... quick",
     "leader": {
       "right": {
         "path": "l-100,0"
