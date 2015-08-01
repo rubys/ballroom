@@ -287,6 +287,58 @@ function saveFigure() {
     });
 }
 
+function footPosition(n, event) {
+  var move = {x: 0, y: 0};
+  if (n==1) move = {x: shoes.gap.legs.x, y: 0, rotate: 0};
+  if (n==2) move = {x: shoes.gap.legs.x + shoes.step, y: 0, rotate: 0};
+  if (n==3) move = {x: 45, y: -55, rotate: 20};
+  if (n==4) move = {x: shoes.gap.legs.x, y: -shoes.step, rotate: 0};
+  if (n==5) move = {x: -5, y: -105, rotate: 30};
+
+  if (n==4 && event.altKey) move.y = -move.y;
+
+  var rmove = {x: -move.x, y: -move.y};
+  if (n==3 || n==5) rmove.y = move.y;
+
+  if (selected == shoes.follower.right) {
+    if (!event.shiftKey) {
+      select(shoes.leader.left);
+      selected.move.rotate = shoes.leader.right.rotate - move.rotate;
+      moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
+    }
+    select(shoes.follower.right);
+    selected.move.rotate = shoes.follower.left.rotate + move.rotate;
+    moveTo(shoes.follower.left, {x: move.x, y: move.y});
+  } else if (selected == shoes.follower.left) {
+    if (!event.shiftKey) {
+      select(shoes.leader.right);
+      selected.move.rotate = shoes.leader.left.rotate + move.rotate;
+      moveTo(shoes.leader.left, {x: move.x, y: move.y});
+    }
+    select(shoes.follower.left);
+    selected.move.rotate = shoes.follower.right.rotate - move.rotate;
+    moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+  } else if (selected == shoes.leader.left) {
+    if (!event.shiftKey) {
+      select(shoes.follower.right);
+      selected.move.rotate = shoes.follower.left.rotate + move.rotate;
+      moveTo(shoes.follower.left, {x: move.x, y: move.y});
+    }
+    select(shoes.leader.left);
+    selected.move.rotate = shoes.leader.right.rotate - move.rotate;
+    moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
+  } else if (selected == shoes.leader.right) {
+    if (!event.shiftKey) {
+      select(shoes.follower.left);
+      selected.move.rotate = shoes.follower.right.rotate - move.rotate;
+      moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+    }
+    select(shoes.leader.right);
+    selected.move.rotate = shoes.leader.left.rotate + move.rotate;
+    moveTo(shoes.leader.left, {x: move.x, y: move.y});
+  }
+}
+
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
@@ -300,6 +352,7 @@ window.addEventListener('keydown', function(event) {
   if (event.keyCode == 32) { // space
     selectNextFoot();
     event.preventDefault();
+
   } else if (event.keyCode == 37) { // left
     if (!event.altKey) {
       move(-step, 0);
@@ -307,9 +360,11 @@ window.addEventListener('keydown', function(event) {
       turn(event.shiftKey ? -5 : -45);
     }
     event.preventDefault();
+
   } else if (event.keyCode == 38) { // up
     move(0, step);
     event.preventDefault();
+
   } else if (event.keyCode == 39) { // right
     if (!event.altKey) {
       move(step, 0);
@@ -317,104 +372,29 @@ window.addEventListener('keydown', function(event) {
       turn(event.shiftKey ? 5 : 45);
     }
     event.preventDefault();
+
   } else if (event.keyCode == 40) { // down
     move(0, -step);
     event.preventDefault();
 
   } else if (event.keyCode == 49) { // 1
-    if (selected == shoes.follower.right) {
-      if (!event.shiftKey) {
-        select(shoes.leader.left);
-        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: 0});
-      }
-      select(shoes.follower.right);
-      moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: 0});
-    } else if (selected == shoes.follower.left) {
-      if (!event.shiftKey) {
-        select(shoes.leader.right);
-        moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: 0});
-      }
-      select(shoes.follower.left);
-      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: 0});
-    } else if (selected == shoes.leader.left) {
-      if (!event.shiftKey) {
-        select(shoes.follower.right);
-        moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: 0});
-      }
-      select(shoes.leader.left);
-      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: 0});
-    } else if (selected == shoes.leader.right) {
-      if (!event.shiftKey) {
-        select(shoes.follower.left);
-        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: 0});
-      }
-      select(shoes.leader.right);
-      moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: 0});
-    }
+    footPosition(1, event);
     event.preventDefault();
 
   } else if (event.keyCode == 50) { // 2
-    if (selected == shoes.follower.right) {
-      if (!event.shiftKey) {
-        select(shoes.leader.left);
-        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
-      }
-      select(shoes.follower.right);
-      moveTo(shoes.follower.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
-    } else if (selected == shoes.follower.left) {
-      if (!event.shiftKey) {
-        select(shoes.leader.right);
-        moveTo(shoes.leader.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
-      }
-      select(shoes.follower.left);
-      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
-    } else if (selected == shoes.leader.left) {
-      if (!event.shiftKey) {
-        select(shoes.follower.right);
-        moveTo(shoes.follower.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
-      }
-      select(shoes.leader.left);
-      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
-    } else if (selected == shoes.leader.right) {
-      if (!event.shiftKey) {
-        select(shoes.follower.left);
-        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x - shoes.step, y: 0});
-      }
-      select(shoes.leader.right);
-      moveTo(shoes.leader.left, {x: shoes.gap.legs.x + shoes.step, y: 0});
-    }
+    footPosition(2, event);
+    event.preventDefault();
+
+  } else if (event.keyCode == 51) { // 3
+    footPosition(3, event);
     event.preventDefault();
 
   } else if (event.keyCode == 52) { // 4
-    if (selected == shoes.follower.right) {
-      if (!event.shiftKey) {
-        select(shoes.leader.left);
-        moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: shoes.step});
-      }
-      select(shoes.follower.right);
-      moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: -shoes.step});
-    } else if (selected == shoes.follower.left) {
-      if (!event.shiftKey) {
-        select(shoes.leader.right);
-        moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: shoes.step});
-      }
-      select(shoes.follower.left);
-      moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: -shoes.step});
-    } else if (selected == shoes.leader.left) {
-      if (!event.shiftKey) {
-        select(shoes.follower.right);
-        moveTo(shoes.follower.left, {x: shoes.gap.legs.x, y: -shoes.step});
-      }
-      select(shoes.leader.left);
-      moveTo(shoes.leader.right, {x: -shoes.gap.legs.x, y: shoes.step});
-    } else if (selected == shoes.leader.right) {
-      if (!event.shiftKey) {
-        select(shoes.follower.left);
-        moveTo(shoes.follower.right, {x: -shoes.gap.legs.x, y: -shoes.step});
-      }
-      select(shoes.leader.right);
-      moveTo(shoes.leader.left, {x: shoes.gap.legs.x, y: shoes.step});
-    }
+    footPosition(4, event);
+    event.preventDefault();
+
+  } else if (event.keyCode == 53) { // 5
+    footPosition(5, event);
     event.preventDefault();
 
   } else if (event.keyCode == 27) { // esc
@@ -426,8 +406,10 @@ window.addEventListener('keydown', function(event) {
       });
     });
     select(selected);
+
   } else if (event.keyCode == 81) { // q
     aside.input.duration.value = '1';
+
   } else if (event.keyCode == 83) { // s
     if (event.ctrlKey) {
       saveFigure();
@@ -483,6 +465,7 @@ window.addEventListener('keydown', function(event) {
 
     selectNextFoot();
     selectNextFoot();
+
   } else {
     lastKey = event.keyCode;
   }
