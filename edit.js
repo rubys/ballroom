@@ -47,7 +47,7 @@ document.getElementById('editmode').addEventListener('click', function() {
   document.querySelector("#wall").style.display = "none";
 
   // chrome workaround
-  setInterval(function() {
+  setTimeout(function() {
     resize();
     select(selected);
   }, 200);
