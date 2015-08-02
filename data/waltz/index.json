@@ -39,7 +39,8 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Left Box Turn"
+      "name": "Left Box Turn",
+      "file": "left-box-turn.json"
     },
     {
       "figure": "1a",
