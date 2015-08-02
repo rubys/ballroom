@@ -246,7 +246,7 @@ function compile() {
 	    shoes[person][foot].x += offset[0];
 	    shoes[person][foot].y += offset[1];
 	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
-	    ops.forward.dest = rpath.slice(1,3).join(',')
+	    ops.forward.dest = {x: rpath[1], y: rpath[2]};
 
             if (floor.minx > rpath[1]) floor.minx = rpath[1];
             if (floor.maxx < rpath[1]) floor.maxx = rpath[1];
@@ -451,8 +451,11 @@ function tic() {
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
           }
-          if (op.dest) {
-            shoes[person][foot].title.textContent = op.dest;
+          if (op.dest && op.dest.x && op.dest.y) {
+            shoes[person][foot].x = op.dest.x;
+            shoes[person][foot].y = op.dest.y;
+            shoes[person][foot].title.textContent = 
+              op.dest.x + ',' + op.dest.y;
           }
           for (var attr in op.position) {
             shoe.position.setAttribute(attr, op.position[attr]);
