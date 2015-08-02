@@ -1,0 +1,89 @@
+{
+  "initial": {
+    "step": 100,
+    "follower": {
+      "color": "#9B111E",
+      "right": {
+        "ball": "down",
+        "heel": "up",
+        "x": -30,
+        "y": -65,
+        "rotate": 180
+      },
+      "left": {
+        "ball": "down",
+        "heel": "down",
+        "x": 50,
+        "y": -65,
+        "rotate": 180
+      }
+    },
+    "leader": {
+      "color": "#000",
+      "left": {
+        "ball": "down",
+        "heel": "up",
+        "x": -50,
+        "y": 65,
+        "rotate": 0
+      },
+      "right": {
+        "ball": "down",
+        "heel": "down",
+        "x": 30,
+        "y": 65,
+        "rotate": 0
+      }
+    }
+  },
+  "figures": [
+    {
+      "figure": "1",
+      "name": "Left Box Turn"
+    },
+    {
+      "figure": "1a",
+      "name": "Forward Change Steps"
+    },
+    {
+      "figure": "1b",
+      "name": "Right Box Turn"
+    },
+    {
+      "figure": "1c",
+      "name": "Cross Lead Box"
+    },
+    {
+      "figure": "2",
+      "name": "Underarm Turn Right"
+    },
+    {
+      "figure": "2a",
+      "name": "Left Side By Side Changes"
+    },
+    {
+      "figure": "2b",
+      "name": "Parallel Right Turns"
+    },
+    {
+      "figure": "2c",
+      "name": "Open Break & Underarm Turn"
+    },
+    {
+      "figure": "3",
+      "name": "Promenade Hesitation"
+    },
+    {
+      "figure": "3a",
+      "name": "Promenade Develop\u00E9"
+    },
+    {
+      "figure": "3b",
+      "name": "Arthur Murray Turn"
+    },
+    {
+      "figure": "3c",
+      "name": "Kathryn Murray Turn"
+    }
+  ]
+}

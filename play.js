@@ -1,5 +1,3 @@
-var dance = 'rumba'
-
 var clock = 0;
 var paused = true;
 var advance = false;
@@ -8,17 +6,18 @@ var direction = +1;
 function showStage() {
   reset();
   compile();
-  document.getElementById('syllabus').style.display="none";
   resize();
 }
 
 function pause() {
+  document.getElementById('syllabus').style.display="none";
   if (routine.length == 0) showStage();
   advance = !paused;
   paused = true;
 }
 
 function play() {
+  document.getElementById('syllabus').style.display="none";
   if (routine.length == 0) showStage();
   if (clock == routine.length) reset();
   paused = false;

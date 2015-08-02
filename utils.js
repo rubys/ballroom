@@ -17,6 +17,8 @@ function merge(destination, source) {
 };
 
 function fetch(dance, file, callback) {
+  if (dance) file = dance + '/' + file;
+
   var xhr = new XMLHttpRequest();
 
   xhr.onreadystatechange = function() {
@@ -26,7 +28,7 @@ function fetch(dance, file, callback) {
     }
   }
 
-  xhr.open('GET', 'data/' + dance + '/' + file, true);
+  xhr.open('GET', 'data/' + file, true);
   xhr.setRequestHeader("Accept", "application/json");
   xhr.responseType = 'json';
   xhr.send();
