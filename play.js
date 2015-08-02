@@ -409,7 +409,16 @@ function tic() {
 //  aside.image.setAttribute('src', step.image);
   }
 
-  if (advance && step.count && (step.leader || step.follower)) {
+  if (step.count && (step.leader || step.follower)) {
+    // process changes to bpm value
+    if (bpm != parseFloat(aside.beats.value)) {
+      clearInterval(timer);
+      compile();
+      timer = setInterval(tic, 60000/bpm/4);
+      step = routine[clock-direction];
+    }
+
+    // process advance
     if (advance == 1) {
       advance = false;
       clock -= direction;
@@ -475,12 +484,6 @@ function tic() {
         }
       }
     }
-  }
-
-  if (bpm != parseFloat(aside.beats.value)) {
-    clearInterval(timer);
-    compile();
-    timer = setInterval(tic, 60000/bpm/4);
   }
 }
 
