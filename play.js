@@ -493,10 +493,23 @@ function resize() {
   view.maxx += 100;
   view.miny -= 100;
   view.maxy += 100;
+
+  var svg = document.getElementsByTagName('svg')[0];
+  if (svg.viewBox.baseVal) {
+    var viewBox = svg.viewBox.baseVal;
+    if (viewBox.x < view.minx) view.minx = viewBox.x;
+    if (viewBox.y < view.miny) view.miny = viewBox.y;
+    if (viewBox.x + viewBox.width > view.maxx) {
+      view.maxx = viewBox.x + viewBox.width ;
+    }
+    if (viewBox.y + viewBox.height > view.maxy) {
+      view.maxy = viewBox.y + viewBox.height;
+    }
+  }
+
   view.width = view.maxx - view.minx;
   view.height = view.maxy - view.miny;
 
-  var svg = document.getElementsByTagName('svg')[0];
   svg.style.display='block';
   aside.width = svg.parentNode.offsetLeft;
 

@@ -43,7 +43,8 @@ document.getElementById('editmode').addEventListener('click', function() {
   // select first foot
   select(document.querySelector("#follower .right"));
 
-  // eliminate wall
+  // eliminate syllabus and wall
+  document.getElementById('syllabus').style.display="none";
   document.querySelector("#wall").style.display = "none";
 
   // chrome workaround
