@@ -131,6 +131,7 @@ function select(event) {
   }
 
   draw(selected);
+  hideNobs();
 }
 
 function deselect(event) {
@@ -294,10 +295,14 @@ for (var i=0; i<targets.length; i++) {
 
 document.getElementById('nob1').addEventListener('mousedown', function(event) {
   nob = {which: 1, event: event};
+  event.preventDefault();
+  event.stopPropagation();
 });
 
 document.getElementById('nob2').addEventListener('mousedown', function(event) {
   nob = {which: 2, event: event};
+  event.preventDefault();
+  event.stopPropagation();
 });
 
 function selectNextFoot() {
@@ -341,6 +346,11 @@ function drawNobs(selected) {
      selected.x + selected.move.x2);
   document.querySelector('#nob2 circle').setAttribute('cy',
      selected.y + selected.move.y2);
+}
+
+function hideNobs() {
+  document.getElementById('nobs').style.display = 'none';
+  nobs = null;
 }
 
 function footPosition(n, event) {
@@ -471,8 +481,7 @@ window.addEventListener('keydown', function(event) {
         if (nobs.style.display == 'none') {
           nobs.style.display = 'inherit';
         } else {
-          nobs.style.display = 'none';
-          nob = null;
+          hideNobs();
         }
       } else {
         var r = Math.sqrt((selected.move.x * selected.move.x) + 
@@ -549,16 +558,16 @@ window.addEventListener('keydown', function(event) {
             var movement = rotate(shoe.move, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
-            if (false) { // shoe.move.x1 || shoe.move.y1) {
+            if ('x1' in shoe.move) {
               var movement1 = rotate({x: shoe.move.x1, y: shoe.move.y1},
                 shoe.rotate);
-              var movement2 = rotate({x: shoe.move.x1, y: shoe.move.y1},
+              var movement2 = rotate({x: shoe.move.x2, y: shoe.move.y2},
                 shoe.rotate);
               step[person][foot].path = "c" + 
-                parseFloat(movement1.x.toFixed(3)) + ','
-                parseFloat(movement1.y.toFixed(3)) + ','
-                parseFloat(movement2.x.toFixed(3)) + ','
-                parseFloat(movement2.y.toFixed(3)) + ','
+                parseFloat(movement1.x.toFixed(3)) + ',' +
+                parseFloat(movement1.y.toFixed(3)) + ',' +
+                parseFloat(movement2.x.toFixed(3)) + ',' +
+                parseFloat(movement2.y.toFixed(3)) + ',' +
                 movement.x + ',' + movement.y;
             } else {
               step[person][foot].path = "l" + movement.x + ',' + movement.y;
