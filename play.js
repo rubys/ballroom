@@ -317,8 +317,10 @@ function reset(state) {
       shoe.title = shoe.node.getElementsByTagName("title")[0];
 
       // position
-      shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
-      shoe.position.parentNode.removeAttribute('transform');
+      var position = shoe.node.getElementsByTagName("animateMotion")[0];
+      shoe.position = position.cloneNode(); // webkit workaround
+      position.parentNode.removeAttribute('transform');
+      position.parentNode.replaceChild(shoe.position, position);
       shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
       shoe.position.setAttribute('dur', '0.01s');
       shoe.position.beginElement();

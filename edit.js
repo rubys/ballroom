@@ -51,7 +51,7 @@ document.getElementById('editmode').addEventListener('click', function() {
   document.getElementById('syllabus').style.display="none";
   document.querySelector("#wall").style.display = "none";
 
-  // chrome workaround
+  // webkit workaround
   setTimeout(function() {
     resize();
     select(selected);
