@@ -462,6 +462,8 @@ window.addEventListener('keydown', function(event) {
       });
     });
     newFigure.steps.push(step);
+    compile();
+    clock = routine.length;
 
     aside.count.textContent = 'count: ' + (count+=step.time);
 
