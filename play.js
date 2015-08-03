@@ -242,6 +242,11 @@ function compile() {
 	      }
 	    }
 
+            // capture initial location
+            if (!reverse.dest) reverse.dest = {};
+	    reverse.dest.x = shoes[person][foot].x;
+	    reverse.dest.y = shoes[person][foot].y;
+
 	    // insert move commands
 	    result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
 	    shoes[person][foot].x += offset[0];
