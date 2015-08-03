@@ -248,11 +248,12 @@ function compile() {
 	    shoes[person][foot].y += offset[1];
 	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
 
-            // capture final state (x, y, rotate)
-            var drotate = ops.forward.dest ? ops.forward.dest.rotate : null;
-	    ops.forward.dest = {x: rpath[1], y: rpath[2]};
-            if (drotate || drotate == 0) ops.forward.dest.rotate = drotate;
+            // capture final destination
+            if (!ops.forward.dest) ops.forward.dest = {};
+	    ops.forward.dest.x = rpath[1];
+            ops.forward.dest.y = rpath[2];
 
+            // update floor dimensions
             if (floor.minx > rpath[1]) floor.minx = rpath[1];
             if (floor.maxx < rpath[1]) floor.maxx = rpath[1];
             if (floor.miny > rpath[2]) floor.miny = rpath[2];
@@ -456,17 +457,6 @@ function tic() {
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
           }
-          if (op.dest) {
-            if ('rotate' in op.dest) {
-              shoe.rotate = op.dest.rotate;
-            }
-            if ('x' in op.dest && 'y' in op.dest) {
-              shoe.x = op.dest.x;
-              shoe.y = op.dest.y;
-            }
-            shoe.title.textContent = shoe.x + ',' + shoe.y + 
-              ' (' + shoe.rotate + ')';
-          }
           for (var attr in op.position) {
             shoe.position.setAttribute(attr, op.position[attr]);
           }
@@ -478,6 +468,18 @@ function tic() {
             shoe.orientation.setAttribute(attr, op.orientation[attr]);
           }
           shoe.orientation.beginElement();
+        }
+
+        if (op.dest) {
+          if ('rotate' in op.dest) {
+            shoe.rotate = op.dest.rotate;
+          }
+          if ('x' in op.dest && 'y' in op.dest) {
+            shoe.x = op.dest.x;
+            shoe.y = op.dest.y;
+          }
+          shoe.title.textContent = shoe.x + ',' + shoe.y + 
+            ' (' + shoe.rotate + ')';
         }
 
         if (op.heel && op.heel.to != shoe.heel.fill) {
