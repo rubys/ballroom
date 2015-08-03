@@ -170,6 +170,7 @@ function compile() {
                op.to -= 360;
             }
 	    shoe.rotate += op.rotate;
+            ops.forward.dest = {rotate: shoe.rotate};
 	  }
 
 	  // construct reverse
@@ -246,7 +247,11 @@ function compile() {
 	    shoes[person][foot].x += offset[0];
 	    shoes[person][foot].y += offset[1];
 	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+
+            // capture final state (x, y, rotate)
+            var drotate = ops.forward.dest ? ops.forward.dest.rotate : null;
 	    ops.forward.dest = {x: rpath[1], y: rpath[2]};
+            if (drotate || drotate == 0) ops.forward.dest.rotate = drotate;
 
             if (floor.minx > rpath[1]) floor.minx = rpath[1];
             if (floor.maxx < rpath[1]) floor.maxx = rpath[1];
@@ -451,11 +456,16 @@ function tic() {
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
           }
-          if (op.dest && op.dest.x && op.dest.y) {
-            shoes[person][foot].x = op.dest.x;
-            shoes[person][foot].y = op.dest.y;
-            shoes[person][foot].title.textContent = 
-              op.dest.x + ',' + op.dest.y;
+          if (op.dest) {
+            if ('rotate' in op.dest) {
+              shoe.rotate = op.dest.rotate;
+            }
+            if ('x' in op.dest && 'y' in op.dest) {
+              shoe.x = op.dest.x;
+              shoe.y = op.dest.y;
+            }
+            shoe.title.textContent = shoe.x + ',' + shoe.y + 
+              ' (' + shoe.rotate + ')';
           }
           for (var attr in op.position) {
             shoe.position.setAttribute(attr, op.position[attr]);
