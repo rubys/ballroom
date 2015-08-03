@@ -3,8 +3,10 @@ var paused = true;
 var advance = false;
 var direction = +1;
 
+var shoes;
+
 function showStage() {
-  reset();
+  reset(syllabus[dance].initial);
   compile();
   resize();
 }
@@ -19,25 +21,28 @@ function pause() {
 function play() {
   document.getElementById('syllabus').style.display="none";
   if (routine.length == 0) showStage();
-  if (clock == routine.length) reset();
+  if (clock == routine.length) {
+    clock = 0;
+    reset(syllabus[dance].initial);
+  }
   paused = false;
   direction = +1;
 }
 
 function next() {
   if (!paused) return;
+  reset(shoes);
   advance = 2;
   direction = +1;
 }
 
 function prev() {
   if (!paused || !clock) return;
+  reset(shoes);
   clock--;
   advance = 2;
   direction = -1;
 }
-
-var shoes;
 
 // "compile" script
 var count = 0;
@@ -298,8 +303,8 @@ function compile() {
 }
 
 // apply initial settings
-function reset() {
-  shoes = clone(syllabus[dance].initial);
+function reset(state) {
+  if (shoes != state) shoes = clone(state);
 
   ["leader", "follower"].forEach(function(person) {
     var node = document.getElementById(person);
@@ -326,22 +331,24 @@ function reset() {
       shoe.orientation.beginElement();
 
       // ball
-      shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
+      if (!shoe.ball || typeof shoe.ball == 'string') {
+        shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
+      }
       shoe.ball.node = shoe.node.querySelector("animate.ball");
       shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
       shoe.ball.node.parentNode.setAttribute("stroke", color);
       shoe.ball.node.beginElement();
 
       // heel
-      shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
+      if (!shoe.heel || typeof shoe.heel == 'string') {
+        shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
+      }
       shoe.heel.node = shoe.node.querySelector("animate.heel");
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
       shoe.heel.node.beginElement();
     });
   });
-
-  clock = 0;
 }
 
 // capture paths

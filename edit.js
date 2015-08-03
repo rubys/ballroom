@@ -38,7 +38,7 @@ document.getElementById('editmode').addEventListener('click', function() {
     floor.maxy /= scale/2;
   }
   resize();
-  reset();
+  reset(syllabus[dance].initial);
 
   // select first foot
   select(document.querySelector("#follower .right"));
