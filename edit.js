@@ -134,7 +134,9 @@ function select(event) {
 }
 
 function deselect(event) {
-  if (selected.move && selected.move.event) delete selected.move['event'];
+  if (selected && selected.move && selected.move.event) {
+    delete selected.move['event'];
+  }
 }
 
 function selectBall(event) {
@@ -211,8 +213,14 @@ function draw(shoe) {
     shoe.move.rotate ? (shoe.move.rotate/5).toFixed()*5 : 0;
 
   // draw path line
-  var line = "M" + shoe.x + ',' + shoe.y + "L" + 
-    (shoe.x + shoe.move.x) + ',' + (shoe.y + shoe.move.y);
+  var line = "M" + shoe.x + ',' + shoe.y + "l" + 
+    shoe.move.x + ',' + shoe.move.y;
+  if (shoe.move.x1 || shoe.move.y1) {
+    line = "M" + shoe.x + ',' + shoe.y + "c" + 
+      shoe.move.x1 + ',' + shoe.move.y1 + ',' +
+      shoe.move.x2 + ',' + shoe.move.y2 + ',' +
+      shoe.move.x + ',' + shoe.move.y;
+  }
   path[shoe.node.parentNode.id].setAttribute('d', line);
 
   window.getSelection().removeAllRanges();
@@ -287,6 +295,25 @@ function saveFigure() {
         console.log(response);
       }
     });
+}
+
+function drawNobs(selected) {
+  document.querySelector('#nob1 path').setAttribute('d',
+    "M" + selected.x + ',' + selected.y + 
+      'l' + selected.move.x1 + ',' + selected.move.y1);
+  document.querySelector('#nob1 circle').setAttribute('cx',
+     selected.x + selected.move.x1);
+  document.querySelector('#nob1 circle').setAttribute('cy',
+     selected.y + selected.move.y1);
+
+  document.querySelector('#nob2 path').setAttribute('d',
+    "M" + (selected.x+selected.move.x) + ',' + (selected.y+selected.move.y) + 
+      'L' + (selected.x+selected.move.x2) + ',' +
+      (selected.y+selected.move.y2));
+  document.querySelector('#nob2 circle').setAttribute('cx',
+     selected.x + selected.move.x2);
+  document.querySelector('#nob2 circle').setAttribute('cy',
+     selected.y + selected.move.y2);
 }
 
 function footPosition(n, event) {
@@ -408,6 +435,22 @@ window.addEventListener('keydown', function(event) {
       });
     });
     select(selected);
+
+  } else if (event.keyCode == 67) { // c
+    if (selected && selected.move && (selected.move.x || selected.move.y)) {
+      var r = Math.sqrt((selected.move.x * selected.move.x) + 
+        (selected.move.y * selected.move.y))/2;
+      var theta = Math.atan2(selected.move.y, selected.move.x);
+      var shift = {x: r*Math.sin(theta+Math.PI/4),
+        y: r*Math.cos(theta+Math.PI/4)};
+      selected.move.x1 = -shift.x;
+      selected.move.y1 = -shift.y;
+      selected.move.x2 = selected.move.x+shift.x;
+      selected.move.y2 = selected.move.y+shift.y;
+      drawNobs(selected);
+      draw(selected);
+      document.getElementById('nobs').setAttribute('visibility', 'visible');
+    }
 
   } else if (event.keyCode == 81) { // q
     aside.input.duration.value = '1';
