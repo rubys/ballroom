@@ -149,6 +149,7 @@ function compile() {
 	["position", "orientation", "ball", "heel"].forEach(function(attr) {
 	  op = ops[attr];
 	  if (!op) return;
+          delete ops[attr];
 
 	  // aliases for raising/lowering
 	  if (op == 'up') {
