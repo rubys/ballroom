@@ -1,6 +1,10 @@
 var aspect = "position";
 var newFigure;
 
+var svg = document.getElementsByTagName('svg')[0];
+var selected = null;
+var nob = null;
+
 aside.input = {
   duration: document.getElementById('duration'),
   text: document.querySelector('input[name=text]'),
@@ -53,10 +57,6 @@ document.getElementById('editmode').addEventListener('click', function() {
     select(selected);
   }, 200);
 });
-
-var svg = document.getElementsByTagName('svg')[0];
-
-var selected = null
 
 function toggle(part) {
   var person = selected.node.parentNode.id;
@@ -135,8 +135,9 @@ function select(event) {
 
 function deselect(event) {
   if (selected && selected.move && selected.move.event) {
-    delete selected.move['event'];
+    delete selected.move.event;
   }
+  if (nob && nob.event) delete nob.event;
 }
 
 function selectBall(event) {
@@ -151,6 +152,14 @@ function mouseMove(event) {
   if (!selected || !selected.move || !selected.move.event) {
     if (event.button == 1 || event.buttons == 1) {
       if (!selected) selected = {};
+
+      if (nob && nob.event) {
+        move((event.clientX-nob.event.clientX)*scale,
+             -(event.clientY-nob.event.clientY)*scale);
+        nob.event = event;
+        return;
+      }
+
       if (selected.move && (selected.move.x || selected.move.y)) return;
       selected.move = {event: event, x: 0, y: 0};
       aspect = 'pan';
@@ -227,12 +236,22 @@ function draw(shoe) {
 } 
 
 function move(x, y) {
-  var movement = rotate({x: x, y: y}, selected.rotate);
-
   if (!selected.move) selected.move = {x: 0, y: 0, rotate: selected.rotate};
 
-  selected.move.x += movement.x;
-  selected.move.y += movement.y;
+  if (nob) {
+    if (nob.which == 1) {
+      selected.move.x1 += x;
+      selected.move.y1 -= y;
+    } else {
+      selected.move.x2 += x;
+      selected.move.y2 -= y;
+    }
+    drawNobs(selected);
+  } else {
+    var movement = rotate({x: x, y: y}, selected.rotate);
+    selected.move.x += movement.x;
+    selected.move.y += movement.y;
+  }
 
   draw(selected);
 }
@@ -272,6 +291,14 @@ for (var i=0; i<targets.length; i++) {
   ball.addEventListener('mousedown', selectBall);
   heel.addEventListener('mousedown', selectHeel);
 }
+
+document.getElementById('nob1').addEventListener('mousedown', function(event) {
+  nob = {which: 1, event: event};
+});
+
+document.getElementById('nob2').addEventListener('mousedown', function(event) {
+  nob = {which: 2, event: event};
+});
 
 function selectNextFoot() {
   if (shoes.follower.right == selected) {
@@ -383,10 +410,10 @@ window.addEventListener('keydown', function(event) {
     event.preventDefault();
 
   } else if (event.keyCode == 37) { // left
-    if (!event.altKey) {
-      move(-step, 0);
-    } else {
+    if (event.altKey) {
       turn(event.shiftKey ? -5 : -45);
+    } else {
+      move(-step, 0);
     }
     event.preventDefault();
 
@@ -395,10 +422,10 @@ window.addEventListener('keydown', function(event) {
     event.preventDefault();
 
   } else if (event.keyCode == 39) { // right
-    if (!event.altKey) {
-      move(step, 0);
-    } else {
+    if (event.altKey) {
       turn(event.shiftKey ? 5 : 45);
+    } else {
+      move(step, 0);
     }
     event.preventDefault();
 
@@ -437,19 +464,30 @@ window.addEventListener('keydown', function(event) {
     select(selected);
 
   } else if (event.keyCode == 67) { // c
+    var nobs = document.getElementById('nobs');
+
     if (selected && selected.move && (selected.move.x || selected.move.y)) {
-      var r = Math.sqrt((selected.move.x * selected.move.x) + 
-        (selected.move.y * selected.move.y))/2;
-      var theta = Math.atan2(selected.move.y, selected.move.x);
-      var shift = {x: r*Math.sin(theta+Math.PI/4),
-        y: r*Math.cos(theta+Math.PI/4)};
-      selected.move.x1 = -shift.x;
-      selected.move.y1 = -shift.y;
-      selected.move.x2 = selected.move.x+shift.x;
-      selected.move.y2 = selected.move.y+shift.y;
-      drawNobs(selected);
-      draw(selected);
-      document.getElementById('nobs').setAttribute('visibility', 'visible');
+      if (selected.move.x1 || selected.move.y1) {
+        if (nobs.style.display == 'none') {
+          nobs.style.display = 'inherit';
+        } else {
+          nobs.style.display = 'none';
+          nob = null;
+        }
+      } else {
+        var r = Math.sqrt((selected.move.x * selected.move.x) + 
+          (selected.move.y * selected.move.y))/2;
+        var theta = Math.atan2(selected.move.y, selected.move.x);
+        var shift = {x: r*Math.sin(theta+Math.PI/4),
+          y: r*Math.cos(theta+Math.PI/4)};
+        selected.move.x1 = -shift.x;
+        selected.move.y1 = -shift.y;
+        selected.move.x2 = selected.move.x+shift.x;
+        selected.move.y2 = selected.move.y+shift.y;
+        drawNobs(selected);
+        draw(selected);
+        nobs.style.display = 'inherit';
+      }
     }
 
   } else if (event.keyCode == 81) { // q
@@ -511,7 +549,20 @@ window.addEventListener('keydown', function(event) {
             var movement = rotate(shoe.move, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
-            step[person][foot].path = "l" + movement.x + ',' + movement.y;
+            if (false) { // shoe.move.x1 || shoe.move.y1) {
+              var movement1 = rotate({x: shoe.move.x1, y: shoe.move.y1},
+                shoe.rotate);
+              var movement2 = rotate({x: shoe.move.x1, y: shoe.move.y1},
+                shoe.rotate);
+              step[person][foot].path = "c" + 
+                parseFloat(movement1.x.toFixed(3)) + ','
+                parseFloat(movement1.y.toFixed(3)) + ','
+                parseFloat(movement2.x.toFixed(3)) + ','
+                parseFloat(movement2.y.toFixed(3)) + ','
+                movement.x + ',' + movement.y;
+            } else {
+              step[person][foot].path = "l" + movement.x + ',' + movement.y;
+            }
             shoe.x += shoe.move.x;
             shoe.y += shoe.move.y;
           }
