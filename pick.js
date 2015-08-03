@@ -38,6 +38,24 @@ function displayMenu() {
     syllabus[dance] = definition;
     var figures = definition.figures;
 
+    // compute gaps
+    var shoes = definition.initial;
+    shoes.gap = {
+      people: {
+        x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
+	    Math.abs(shoes.leader.left.x - shoes.follower.right.x))/2,
+        y: (Math.abs(shoes.leader.right.y - shoes.follower.left.y) +
+	    Math.abs(shoes.leader.left.y - shoes.follower.right.y))/2
+      },
+      legs: {
+        x: (Math.abs(shoes.leader.right.x - shoes.leader.left.x) +
+	    Math.abs(shoes.follower.left.x - shoes.follower.right.x))/2,
+        y: (Math.abs(shoes.leader.right.y - shoes.leader.left.y) +
+	    Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
+      }
+    };
+
+    // find syllabus table
     var tbody = document.getElementsByTagName('tbody')[0];
     if (!tbody) {
       var table = document.getElementsByTagName('table')[0];
@@ -45,6 +63,7 @@ function displayMenu() {
       table.appendChild(tbody);
     }
 
+    // update syllabus table
     while (tbody.hasChildNodes()) tbody.lastChild.remove();
 
     var routine = document.getElementById('routine');
@@ -61,13 +80,16 @@ function displayMenu() {
       tr.appendChild(td);
       tbody.appendChild(tr);
 
+      // add section breaks
       if (figures[i].figure[0] != section) {
         tr.classList.add('section-break');
         section = figures[i].figure[0];
       }
 
       if (figures[i].file) {
+        // make row clickable
         tr.addEventListener('click', function(event) {
+          // update routine
           var index = event.currentTarget.getAttribute('data-index');
           var li = document.createElement('li');
           li.setAttribute('data-index', index);
@@ -75,6 +97,8 @@ function displayMenu() {
           span.textContent = figures[index].name;
           li.appendChild(span);
           routine.appendChild(li);
+
+          // fetch steps
           if (!figures[index].steps) {
             fetch(dance, figures[index].file, function(steps) {
               figures[index].steps = steps;
@@ -82,6 +106,7 @@ function displayMenu() {
           }
         });
       } else {
+        // mark row as unavailable
         tr.classList.add('unavailable');
       }
     }
