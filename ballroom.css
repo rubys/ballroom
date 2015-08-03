@@ -99,3 +99,10 @@ li.active {
 li span {
   color: black;
 }
+
+#debug {
+  margin-left: 250px;
+  margin-top: 0;
+  padding-top: 0.5em;
+  display: none
+}

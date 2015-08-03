@@ -412,9 +412,30 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 81) { // q
     aside.input.duration.value = '1';
 
+  } else if (event.keyCode == 82) { // r
+    if (event.shiftKey && routine) {
+      var debug = document.getElementById('debug'); 
+      var data = JSON.stringify(routine, null, 2);
+      if (debug.style.display == 'block' && debug.textContent == data) {
+        debug.style.display = 'none';
+      } else {
+        debug.textContent = data;
+        debug.style.display = 'block';
+      }
+    }
+
   } else if (event.keyCode == 83) { // s
     if (event.ctrlKey) {
       saveFigure();
+    } else if (event.shiftKey && newFigure) {
+      var debug = document.getElementById('debug'); 
+      var data = JSON.stringify(newFigure.steps, null, 2);
+      if (debug.style.display == 'block' && debug.textContent == data) {
+        debug.style.display = 'none';
+      } else {
+        debug.textContent = data;
+        debug.style.display = 'block';
+      }
     } else {
       aside.input.duration.value = '2';
     }
