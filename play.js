@@ -296,21 +296,6 @@ function compile() {
 function reset() {
   shoes = clone(syllabus[dance].initial);
 
-  shoes.gap = {
-    people: {
-      x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
-	  Math.abs(shoes.leader.left.x - shoes.follower.right.x))/2,
-      y: (Math.abs(shoes.leader.right.y - shoes.follower.left.y) +
-	  Math.abs(shoes.leader.left.y - shoes.follower.right.y))/2
-    },
-    legs: {
-      x: (Math.abs(shoes.leader.right.x - shoes.leader.left.x) +
-	  Math.abs(shoes.follower.left.x - shoes.follower.right.x))/2,
-      y: (Math.abs(shoes.leader.right.y - shoes.leader.left.y) +
-	  Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
-    }
-  };
-
   ["leader", "follower"].forEach(function(person) {
     var node = document.getElementById(person);
     if (!node) return;
