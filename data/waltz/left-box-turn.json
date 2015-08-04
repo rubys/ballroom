@@ -11,10 +11,24 @@
     },
     "delay": [
       {
+        "time": 0,
+        "duration": 0.75,
+        "leader": {
+          "left": {
+            "ball": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "up"
+          }
+        }
+      },
+      {
         "time": -0.25,
         "leader": {
           "left": {
-            "heel": "down"
+            "ball": "down"
           },
           "right": {
             "heel": "up"
@@ -42,58 +56,32 @@
       "left": {
         "path": "c0,-90,-10,-100-100,-100"
       }
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
+    }
   },
   {
     "time": 1,
     "leader": {
-      "left": "together"
-    },
-    "follower": {
-      "right": "together"
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
+      "left": {
+        "position": "h100",
+        "left": {
+          "heel": "down"
         },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
+        "right": {
+          "heel": "down"
         }
       }
-    ]
+    },
+    "follower": {
+      "right": {
+        "position": "v100",
+        "left": {
+          "heel": "down"
+        },
+        "right": {
+          "heel": "down"
+        }
+      }
+    }
   },
   {
     "time": 1,
