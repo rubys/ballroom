@@ -108,7 +108,8 @@ function compile() {
     // bookend listItem (used for reverse)
     if (step.listItem) {
       routine[routine.length-step.time*4].listItem = step.listItem;
-      if (listItem) routine[routine.length-step.time*4-1].listItem = listItem;
+      var prev = routine[routine.length-step.time*4-1];
+      if (listItem && prev) prev.listItem = listItem;
       listItem = step.listItem;
     }
 
@@ -160,7 +161,11 @@ function compile() {
 
 	  ops.forward[attr] = op;
 
-	  if (step.time) op.dur = Math.abs(60/bpm*step.time) + 's';
+	  if (step.time && !step.duration) step.duration = step.time;
+	  if (step.duration) {
+            op.dur = Math.abs(60/bpm*step.time) + 's';
+            delete step.duration;
+          }
 
 	  // apply rotation
 	  if (op.rotate) {
@@ -293,7 +298,7 @@ function compile() {
     if (step.delay) {
       while (step.delay.length) {
         var substep = step.delay.pop();
-        if (substep.time > 0) substep.time -= step.time;
+        if (substep.time >= 0) substep.time -= step.time;
         queue.unshift(substep);
       }
       delete step.delay;

@@ -9,7 +9,7 @@ function merge(destination, source) {
    } else if (typeof source[property] === "object") {
      destination[property] = destination[property] || {};
      merge(destination[property], source[property]);
-   } else {
+   } else if (destination) {
      destination[property] = source[property];
    }
  }
