@@ -167,8 +167,7 @@ function compile() {
 
 	  if (step.time && !step.duration) step.duration = step.time;
 	  if (step.duration) {
-            op.dur = Math.abs(60/bpm*step.time) + 's';
-            delete step.duration;
+            op.dur = Math.abs(60/bpm*step.duration) + 's';
           }
 
 	  // apply rotation
@@ -312,6 +311,7 @@ function compile() {
       delete step.delay;
     }
 
+    if (step.duration) delete step.duration;
     merge(routine[routine.length-step.time*4], step);
   }
 
