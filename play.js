@@ -59,7 +59,7 @@ function compile() {
   if (aside.beats) bpm = parseFloat(aside.beats.value);
   if (aside.bpm) aside.bpm.textContent = bpm;
 
-  var save = shoes;
+  var savedShoes = shoes;
   shoes = clone(syllabus[dance].initial);
   routine.length = 0;
 
@@ -103,8 +103,6 @@ function compile() {
 	ops = {}
       }
     }
-    merge(routine[routine.length-step.time*4], step);
-    step = routine[routine.length-step.time*4];
 
     // start image one 'frame' early
     if (step.image && routine.length > step.time*4) {
@@ -313,9 +311,11 @@ function compile() {
       }
       delete step.delay;
     }
+
+    merge(routine[routine.length-step.time*4], step);
   }
 
-  shoes = save;
+  shoes = savedShoes;
 }
 
 // apply initial settings

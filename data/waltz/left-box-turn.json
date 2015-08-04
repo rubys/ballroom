@@ -76,7 +76,7 @@
     "follower": {
       "right": {
         "position": {
-          "path": "v100"
+          "path": "h-100"
         },
         "left": {
           "heel": "down"

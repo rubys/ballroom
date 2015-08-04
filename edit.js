@@ -196,7 +196,7 @@ function mouseMove(event) {
     selected.move.event = event;
   }
 
-  draw(selected);
+  if (selected) draw(selected);
 }
 
 function draw(shoe) {
@@ -471,7 +471,7 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    select(selected);
+    if (selected) select(selected);
 
   } else if (event.keyCode == 67) { // c
     var nobs = document.getElementById('nobs');
