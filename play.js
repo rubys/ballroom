@@ -191,9 +191,13 @@ function compile() {
 	  if (!last[person][foot].reverse) last[person][foot].reverse = {};
 	  var reverse = last[person][foot].reverse;
 	  reverse[attr] = clone(op); 
-	  if (op.from !== undefined && op.to !== undefined) {
+	  if ('from' in op && 'to' in op) {
 	    reverse[attr].from = op.to;
 	    reverse[attr].to = op.from;
+            if (attr == 'orientation') {
+              if (!('dest' in reverse)) reverse.dest = {}
+              reverse.dest.rotate = op.from;
+            }
 	  }
 
 	  if (op.path) {
