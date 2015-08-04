@@ -121,7 +121,7 @@ function collectSteps() {
     var index = list[i].getAttribute('data-index');
     var length = steps.length;
     var figure = clone(syllabus[dance].figures[index].steps);
-    figure[0].count = 1;
+    if (figure.length && !('count' in figure[0])) figure[0].count = 1;
     steps.push.apply(steps, figure);
     if (steps.length != length) {
       steps[length].listItem = list[i];

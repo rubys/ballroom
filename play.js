@@ -406,6 +406,7 @@ function tic() {
   step = routine[clock];
 
   if (!step) {
+    aside.count.textContent = 'count: ' + (count-1);
     if (aside.text) aside.text.textContent = '';
     if (aside.note) aside.note.textContent = '';
     path.leader.setAttribute('d', 'M0,0');
@@ -425,7 +426,7 @@ function tic() {
   }
 
   if (step.count) {
-    aside.count.textContent = 'count: ' + step.count;
+    aside.count.textContent = 'count: ' + (step.count-1);
   }
 
   if (step.image) {
