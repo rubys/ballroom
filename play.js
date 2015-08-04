@@ -323,20 +323,24 @@ function reset(state) {
 
       // position
       var position = shoe.node.getElementsByTagName("animateMotion")[0];
-      shoe.position = position.cloneNode(); // webkit workaround
-      position.parentNode.removeAttribute('transform');
-      position.parentNode.replaceChild(shoe.position, position);
-      shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
-      shoe.position.setAttribute('dur', '0.01s');
-      shoe.position.beginElement();
+      if (!shoe.position || position.hasAttribute('transform')) {
+        shoe.position = position.cloneNode(); // webkit workaround
+        position.parentNode.removeAttribute('transform');
+        position.parentNode.replaceChild(shoe.position, position);
+        shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
+        shoe.position.setAttribute('dur', '0.01s');
+        shoe.position.beginElement();
+      }
 
       // orientation
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
-      shoe.orientation.parentNode.removeAttribute('transform');
-      shoe.orientation.setAttribute('from', '0');
-      shoe.orientation.setAttribute('to', shoe.rotate);
-      shoe.orientation.setAttribute('dur', '0.01s');
-      shoe.orientation.beginElement();
+      if (!shoe.orientation.hasAttribute('transform')) {
+        shoe.orientation.parentNode.removeAttribute('transform');
+        shoe.orientation.setAttribute('from', '0');
+        shoe.orientation.setAttribute('to', shoe.rotate);
+        shoe.orientation.setAttribute('dur', '0.01s');
+        shoe.orientation.beginElement();
+      }
 
       // ball
       if (!shoe.ball || typeof shoe.ball == 'string') {
@@ -345,7 +349,6 @@ function reset(state) {
       shoe.ball.node = shoe.node.querySelector("animate.ball");
       shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
       shoe.ball.node.parentNode.setAttribute("stroke", color);
-      shoe.ball.node.beginElement();
 
       // heel
       if (!shoe.heel || typeof shoe.heel == 'string') {
@@ -354,7 +357,6 @@ function reset(state) {
       shoe.heel.node = shoe.node.querySelector("animate.heel");
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
-      shoe.heel.node.beginElement();
     });
   });
 }
