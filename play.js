@@ -30,7 +30,13 @@ function play() {
 }
 
 function next() {
-  if (!paused) return;
+  if (clock == routine.length) {
+    clock = 0;
+    reset(syllabus[dance].initial);
+  } else if (!paused) {
+    return;
+  }
+
   reset(shoes);
   advance = 2;
   direction = +1;
