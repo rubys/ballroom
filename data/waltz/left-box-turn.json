@@ -62,7 +62,9 @@
     "time": 1,
     "leader": {
       "left": {
-        "position": "h100",
+        "position": {
+          "path": "h100"
+         },
         "left": {
           "heel": "down"
         },
@@ -73,7 +75,9 @@
     },
     "follower": {
       "right": {
-        "position": "v100",
+        "position": {
+          "path": "v100"
+        },
         "left": {
           "heel": "down"
         },
