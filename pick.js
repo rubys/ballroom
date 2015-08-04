@@ -120,7 +120,9 @@ function collectSteps() {
   for (var i=0; i<list.length; i++) {
     var index = list[i].getAttribute('data-index');
     var length = steps.length;
-    steps.push.apply(steps, clone(syllabus[dance].figures[index].steps));
+    var figure = clone(syllabus[dance].figures[index].steps);
+    figure[0].count = 1;
+    steps.push.apply(steps, figure);
     if (steps.length != length) {
       steps[length].listItem = list[i];
       steps[steps.length-1].listItem = list[i];
