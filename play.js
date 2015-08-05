@@ -149,7 +149,14 @@ function compile() {
 	}
 
 	ops.forward = {};
+	if (step.time && !step.duration) step.duration = step.time;
+
 	if (!ops.reverse) ops.reverse = {};
+	var last = routine[routine.length-1 - (step.time-step.duration)*4];
+	if (!last[person]) last[person] = {};
+	if (!last[person][foot]) last[person][foot] = {};
+	if (!last[person][foot].reverse) last[person][foot].reverse = {};
+	var reverse = last[person][foot].reverse;
 
 	["position", "orientation", "ball", "heel"].forEach(function(attr) {
 	  op = ops[attr];
@@ -165,7 +172,6 @@ function compile() {
 
 	  ops.forward[attr] = op;
 
-	  if (step.time && !step.duration) step.duration = step.time;
 	  if (step.duration) {
             op.dur = Math.abs(60/bpm*step.duration) + 's';
           }
@@ -188,11 +194,6 @@ function compile() {
 	  }
 
 	  // construct reverse
-	  var last = routine[routine.length-1];
-	  if (!last[person]) last[person] = {};
-	  if (!last[person][foot]) last[person][foot] = {};
-	  if (!last[person][foot].reverse) last[person][foot].reverse = {};
-	  var reverse = last[person][foot].reverse;
 	  reverse[attr] = clone(op); 
 	  if ('from' in op && 'to' in op) {
 	    reverse[attr].from = op.to;
