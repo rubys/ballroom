@@ -1,6 +1,10 @@
 {
   "initial": {
-    "step": 100,
+    "step": {
+       "forward": 100,
+       "side": 150
+    },
+
     "follower": {
       "color": "#9B111E",
       "right": {
@@ -26,6 +30,7 @@
         }
       }
     },
+
     "leader": {
       "color": "#000",
       "left": {

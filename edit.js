@@ -350,9 +350,9 @@ function hideNobs() {
 function moveToPosition(n, event) {
   var move = {x: 0, y: 0};
   if (n==1) move = {x: shoes.gap.legs.x, y: 0, rotate: 0};
-  if (n==2) move = {x: shoes.gap.legs.x + shoes.step, y: 0, rotate: 0};
+  if (n==2) move = {x: shoes.gap.legs.x + shoes.step.side, y: 0, rotate: 0};
   if (n==3) move = {x: 45, y: -55, rotate: 20};
-  if (n==4) move = {x: shoes.gap.legs.x, y: -shoes.step, rotate: 0};
+  if (n==4) move = {x: shoes.gap.legs.x, y: -shoes.step.forward, rotate: 0};
   if (n==5) move = {x: -5, y: -105, rotate: 30};
 
   if (n==4 && event.altKey) move.y = -move.y;
