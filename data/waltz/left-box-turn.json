@@ -64,13 +64,11 @@
       "left": {
         "position": {
           "path": "h100"
-         },
-        "left": {
-          "heel": "down"
         },
-        "right": {
-          "heel": "down"
-        }
+        "heel": "down"
+      },
+      "right": {
+        "heel": "down"
       }
     },
     "follower": {
@@ -78,12 +76,10 @@
         "position": {
           "path": "h-100"
         },
-        "left": {
-          "heel": "down"
-        },
-        "right": {
-          "heel": "down"
-        }
+        "heel": "down"
+      },
+      "left": {
+        "heel": "down"
       }
     }
   },
