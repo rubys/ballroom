@@ -6,7 +6,7 @@
       "right": {
         "ball": "down",
         "heel": "down",
-        "x": -15,
+        "x": 15,
         "y": -65,
         "rotate": 180,
         "path": {
@@ -17,7 +17,7 @@
       "left": {
         "ball": "down",
         "heel": "down",
-        "x": 35,
+        "x": 65,
         "y": -65,
         "rotate": 180,
         "path": {
@@ -31,7 +31,7 @@
       "left": {
         "ball": "down",
         "heel": "down",
-        "x": -35,
+        "x": -65,
         "y": 65,
         "rotate": 0,
         "path": {
@@ -42,7 +42,7 @@
       "right": {
         "ball": "down",
         "heel": "down",
-        "x": 15,
+        "x": -15,
         "y": 65,
         "rotate": 0,
         "path": {
@@ -61,7 +61,8 @@
     },
     {
       "figure": "1a",
-      "name": "Forward Change Steps"
+      "name": "Forward Change Steps",
+      "file": "forward-change-steps.json"
     },
     {
       "figure": "1b",
