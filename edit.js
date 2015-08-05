@@ -268,12 +268,6 @@ function moveTo(base, offset) {
   draw(selected);
 }
 
-function moveToPosition(event) {
-  var forward;
-  if (event.keyCode == 50) { // 2
-  }
-}
-
 function turn(angle) {
   selected.move.rotate = 
     ((selected.move.rotate + angle)/angle).toFixed() * angle;
@@ -353,7 +347,7 @@ function hideNobs() {
   nobs = null;
 }
 
-function footPosition(n, event) {
+function moveToPosition(n, event) {
   var move = {x: 0, y: 0};
   if (n==1) move = {x: shoes.gap.legs.x, y: 0, rotate: 0};
   if (n==2) move = {x: shoes.gap.legs.x + shoes.step, y: 0, rotate: 0};
@@ -366,6 +360,8 @@ function footPosition(n, event) {
   var rmove = {x: -move.x, y: -move.y};
   if (n==3 || n==5) rmove.y = move.y;
 
+  var match = (n==2 || n==4) && (selected.rotate != selected.move.rotate);
+
   if (selected == shoes.follower.right) {
     if (!event.shiftKey) {
       select(shoes.leader.left);
@@ -375,6 +371,7 @@ function footPosition(n, event) {
     select(shoes.follower.right);
     selected.move.rotate = shoes.follower.left.rotate + move.rotate;
     moveTo(shoes.follower.left, {x: move.x, y: move.y});
+
   } else if (selected == shoes.follower.left) {
     if (!event.shiftKey) {
       select(shoes.leader.right);
@@ -384,24 +381,58 @@ function footPosition(n, event) {
     select(shoes.follower.left);
     selected.move.rotate = shoes.follower.right.rotate - move.rotate;
     moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+
   } else if (selected == shoes.leader.left) {
+    if (!match) selected.move.rotate = shoes.leader.right.rotate - move.rotate;
+    moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
+
     if (!event.shiftKey) {
       select(shoes.follower.right);
-      selected.move.rotate = shoes.follower.left.rotate + move.rotate;
-      moveTo(shoes.follower.left, {x: move.x, y: move.y});
+      if (match) {
+        selected.move.rotate = shoes.leader.left.move.rotate + 180;
+        while (selected.move.rotate - selected.rotate >= 180) {
+          selected.move.rotate -= 360;
+        }
+        while (selected.rotate - selected.move.rotate > 180) {
+          selected.move.rotate += 360;
+        }
+        moveTo({x: shoes.leader.left.x + shoes.leader.left.move.x,
+          y: shoes.leader.left.y + shoes.leader.left.move.y,
+          rotate: shoes.leader.left.move.rotate},
+          shoes.gap.people);
+      } else {
+        selected.move.rotate = shoes.follower.left.rotate + move.rotate;
+        moveTo(shoes.follower.left, {x: move.x, y: move.y});
+      }
     }
+
     select(shoes.leader.left);
-    selected.move.rotate = shoes.leader.right.rotate - move.rotate;
-    moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
+
   } else if (selected == shoes.leader.right) {
+    if (!match) selected.move.rotate = shoes.leader.left.rotate + move.rotate;
+    moveTo(shoes.leader.left, {x: move.x, y: move.y});
+
     if (!event.shiftKey) {
       select(shoes.follower.left);
-      selected.move.rotate = shoes.follower.right.rotate - move.rotate;
-      moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+      if (match) {
+        selected.move.rotate = shoes.leader.right.move.rotate + 180;
+        while (selected.move.rotate - selected.rotate >= 180) {
+          selected.move.rotate -= 360;
+        }
+        while (selected.rotate - selected.move.rotate > 180) {
+          selected.move.rotate += 360;
+        }
+        moveTo({x: shoes.leader.right.x + shoes.leader.right.move.x,
+          y: shoes.leader.right.y + shoes.leader.right.move.y,
+          rotate: shoes.leader.right.move.rotate},
+          shoes.gap.people);
+      } else {
+        selected.move.rotate = shoes.follower.right.rotate - move.rotate;
+        moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+      }
     }
+
     select(shoes.leader.right);
-    selected.move.rotate = shoes.leader.left.rotate + move.rotate;
-    moveTo(shoes.leader.left, {x: move.x, y: move.y});
   }
 }
 
@@ -444,23 +475,23 @@ window.addEventListener('keydown', function(event) {
     event.preventDefault();
 
   } else if (event.keyCode == 49) { // 1
-    footPosition(1, event);
+    moveToPosition(1, event);
     event.preventDefault();
 
   } else if (event.keyCode == 50) { // 2
-    footPosition(2, event);
+    moveToPosition(2, event);
     event.preventDefault();
 
   } else if (event.keyCode == 51) { // 3
-    footPosition(3, event);
+    moveToPosition(3, event);
     event.preventDefault();
 
   } else if (event.keyCode == 52) { // 4
-    footPosition(4, event);
+    moveToPosition(4, event);
     event.preventDefault();
 
   } else if (event.keyCode == 53) { // 5
-    footPosition(5, event);
+    moveToPosition(5, event);
     event.preventDefault();
 
   } else if (event.keyCode == 27) { // esc
