@@ -56,7 +56,22 @@
       "left": {
         "path": "c0,-90,-10,-100-100,-100"
       }
-    }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
   },
   {
     "time": 1,
@@ -64,13 +79,11 @@
       "left": {
         "position": {
           "path": "h100"
-         },
-        "left": {
-          "heel": "down"
         },
-        "right": {
-          "heel": "down"
-        }
+        "heel": "down"
+      },
+      "right": {
+        "heel": "down"
       }
     },
     "follower": {
@@ -78,12 +91,10 @@
         "position": {
           "path": "h-100"
         },
-        "left": {
-          "heel": "down"
-        },
-        "right": {
-          "heel": "down"
-        }
+        "heel": "down"
+      },
+      "left": {
+        "heel": "down"
       }
     }
   },
@@ -97,21 +108,35 @@
     },
     "delay": [
       {
+        "time": 0,
+        "duration": 0.75,
+        "follower": {
+          "left": {
+            "ball": "up"
+          }
+        },
+        "leader": {
+          "right": {
+            "heel": "up"
+          }
+        }
+      },
+      {
         "time": -0.25,
+        "follower": {
+          "left": {
+            "ball": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
         "leader": {
           "right": {
             "heel": "down"
           },
           "left": {
             "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "up"
-          },
-          "left": {
-            "heel": "down"
           }
         }
       }
@@ -133,17 +158,11 @@
       {
         "time": -0.25,
         "leader": {
-          "left": {
-            "heel": "down"
-          },
           "right": {
             "heel": "up"
           }
         },
         "follower": {
-          "right": {
-            "heel": "down"
-          },
           "left": {
             "heel": "up"
           }
@@ -154,31 +173,26 @@
   {
     "time": 1,
     "leader": {
-      "right": "together"
+      "right": {
+        "position": {
+          "path": "h-100"
+        },
+        "heel": "down"
+      },
+      "left": {
+        "heel": "down"
+      }
     },
     "follower": {
-      "left": "together"
-    },
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
+      "left": {
+        "position": {
+          "path": "h100"
         },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
+        "heel": "down"
+      },
+      "right": {
+        "heel": "down"
       }
-    ]
+    }
   }
 ]
