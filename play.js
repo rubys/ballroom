@@ -357,6 +357,7 @@ function reset(state) {
         shoe.ball = {fill: (shoe.ball == 'down') ? color : '#FFF'};
       }
       shoe.ball.node = shoe.node.querySelector("animate.ball");
+      shoe.ball.node.parentNode.setAttribute("d", shoe.path.ball);
       shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
       shoe.ball.node.parentNode.setAttribute("stroke", color);
 
@@ -365,6 +366,7 @@ function reset(state) {
         shoe.heel = {fill: (shoe.heel == 'down') ? color : '#FFF'};
       }
       shoe.heel.node = shoe.node.querySelector("animate.heel");
+      shoe.heel.node.parentNode.setAttribute("d", shoe.path.heel);
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
     });
