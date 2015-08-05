@@ -4,10 +4,14 @@
     "count": 1,
     "time": 1,
     "leader": {
-      "left": "forward"
+      "left": {
+        "path": "c-0.595,61.481,0.468,106.598,40,110"
+      }
     },
     "follower": {
-      "right": "back"
+      "right": {
+        "path": "l0,-100"
+      }
     },
     "delay": [
       {
@@ -49,12 +53,14 @@
     "time": 1,
     "leader": {
       "right": {
-        "path": "c0,90,10,100,100,100"
+        "path": "l190,110",
+        "rotate": -45
       }
     },
     "follower": {
       "left": {
-        "path": "c0,-90,-10,-100-100,-100"
+        "path": "l-74.645,-128.492",
+        "rotate": -45
       }
     },
     "delay": [
@@ -77,9 +83,8 @@
     "time": 1,
     "leader": {
       "left": {
-        "position": {
-          "path": "h100"
-        },
+        "path": "l164.645,-35.355",
+        "rotate": -45,
         "heel": "down"
       },
       "right": {
@@ -88,9 +93,8 @@
     },
     "follower": {
       "right": {
-        "position": {
-          "path": "h-100"
-        },
+        "path": "l-89.289,6.863",
+        "rotate": -45,
         "heel": "down"
       },
       "left": {
@@ -101,10 +105,16 @@
   {
     "time": 1,
     "leader": {
-      "right": "forward"
+      "right": {
+        "path": "l100,100",
+        "rotate": 45
+      }
     },
     "follower": {
-      "left": "back"
+      "left": {
+        "path": "l-100,-100",
+        "rotate": 45
+      }
     },
     "delay": [
       {
@@ -146,12 +156,14 @@
     "time": 1,
     "leader": {
       "left": {
-        "path": "c0,90,-10,100,-100,100"
+        "path": "l8.579,241.421",
+        "rotate": 45
       }
     },
     "follower": {
       "right": {
-        "path": "c0,-90,10,-100,100,-100"
+        "path": "l-77.071,-146.777",
+        "rotate": 45
       }
     },
     "delay": [
@@ -174,9 +186,7 @@
     "time": 1,
     "leader": {
       "right": {
-        "position": {
-          "path": "h-100"
-        },
+        "path": "l-150,0",
         "heel": "down"
       },
       "left": {
@@ -185,9 +195,7 @@
     },
     "follower": {
       "left": {
-        "position": {
-          "path": "h100"
-        },
+        "path": "l34.645,18.492",
         "heel": "down"
       },
       "right": {

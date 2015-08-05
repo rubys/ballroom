@@ -95,11 +95,12 @@ function select(event) {
     shoe = event.currentTarget;
   }
 
+  nob = null;
   selected = shoes[shoe.parentNode.id][shoe.classList[0]];
-  if (!selected.move) selected.move = {};
-  if (!selected.move.x) selected.move.x = 0;
-  if (!selected.move.y) selected.move.y = 0;
-  if (!selected.move.rotate) selected.move.rotate = selected.rotate;
+  if (!('move' in selected)) selected.move = {};
+  if (!('x' in selected.move)) selected.move.x = 0;
+  if (!('y' in selected.move)) selected.move.y = 0;
+  if (!('rotate' in selected.move)) selected.move.rotate = selected.rotate;
 
   if (event.clientX) {
     selected.move.event = event;
@@ -324,6 +325,8 @@ function saveFigure() {
 }
 
 function drawNobs(selected) {
+  if (!selected.move || !('x1' in selected.move)) return;
+
   document.querySelector('#nob1 path').setAttribute('d',
     "M" + selected.x + ',' + selected.y + 
       'l' + selected.move.x1 + ',' + selected.move.y1);
