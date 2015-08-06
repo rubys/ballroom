@@ -334,7 +334,7 @@ function reset(state) {
 
       // position
       var position = shoe.node.getElementsByTagName("animateMotion")[0];
-      if (!shoe.position || position.hasAttribute('transform')) {
+      if (!shoe.position || position.parentNode.hasAttribute('transform')) {
         shoe.position = position.cloneNode(); // webkit workaround
         position.parentNode.removeAttribute('transform');
         position.parentNode.replaceChild(shoe.position, position);
@@ -344,10 +344,13 @@ function reset(state) {
       }
 
       // orientation
-      shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
-      if (!shoe.orientation.hasAttribute('transform')) {
+      var orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
+      if (!shoe.orientation||orientation.parentNode.hasAttribute('transform')) {
+        shoe.orientation = orientation.cloneNode(); // webkit workaround
+        orientation.parentNode.removeAttribute('transform');
+        orientation.parentNode.replaceChild(shoe.orientation, orientation);
         shoe.orientation.parentNode.removeAttribute('transform');
-        shoe.orientation.setAttribute('from', '0');
+        shoe.orientation.setAttribute('from', shoe.rotate);
         shoe.orientation.setAttribute('to', shoe.rotate);
         shoe.orientation.setAttribute('dur', '0.01s');
         shoe.orientation.beginElement();
