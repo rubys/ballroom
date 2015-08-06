@@ -18,8 +18,8 @@ process.stdin.on('end', function() {
   if (!request.dance || !request.figure || !request.steps) return;
   var fileName = 'data/' + toFileName(request.dance) + '/' +
     toFileName(request.figure) + '.json';
-  fs.writeFile(fileName, JSON.stringify(request.steps, null, 2));
-  process.stdout.write("Content-type: text/plan\r\n\r\n" + fileName);
+  if (fs.existsSync(fileName)) fs.unlinkSync(fileName);
+  fs.writeFileSync(fileName, JSON.stringify(request.steps, null, 2) + "\n");
 
   var indexName = 'data/' + toFileName(request.dance) + '/index.json';
   var index = JSON.parse(fs.readFileSync(indexName, 'utf8'));
@@ -32,6 +32,9 @@ process.stdin.on('end', function() {
   if (i >= index.figures.length) {
     index.figures.push({name: request.figure, file: fileName});
   }
-  fs.writeFile(indexName, JSON.stringify(index, null, 2).
-    replace(/(\n\s{0,4}\},)/g, "$1\n"));
+  fs.unlinkSync(indexName);
+  fs.writeFileSync(indexName, JSON.stringify(index, null, 2).
+    replace(/(\n\s{0,4}\},)/g, "$1\n") + "\n");
+
+  process.stdout.write("Content-type: text/plan\r\n\r\n" + fileName);
 });
