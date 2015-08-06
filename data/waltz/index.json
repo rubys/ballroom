@@ -1,8 +1,8 @@
 {
   "initial": {
     "step": {
-       "forward": 100,
-       "side": 150
+      "forward": 100,
+      "side": 150
     },
 
     "follower": {
@@ -64,47 +64,59 @@
       "name": "Left Box Turn",
       "file": "left-box-turn.json"
     },
+
     {
       "figure": "1a",
       "name": "Forward Change Steps",
       "file": "forward-change-steps.json"
     },
+
     {
       "figure": "1b",
-      "name": "Right Box Turn"
+      "name": "Right Box Turn",
+      "file": "right-box-turn.json"
     },
+
     {
       "figure": "1c",
       "name": "Cross Lead Box"
     },
+
     {
       "figure": "2",
       "name": "Underarm Turn Right"
     },
+
     {
       "figure": "2a",
       "name": "Left Side By Side Changes"
     },
+
     {
       "figure": "2b",
       "name": "Parallel Right Turns"
     },
+
     {
       "figure": "2c",
       "name": "Open Break & Underarm Turn"
     },
+
     {
       "figure": "3",
       "name": "Promenade Hesitation"
     },
+
     {
       "figure": "3a",
-      "name": "Promenade Develop\u00E9"
+      "name": "Promenade Develop\u00e9"
     },
+
     {
       "figure": "3b",
       "name": "Arthur Murray Turn"
     },
+
     {
       "figure": "3c",
       "name": "Kathryn Murray Turn"
