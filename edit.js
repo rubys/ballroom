@@ -363,7 +363,7 @@ function moveToPosition(n, event) {
   var rmove = {x: -move.x, y: -move.y};
   if (n==3 || n==5) rmove.y = move.y;
 
-  var match = (n==2 || n==4) && (selected.rotate != selected.move.rotate);
+  var match = (n != 3 && n != 5) && (selected.rotate != selected.move.rotate);
 
   if (selected == shoes.follower.right) {
     if (!event.shiftKey) {
