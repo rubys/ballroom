@@ -1,8 +1,8 @@
 {
   "initial": {
     "step": {
-       "forward": 100,
-       "side": 150
+      "forward": 100,
+      "side": 150
     },
 
     "follower": {
@@ -64,60 +64,73 @@
       "name": "Rumba Box",
       "file": "rumba-box.json"
     },
+
     {
       "figure": "1a",
       "name": "Underarm Turn",
       "file": "underarm-turn.json"
     },
+
     {
       "figure": "1b",
       "name": "Quick Chasses",
       "file": "quick-chasses.json"
     },
+
     {
       "figure": "1c",
       "name": "Cross Lead Box",
       "file": "cross-lead-box.json"
     },
+
     {
       "figure": "1d",
       "name": "Cross Body Lead",
       "file": "cross-body-lead.json"
     },
+
     {
       "figure": "2",
       "name": "Fifth Position Breaks",
       "file": "fifth-position-breaks.json"
     },
+
     {
       "figure": "2a",
       "name": "Open Break & Under Arm Turn"
     },
+
     {
       "figure": "2b",
       "name": "Second Position Breaks"
     },
+
     {
       "figure": "2c",
       "name": "Open Progressive Rocks"
     },
+
     {
       "figure": "2d",
       "name": "??? Breaks"
     },
+
     {
       "figure": "3",
       "name": "Cuban Walks",
       "file": "cuban-walks.json"
     },
+
     {
       "figure": "3a",
       "name": "Open Cuban Walks"
     },
+
     {
       "figure": "3b",
       "name": "Underarm Back Pass"
     },
+
     {
       "figure": "3c",
       "name": "Parallel Walks"

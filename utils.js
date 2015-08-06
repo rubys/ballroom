@@ -30,6 +30,8 @@ function fetch(dance, file, callback) {
 
   xhr.open('GET', 'data/' + file, true);
   xhr.setRequestHeader("Accept", "application/json");
+  xhr.setRequestHeader("pragma", "no-cache");
+  xhr.setRequestHeader("cache-control", "no-store, must-revalidate, private");
   xhr.responseType = 'json';
   xhr.send();
 }
