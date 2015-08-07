@@ -108,6 +108,12 @@ function displayMenu() {
       } else {
         // mark row as unavailable
         tr.classList.add('unavailable');
+
+        tr.addEventListener('click', function(event) {
+          // prefill stepname
+          var index = event.currentTarget.getAttribute('data-index');
+          document.getElementById('stepname').value = figures[index].name;
+        });
       }
     }
   });
