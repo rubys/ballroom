@@ -61,190 +61,167 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Left Box Turn",
-      "file": "left-box-turn.json"
+      "name": "Magic Step Forward"
     },
 
     {
       "figure": "1a",
-      "name": "Forward Change Steps",
-      "file": "forward-change-steps.json"
+      "name": "Swing Step"
     },
 
     {
       "figure": "1b",
-      "name": "Right Box Turn",
-      "file": "right-box-turn.json"
+      "name": "Left Box Turn"
     },
 
     {
       "figure": "1c",
-      "name": "Cross Lead Box"
+      "name": "Forward Change Steps"
     },
 
     {
       "figure": "2",
-      "name": "Underarm Turn Right"
+      "name": "Magic Left Turn"
     },
 
     {
       "figure": "2a",
-      "name": "Left Side By Side Changes"
+      "name": "Left Rock Ending"
     },
 
     {
       "figure": "2b",
-      "name": "Parallel Right Turns"
+      "name": "Magic Right Turn"
     },
 
     {
       "figure": "2c",
-      "name": "Open Break & Underarm Turn"
+      "name": "Right Rock Ending"
     },
 
     {
       "figure": "3",
-      "name": "Promenade Hesitation"
+      "name": "Promenade Walk"
     },
 
     {
       "figure": "3a",
-      "name": "Promenade Develop\u00e9"
+      "name": "Promenade Outside Underarm Turn"
     },
 
     {
       "figure": "3b",
-      "name": "Arthur Murray Turn"
-    },
-
-    {
-      "figure": "3c",
-      "name": "Kathryn Murray Turn"
+      "name": "Promenade Check"
     },
 
     {
       "figure": "4",
-      "name": "Basic Twinkle"
+      "name": "Junior Walk"
     },
 
     {
       "figure": "4a",
-      "name": "Left and Right Twinkle"
+      "name": "Senior Walk"
     },
 
     {
-      "figure": "4b",
-      "name": "Balance Steps"
-    },
-
-    {
-      "figure": "4c",
-      "name": "Cross Over"
+      "figure": "4a",
+      "name": "Swing and Underarm Turn"
     },
 
     {
       "figure": "5",
-      "name": "Change Turns"
+      "name": "Grapevine"
     },
 
     {
       "figure": "5a",
-      "name": "Quarter Turns"
+      "name": "Grapevine Outside Turn"
     },
 
     {
       "figure": "5b",
-      "name": "Two Way Turn"
-    },
-
-    {
-      "figure": "5b",
-      "name": "Parallel Changes"
+      "name": "Grapevine Inside Turn"
     },
 
     {
       "figure": "6",
-      "name": "Streamline"
+      "name": "Brush Twinkle"
     },
 
     {
       "figure": "6a",
-      "name": "Run & Back Twinkle"
+      "name": "Progressive Twinkle"
     },
 
     {
       "figure": "6b",
-      "name": "Run & Left Back Twinkle"
-    },
-
-    {
-      "figure": "6c",
-      "name": "Outside Change"
+      "name": "Back Twinkle"
     },
 
     {
       "figure": "7",
-      "name": "Spiral"
+      "name": "Passing Twinkle"
     },
 
     {
       "figure": "7a",
-      "name": "Spiral Turn"
+      "name": "Fallaway Ending"
     },
 
     {
       "figure": "7b",
-      "name": "Spiral Turn & Develop\u00e9"
-    },
-
-    {
-      "figure": "7b",
-      "name": "Inverted Spiral Turn"
+      "name": "Parallel Twinkle"
     },
 
     {
       "figure": "8",
-      "name": "Pivot"
-    },
-
-    {
-      "figure": "8",
-      "name": "Run to Pivot"
+      "name": "Corkscrew"
     },
 
     {
       "figure": "8a",
-      "name": "Natural Spin Turn"
+      "name": "Wing"
+    },
+
+    {
+      "figure": "8b",
+      "name": "Open Wing"
     },
 
     {
       "figure": "9",
-      "name": "Promenade Chasse"
+      "name": "Curved Run"
     },
 
     {
-      "figure": "9a",
-      "name": "Chasse & Wing"
+      "figure": "9",
+      "name": "Run and Open Box"
     },
 
     {
-      "figure": "9b",
-      "name": "Closed Chasse"
+      "figure": "9",
+      "name": "Back Run"
     },
 
     {
       "figure": "10",
-      "name": "Open Left Box Turn"
+      "name": "Continuity Magic Step"
     },
 
     {
       "figure": "10a",
-      "name": "Advanced Left Turn"
+      "name": "Left Turn Finish"
     },
 
     {
       "figure": "10b",
-      "name": "Chasses & Passing Twinkle"
+      "name": "Swing Step Finish"
+    },
+
+    {
+      "figure": "10c",
+      "name": "Three and Feather"
     }
   ]
 }

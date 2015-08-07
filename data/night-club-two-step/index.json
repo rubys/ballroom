@@ -61,124 +61,112 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Rumba Box",
-      "file": "rumba-box.json"
+      "name": "Two Step Basic"
     },
 
     {
       "figure": "1a",
-      "name": "Underarm Turn",
-      "file": "underarm-turn.json"
+      "name": "Chasse Basic"
     },
 
     {
       "figure": "1b",
-      "name": "Quick Chasses",
-      "file": "quick-chasses.json"
+      "name": "Cross Basic"
     },
 
     {
       "figure": "1c",
-      "name": "Cross Lead Box",
-      "file": "cross-lead-box.json"
-    },
-
-    {
-      "figure": "1d",
-      "name": "Cross Body Lead",
-      "file": "cross-body-lead.json"
+      "name": "Hip Lifts"
     },
 
     {
       "figure": "2",
-      "name": "Fifth Position Breaks",
-      "file": "fifth-position-breaks.json"
+      "name": "Lady's Underarm Turn Right"
     },
 
     {
       "figure": "2a",
-      "name": "Open Break & Under Arm Turn"
+      "name": "Alternating Underarm Turns"
     },
 
     {
       "figure": "2b",
-      "name": "Second Position Breaks"
+      "name": "Flirtation"
     },
 
     {
       "figure": "2c",
-      "name": "Open Progressive Rocks"
-    },
-
-    {
-      "figure": "2d",
-      "name": "Crossover Breaks"
+      "name": "Lady's Underarm Turn Left"
     },
 
     {
       "figure": "3",
-      "name": "Cuban Walks",
-      "file": "cuban-walks.json"
+      "name": "Fifth Position Breaks"
     },
 
     {
       "figure": "3a",
-      "name": "Open Cuban Walks"
+      "name": "Peek-A-Boo"
+    },
+
+    {
+      "figure": "3a",
+      "name": "Window Rock"
     },
 
     {
       "figure": "3b",
-      "name": "Underarm Back Pass"
-    },
-
-    {
-      "figure": "3c",
-      "name": "Parallel Walks"
+      "name": "Figure Eight"
     },
 
     {
       "figure": "4",
-      "name": "Promenade Swivels"
+      "name": "Sweetheart"
     },
 
     {
       "figure": "4a",
-      "name": "Left Spot Swivels"
+      "name": "Traveling Sweetheart"
     },
 
     {
       "figure": "4b",
-      "name": "Parallel Swivels"
+      "name": "Sweetheart Spin"
     },
 
     {
       "figure": "5",
-      "name": "Banquera Opening"
+      "name": "Underarm Back Pass"
     },
 
     {
       "figure": "5a",
-      "name": "Rio Grande"
+      "name": "Back Pass and Underarm Spin"
     },
 
     {
       "figure": "5b",
-      "name": "Curving Break"
+      "name": "Back Pass to Paulistas"
     },
 
     {
       "figure": "6",
-      "name": "Forward Spot Turn"
+      "name": "Checked Left Turn"
     },
 
     {
       "figure": "6a",
-      "name": "Forward Spot & Flare"
+      "name": "Inside Underarm to Crossover"
     },
 
     {
       "figure": "6b",
-      "name": "Aida"
+      "name": "Multiple Inside Rolls"
+    },
+
+    {
+      "figure": "6c",
+      "name": "Checked Release to Man's Hammerlock and Wheel"
     },
 
     {
@@ -188,42 +176,52 @@
 
     {
       "figure": "7a",
-      "name": "Back Spot with Underarm Turn Left"
+      "name": "Spot Release and Inside Turn"
     },
 
     {
       "figure": "7b",
-      "name": "Spot Turn with Underarm Turn Left"
+      "name": "Run to Back Spot and Check"
+    },
+
+    {
+      "figure": "7c",
+      "name": "Run to Back Spot and Spins"
+    },
+
+    {
+      "figure": "7d",
+      "name": "Fleckerel"
     },
 
     {
       "figure": "8",
-      "name": "Lady's Right and Left Spirals"
+      "name": "Zig Zag Runs"
     },
 
     {
-      "figure": "8a",
-      "name": "Travelling Crossover"
+      "figure": "8",
+      "name": "Shadow Zig Zag Runs"
     },
 
     {
       "figure": "9",
-      "name": "Shadow Turns"
+      "name": "Underarm Roll-In and Free Spin"
     },
 
     {
       "figure": "9a",
-      "name": "Shadow Switch"
+      "name": "Continuous Roll In"
     },
 
     {
       "figure": "10",
-      "name": "Switch Back and Back Stop"
+      "name": "Back Stop and Tandem Turn"
     },
 
     {
       "figure": "10a",
-      "name": "Switch Back & Swivels"
+      "name": "Continuous Tandems"
     }
   ]
 }

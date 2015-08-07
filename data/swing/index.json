@@ -61,169 +61,197 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Rumba Box",
-      "file": "rumba-box.json"
+      "name": "Swing Basic"
     },
 
     {
       "figure": "1a",
-      "name": "Underarm Turn",
-      "file": "underarm-turn.json"
+      "name": "Right Turn Release"
     },
 
     {
       "figure": "1b",
-      "name": "Quick Chasses",
-      "file": "quick-chasses.json"
+      "name": "Throwout"
     },
 
     {
       "figure": "1c",
-      "name": "Cross Lead Box",
-      "file": "cross-lead-box.json"
-    },
-
-    {
-      "figure": "1d",
-      "name": "Cross Body Lead",
-      "file": "cross-body-lead.json"
+      "name": "Right Hand Throwout"
     },
 
     {
       "figure": "2",
-      "name": "Fifth Position Breaks",
-      "file": "fifth-position-breaks.json"
+      "name": "Underarm Turn Right"
     },
 
     {
       "figure": "2a",
-      "name": "Open Break & Under Arm Turn"
+      "name": "Underarm Turn Left"
     },
 
     {
       "figure": "2b",
-      "name": "Second Position Breaks"
+      "name": "Back Hand Change"
     },
 
     {
       "figure": "2c",
-      "name": "Open Progressive Rocks"
+      "name": "Alternate Underarm Turn"
     },
 
     {
       "figure": "2d",
-      "name": "Crossover Breaks"
+      "name": "Handslides"
+    },
+
+    {
+      "figure": "2e",
+      "name": "Sweetheart"
     },
 
     {
       "figure": "3",
-      "name": "Cuban Walks",
-      "file": "cuban-walks.json"
+      "name": "Walks and Points"
     },
 
     {
       "figure": "3a",
-      "name": "Open Cuban Walks"
+      "name": "Points and Kicks"
     },
 
     {
       "figure": "3b",
-      "name": "Underarm Back Pass"
-    },
-
-    {
-      "figure": "3c",
-      "name": "Parallel Walks"
+      "name": "Turning Kicks"
     },
 
     {
       "figure": "4",
-      "name": "Promenade Swivels"
+      "name": "Promenade Triples"
     },
 
     {
       "figure": "4a",
-      "name": "Left Spot Swivels"
+      "name": "Quick and Slow Promenades"
     },
 
     {
       "figure": "4b",
-      "name": "Parallel Swivels"
+      "name": "Traveling Basic"
     },
 
     {
       "figure": "5",
-      "name": "Banquera Opening"
+      "name": "Tuck In"
     },
 
     {
       "figure": "5a",
-      "name": "Rio Grande"
+      "name": "American Spin"
     },
 
     {
-      "figure": "5b",
-      "name": "Curving Break"
+      "figure": "5a",
+      "name": "Continuous Tuck In"
+    },
+
+    {
+      "figure": "5c",
+      "name": "Hammerlock and Sweetheart"
+    },
+
+    {
+      "figure": "5d",
+      "name": "Sugar Push"
     },
 
     {
       "figure": "6",
-      "name": "Forward Spot Turn"
+      "name": "Lindy Turn"
     },
 
     {
       "figure": "6a",
-      "name": "Forward Spot & Flare"
+      "name": "Continuous Lindy"
     },
 
     {
       "figure": "6b",
-      "name": "Aida"
+      "name": "Inside Turn"
+    },
+
+    {
+      "figure": "6c",
+      "name": "Outside Turn"
+    },
+
+    {
+      "figure": "6d",
+      "name": "Lindy Whip"
     },
 
     {
       "figure": "7",
-      "name": "Back Spot Turn"
+      "name": "Side Passes"
     },
 
     {
       "figure": "7a",
-      "name": "Back Spot with Underarm Turn Left"
+      "name": "Back Stop"
     },
 
     {
       "figure": "7b",
-      "name": "Spot Turn with Underarm Turn Left"
+      "name": "Lindy Wrap"
+    },
+
+    {
+      "figure": "7c",
+      "name": "Fifth Position & Spin"
     },
 
     {
       "figure": "8",
-      "name": "Lady's Right and Left Spirals"
+      "name": "Flirtation"
     },
 
     {
       "figure": "8a",
-      "name": "Travelling Crossover"
+      "name": "Continuous Flirtation & Roll Out"
+    },
+
+    {
+      "figure": "8b",
+      "name": "Flirtation Roll Out & Spin"
     },
 
     {
       "figure": "9",
-      "name": "Shadow Turns"
+      "name": "Back to Back"
     },
 
     {
       "figure": "9a",
-      "name": "Shadow Switch"
+      "name": "Half Nelson & Double Overhead"
+    },
+
+    {
+      "figure": "9b",
+      "name": "Triple Progressive"
     },
 
     {
       "figure": "10",
-      "name": "Switch Back and Back Stop"
+      "name": "Toe Swivels"
     },
 
     {
       "figure": "10a",
-      "name": "Switch Back & Swivels"
+      "name": "The Twists"
+    },
+
+    {
+      "figure": "10b",
+      "name": "Lady's Progressive Swivels"
     }
   ]
 }

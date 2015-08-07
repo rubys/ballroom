@@ -61,169 +61,152 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Rumba Box",
-      "file": "rumba-box.json"
+      "name": "Salsa Basic"
     },
 
     {
       "figure": "1a",
-      "name": "Underarm Turn",
-      "file": "underarm-turn.json"
+      "name": "First Position Basic"
     },
 
     {
       "figure": "1b",
-      "name": "Quick Chasses",
-      "file": "quick-chasses.json"
-    },
-
-    {
-      "figure": "1c",
-      "name": "Cross Lead Box",
-      "file": "cross-lead-box.json"
-    },
-
-    {
-      "figure": "1d",
-      "name": "Cross Body Lead",
-      "file": "cross-body-lead.json"
+      "name": "Chasse Basic"
     },
 
     {
       "figure": "2",
-      "name": "Fifth Position Breaks",
-      "file": "fifth-position-breaks.json"
+      "name": "Underarm Turn Right"
     },
 
     {
       "figure": "2a",
-      "name": "Open Break & Under Arm Turn"
+      "name": "Alternate Underam Turns"
     },
 
     {
       "figure": "2b",
-      "name": "Second Position Breaks"
-    },
-
-    {
-      "figure": "2c",
-      "name": "Open Progressive Rocks"
-    },
-
-    {
-      "figure": "2d",
-      "name": "Crossover Breaks"
+      "name": "Cross Hand Breaks"
     },
 
     {
       "figure": "3",
-      "name": "Cuban Walks",
-      "file": "cuban-walks.json"
+      "name": "Cross Basic"
     },
 
     {
       "figure": "3a",
-      "name": "Open Cuban Walks"
+      "name": "Cross Basic and Tap"
     },
 
     {
       "figure": "3b",
-      "name": "Underarm Back Pass"
+      "name": "Left Turn"
     },
 
     {
       "figure": "3c",
-      "name": "Parallel Walks"
+      "name": "Man's and Ladies Turn"
     },
 
     {
       "figure": "4",
-      "name": "Promenade Swivels"
+      "name": "Underarm Turn Left"
     },
 
     {
       "figure": "4a",
-      "name": "Left Spot Swivels"
+      "name": "Inside Face Loop"
     },
 
     {
       "figure": "4b",
-      "name": "Parallel Swivels"
+      "name": "Outside Face Loop"
+    },
+
+    {
+      "figure": "4c",
+      "name": "Double Face Loop"
     },
 
     {
       "figure": "5",
-      "name": "Banquera Opening"
+      "name": "Rhythm Basic"
     },
 
     {
       "figure": "5a",
-      "name": "Rio Grande"
+      "name": "Rhythm Challenge"
     },
 
     {
       "figure": "5b",
-      "name": "Curving Break"
+      "name": "Mambo Challenge"
+    },
+
+    {
+      "figure": "5b",
+      "name": "Advanced Challenge"
     },
 
     {
       "figure": "6",
-      "name": "Forward Spot Turn"
+      "name": "Volta Rlease and Backstop"
     },
 
     {
       "figure": "6a",
-      "name": "Forward Spot & Flare"
+      "name": "Combination Voltas"
     },
 
     {
       "figure": "6b",
-      "name": "Aida"
+      "name": "Right Hand Lead Combination"
     },
 
     {
       "figure": "7",
-      "name": "Back Spot Turn"
+      "name": "Combination Spot Turns"
     },
 
     {
       "figure": "7a",
-      "name": "Back Spot with Underarm Turn Left"
+      "name": "Run and Back Spot"
     },
 
     {
       "figure": "7b",
-      "name": "Spot Turn with Underarm Turn Left"
+      "name": "Continuous Run and Back Spot"
     },
 
     {
       "figure": "8",
-      "name": "Lady's Right and Left Spirals"
+      "name": "Double Overhead Spins"
     },
 
     {
       "figure": "8a",
-      "name": "Travelling Crossover"
+      "name": "Double Underarm Turn with Inside Faceloops"
     },
 
     {
       "figure": "9",
-      "name": "Shadow Turns"
+      "name": "Inside Overhead Wrap"
     },
 
     {
       "figure": "9a",
-      "name": "Shadow Switch"
+      "name": "Neck Wrap"
     },
 
     {
       "figure": "10",
-      "name": "Switch Back and Back Stop"
+      "name": "Double Overhead Wrap"
     },
 
     {
       "figure": "10a",
-      "name": "Switch Back & Swivels"
+      "name": "Double Waist Roll"
     }
   ]
 }

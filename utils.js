@@ -1,3 +1,8 @@
+// utility function: convert arbitrary strings to file names
+function toFileName(string) {
+  return string.toLowerCase().replace(/\W+/g, '-');
+}
+
 function clone(object) {
   return JSON.parse(JSON.stringify(object));
 }
@@ -17,7 +22,7 @@ function merge(destination, source) {
 };
 
 function fetch(dance, file, callback) {
-  if (dance) file = dance + '/' + file;
+  if (dance) file = toFileName(dance) + '/' + file;
 
   var xhr = new XMLHttpRequest();
 

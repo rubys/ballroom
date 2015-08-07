@@ -61,169 +61,157 @@
   "figures": [
     {
       "figure": "1",
-      "name": "Rumba Box",
-      "file": "rumba-box.json"
+      "name": "Rock Basic"
     },
 
     {
       "figure": "1a",
-      "name": "Underarm Turn",
-      "file": "underarm-turn.json"
-    },
-
-    {
-      "figure": "1b",
-      "name": "Quick Chasses",
-      "file": "quick-chasses.json"
-    },
-
-    {
-      "figure": "1c",
-      "name": "Cross Lead Box",
-      "file": "cross-lead-box.json"
-    },
-
-    {
-      "figure": "1d",
-      "name": "Cross Body Lead",
-      "file": "cross-body-lead.json"
+      "name": "Time Step"
     },
 
     {
       "figure": "2",
-      "name": "Fifth Position Breaks",
-      "file": "fifth-position-breaks.json"
+      "name": "Lady's Underarm Turn Left"
     },
 
     {
       "figure": "2a",
-      "name": "Open Break & Under Arm Turn"
+      "name": "Back Hand Change"
     },
 
     {
       "figure": "2b",
-      "name": "Second Position Breaks"
-    },
-
-    {
-      "figure": "2c",
-      "name": "Open Progressive Rocks"
-    },
-
-    {
-      "figure": "2d",
-      "name": "Crossover Breaks"
+      "name": "Waist Roll"
     },
 
     {
       "figure": "3",
-      "name": "Cuban Walks",
-      "file": "cuban-walks.json"
+      "name": "Man's Underarm Turn Left"
     },
 
     {
       "figure": "3a",
-      "name": "Open Cuban Walks"
+      "name": "Alternate Turns"
     },
 
     {
       "figure": "3b",
-      "name": "Underarm Back Pass"
+      "name": "Handshake Turn"
     },
 
     {
-      "figure": "3c",
-      "name": "Parallel Walks"
+      "figure": "3*",
+      "name": "Sweat Heart"
     },
 
     {
       "figure": "4",
-      "name": "Promenade Swivels"
+      "name": "Syncopated Basic"
     },
 
     {
       "figure": "4a",
-      "name": "Left Spot Swivels"
+      "name": "Syncopated Timing"
     },
 
     {
       "figure": "4b",
-      "name": "Parallel Swivels"
+      "name": "Traveling Time Step"
+    },
+
+    {
+      "figure": "4c",
+      "name": "Left Side Basic"
     },
 
     {
       "figure": "5",
-      "name": "Banquera Opening"
+      "name": "Link and Throwout"
     },
 
     {
       "figure": "5a",
-      "name": "Rio Grande"
+      "name": "Reverse and Throwout"
     },
 
     {
       "figure": "5b",
-      "name": "Curving Break"
+      "name": "Back Hand Change"
     },
 
     {
       "figure": "6",
-      "name": "Forward Spot Turn"
+      "name": "Overhead Wrap"
     },
 
     {
       "figure": "6a",
-      "name": "Forward Spot & Flare"
+      "name": "Loop"
     },
 
     {
       "figure": "6b",
-      "name": "Aida"
+      "name": "Half Nelson"
     },
 
     {
       "figure": "7",
-      "name": "Back Spot Turn"
+      "name": "Overhead Hand Change"
     },
 
     {
       "figure": "7a",
-      "name": "Back Spot with Underarm Turn Left"
+      "name": "Overhead & Sweetheart"
     },
 
     {
       "figure": "7b",
-      "name": "Spot Turn with Underarm Turn Left"
+      "name": "Man's Half Nelson"
     },
 
     {
       "figure": "8",
-      "name": "Lady's Right and Left Spirals"
+      "name": "Roll In"
     },
 
     {
       "figure": "8a",
-      "name": "Travelling Crossover"
+      "name": "Continuous Roll In"
+    },
+
+    {
+      "figure": "8b",
+      "name": "Underarm & Roll In"
+    },
+
+    {
+      "figure": "8b",
+      "name": "Free Spin"
+    },
+
+    {
+      "figure": "8b",
+      "name": "Free Spin & Pick Up"
     },
 
     {
       "figure": "9",
-      "name": "Shadow Turns"
+      "name": "Syncopated Double Overhead"
     },
 
     {
       "figure": "9a",
-      "name": "Shadow Switch"
+      "name": "Tande Turn"
     },
 
     {
       "figure": "10",
-      "name": "Switch Back and Back Stop"
+      "name": "Advanced Basic and Inside Turn"
     },
 
     {
       "figure": "10a",
-      "name": "Switch Back & Swivels"
+      "name": "Advanced Basic & Hand Change"
     }
   ]
 }
