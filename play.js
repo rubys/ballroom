@@ -321,6 +321,7 @@ function compile() {
 
 // apply initial settings
 function reset(state) {
+  var prevshoes = shoes || state;
   if (shoes != state) shoes = clone(state);
 
   ["leader", "follower"].forEach(function(person) {
@@ -328,6 +329,7 @@ function reset(state) {
     if (!node) return;
     ["left", "right"].forEach(function(side) {
       var shoe = shoes[person][side];
+      var prevshoe = prevshoes[person][side];
       var color = shoes[person].color;
       shoe.node = node.getElementsByClassName(side)[0];
       shoe.title = shoe.node.getElementsByTagName("title")[0];
@@ -336,14 +338,15 @@ function reset(state) {
       shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
       if (
         shoe.position.parentNode.getAttribute('transform') ||
-        !('prevx' in shoe) || !('prevy' in shoe)
+        !('prevx' in prevshoe) || !('prevy' in prevshoe)
       ) {
         shoe.position.endElement();
         shoe.position.parentNode.setAttribute('transform',
           'translate(' + shoe.x + ',' + shoe.y + ')');
-      } else if (shoe.x != shoe.prevx || shoe.y != shoe.prevy) {
+      } else if (shoe.x != prevshoe.prevx || shoe.y != prevshoe.prevy) {
         shoe.position.setAttribute('path',
-          "M" + shoe.prevx + ',' + shoe.prevy + "L" + shoe.x + ',' + shoe.y);
+          "M" + prevshoe.prevx + ',' + prevshoe.prevy + 
+          "L" + shoe.x + ',' + shoe.y);
         shoe.position.setAttribute('dur', '0.01s');
         shoe.position.beginElement();
       }
@@ -354,13 +357,13 @@ function reset(state) {
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
       if (
         shoe.orientation.parentNode.getAttribute('transform') ||
-        !('prevrotate' in shoe)
+        !('prevrotate' in prevshoe)
       ) {
         shoe.orientation.endElement();
         shoe.orientation.parentNode.setAttribute('transform',
           'rotate(' + shoe.rotate + ')');
-      } else if (shoe.rotate != shoe.prevrotate) {
-        shoe.orientation.setAttribute('from', shoe.prevrotate);
+      } else if (shoe.rotate != prevshoe.prevrotate) {
+        shoe.orientation.setAttribute('from', prevshoe.prevrotate);
         shoe.orientation.setAttribute('to', shoe.rotate);
         shoe.orientation.setAttribute('dur', '0.01s');
         shoe.orientation.beginElement();
