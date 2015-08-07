@@ -63,7 +63,7 @@ Creating a new step:
     3. Rotate the shoe.  This can be done by dragging and dropping the heel
        of the shoe.  Again keyboard instructions follow this list.
 
-    4.  Repeat substeps *i* and *ii* as often as you like.  ***note***: Pressing the 
+    4.  Repeat substeps *i* through *iii* as often as you like.  ***note***: Pressing the 
         ESC key will reset the step you are working on.
 
     5.  Adjust the number of beats, text, and note to be displayed as this
