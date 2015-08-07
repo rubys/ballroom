@@ -1,7 +1,7 @@
 Ballroom: visualize ballroom dance routines
 ===
 
-This tool is intended to help me visual dance steps.  It very much is a work
+This tool is intended to help me visualize dance steps.  It very much is a work
 in progress.
 
 Works best on Firefox.  Works (with some occasional flicker) on Chrome and
@@ -63,7 +63,7 @@ Creating a new step:
     3. Rotate the shoe.  This can be done by dragging and dropping the heel
        of the shoe.  Again keyboard instructions follow this list.
 
-    4.  Repeat substeps 1 and 2 as often as you like.  ***note***: Pressing the 
+    4.  Repeat substeps *i* and *ii* as often as you like.  ***note***: Pressing the 
         ESC key will reset the step you are working on.
 
     5.  Adjust the number of beats, text, and note to be displayed as this
@@ -81,7 +81,7 @@ Creating a new step:
 
     6.  Press enter to complete the step.
 
-    7.  Repeat substeps 1 through 6 as often as you like.
+    7.  Repeat substeps *i* through *vi* as often as you like.
 
 5. Click play (▶).  You can stop, restart, step forward, and reverse your
    step.  **note** at the moment, changing the routine after you have pushed
