@@ -209,9 +209,11 @@ function draw(shoe) {
   shoe.orientation.endElement();
 
   // move(translate) and rotate shoe
+  shoe.position.endElement();
   shoe.position.parentNode.setAttribute('transform', 'translate(' + 
     (shoe.x + shoe.move.x) + ',' + 
     (shoe.y + shoe.move.y) + ')');
+  shoe.orientation.endElement();
   shoe.orientation.parentNode.setAttribute('transform', 'rotate(' + 
     (typeof shoe.move.rotate == 'undefined' ? shoe.rotate : shoe.move.rotate) +
     ')');
@@ -616,6 +618,8 @@ window.addEventListener('keydown', function(event) {
             }
             shoe.x += shoe.move.x;
             shoe.y += shoe.move.y;
+            shoe.prevx = shoe.x;
+            shoe.prevy = shoe.y;
           }
           if (shoe.move.rotate != shoe.rotate) {
             shoe.move.rotate = (shoe.move.rotate/5).toFixed()*5;

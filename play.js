@@ -333,28 +333,39 @@ function reset(state) {
       shoe.title = shoe.node.getElementsByTagName("title")[0];
 
       // position
-      var position = shoe.node.getElementsByTagName("animateMotion")[0];
-      if (!shoe.position || position.parentNode.hasAttribute('transform')) {
-        shoe.position = position.cloneNode(); // webkit workaround
-        position.parentNode.removeAttribute('transform');
-        position.parentNode.replaceChild(shoe.position, position);
-        shoe.position.setAttribute('path', "M0,0L" + shoe.x + ',' + shoe.y);
+      shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
+      if (
+        shoe.position.parentNode.getAttribute('transform') ||
+        !('prevx' in shoe) || !('prevy' in shoe)
+      ) {
+        shoe.position.endElement();
+        shoe.position.parentNode.setAttribute('transform',
+          'translate(' + shoe.x + ',' + shoe.y + ')');
+      } else if (shoe.x != shoe.prevx || shoe.y != shoe.prevy) {
+        shoe.position.setAttribute('path',
+          "M" + shoe.prevx + ',' + shoe.prevy + "L" + shoe.x + ',' + shoe.y);
         shoe.position.setAttribute('dur', '0.01s');
         shoe.position.beginElement();
       }
+      shoe.prevx = shoe.x;
+      shoe.prevy = shoe.y;
 
       // orientation
-      var orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
-      if (!shoe.orientation||orientation.parentNode.hasAttribute('transform')) {
-        shoe.orientation = orientation.cloneNode(); // webkit workaround
-        orientation.parentNode.removeAttribute('transform');
-        orientation.parentNode.replaceChild(shoe.orientation, orientation);
-        shoe.orientation.parentNode.removeAttribute('transform');
-        shoe.orientation.setAttribute('from', shoe.rotate);
+      shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
+      if (
+        shoe.orientation.parentNode.getAttribute('transform') ||
+        !('prevrotate' in shoe)
+      ) {
+        shoe.orientation.endElement();
+        shoe.orientation.parentNode.setAttribute('transform',
+          'rotate(' + shoe.rotate + ')');
+      } else if (shoe.rotate != shoe.prevrotate) {
+        shoe.orientation.setAttribute('from', shoe.prevrotate);
         shoe.orientation.setAttribute('to', shoe.rotate);
         shoe.orientation.setAttribute('dur', '0.01s');
         shoe.orientation.beginElement();
       }
+      shoe.prevrotate = shoe.rotate;
 
       // ball
       if (!shoe.ball || typeof shoe.ball == 'string') {
@@ -478,6 +489,13 @@ function tic() {
         if (!op) continue;
 
         if (op.position) {
+          if (shoe.position.parentNode.getAttribute('transform')) {
+            var position = shoe.position;
+            position.parentNode.removeAttribute('transform');
+            shoe.position = position.cloneNode(); // webkit workaround
+            position.parentNode.replaceChild(shoe.position, position);
+          }
+
           if (op.position.path) {
             path[person].setAttribute('d', op.position.path);
           }
@@ -488,6 +506,14 @@ function tic() {
         }
 
         if (op.orientation) {
+          if (shoe.orientation.parentNode.getAttribute('transform')) {
+            var orientation = shoe.orientation;
+            orientation.parentNode.removeAttribute('transform');
+            shoe.orientation = orientation.cloneNode(); // webkit workaround
+            orientation.parentNode.replaceChild(shoe.orientation, orientation);
+          }
+
+          shoe.orientation.parentNode.removeAttribute('transform');
           for (var attr in op.orientation) {
             shoe.orientation.setAttribute(attr, op.orientation[attr]);
           }
@@ -496,11 +522,11 @@ function tic() {
 
         if (op.dest) {
           if ('rotate' in op.dest) {
-            shoe.rotate = op.dest.rotate;
+            shoe.prevrotate = shoe.rotate = op.dest.rotate;
           }
           if ('x' in op.dest && 'y' in op.dest) {
-            shoe.x = op.dest.x;
-            shoe.y = op.dest.y;
+            shoe.prevx = shoe.x = op.dest.x;
+            shoe.prevy = shoe.y = op.dest.y;
           }
           shoe.title.textContent = shoe.x + ',' + shoe.y + 
             ' (' + shoe.rotate + ')';
