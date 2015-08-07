@@ -439,6 +439,14 @@ function moveToPosition(n, event) {
   }
 }
 
+// copy support
+document.addEventListener('copy', function(event) {
+  if (newFigure) {
+    event.clipboardData.setData('text/plain', JSON.stringify(newFigure.steps));
+    event.preventDefault();
+  }
+});
+
 window.addEventListener('keydown', function(event) {
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
