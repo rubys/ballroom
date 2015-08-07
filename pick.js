@@ -24,6 +24,7 @@ fetch(null, 'index.json', function(result) {
     svg.removeAttribute('viewBox');
 
     displayMenu();
+    document.getElementById('stepname').value = '';
   });
 });
 
