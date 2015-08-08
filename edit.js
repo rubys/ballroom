@@ -97,13 +97,13 @@ function select(event) {
 
   nob = null;
   selected = shoes[shoe.parentNode.id][shoe.classList[0]];
-  if (!('move' in selected)) selected.move = {};
-  if (!('x' in selected.move)) selected.move.x = selected.x;
-  if (!('y' in selected.move)) selected.move.y = selected.y;
-  if (!('rotate' in selected.move)) selected.move.rotate = selected.rotate;
+  if (!('next' in selected)) selected.next = {};
+  if (!('x' in selected.next)) selected.next.x = selected.x;
+  if (!('y' in selected.next)) selected.next.y = selected.y;
+  if (!('rotate' in selected.next)) selected.next.rotate = selected.rotate;
 
   if (event.clientX) {
-    selected.move.event = event;
+    selected.next.event = event;
   }
 
   var paths = selected.node.querySelectorAll('path');
@@ -136,8 +136,8 @@ function select(event) {
 }
 
 function deselect(event) {
-  if (selected && selected.move && selected.move.event) {
-    delete selected.move.event;
+  if (selected && selected.next && selected.next.event) {
+    delete selected.next.event;
   }
   if (nob && nob.event) delete nob.event;
 }
@@ -151,7 +151,7 @@ function selectHeel(event) {
 }
 
 function mouseMove(event) {
-  if (!selected || !selected.move || !selected.move.event) {
+  if (!selected || !selected.next || !selected.next.event) {
     if (event.button == 1 || event.buttons == 1) {
       if (!selected) selected = {};
 
@@ -162,8 +162,8 @@ function mouseMove(event) {
         return;
       }
 
-      if (selected.move && (selected.move.x || selected.move.y)) return;
-      selected.move = {event: event, x: selected.x, y: selected.y};
+      if (selected.next && (selected.next.x || selected.next.y)) return;
+      selected.next = {event: event, x: selected.x, y: selected.y};
       aspect = 'pan';
     } else {
       return;
@@ -171,28 +171,28 @@ function mouseMove(event) {
   }
 
   if (aspect == 'position') {
-    selected.move.x += (event.clientX-selected.move.event.clientX)*scale;
-    selected.move.y += (event.clientY-selected.move.event.clientY)*scale;
-    selected.move.event = event;
+    selected.next.x += (event.clientX-selected.next.event.clientX)*scale;
+    selected.next.y += (event.clientY-selected.next.event.clientY)*scale;
+    selected.next.event = event;
   } else if (aspect == 'orientation') {
     var rect = svg.getBoundingClientRect();
     var viewBox = svg.viewBox.baseVal;
-    var dy = (event.clientY-rect.top)*scale+viewBox.y - selected.move.y;
-    var dx = (event.clientX-rect.left)*scale+viewBox.x - selected.move.x;
+    var dy = (event.clientY-rect.top)*scale+viewBox.y - selected.next.y;
+    var dx = (event.clientX-rect.left)*scale+viewBox.x - selected.next.x;
     var angle = Math.atan2(-dx, dy) / Math.PI * 180;
-    while (angle < selected.move.rotate - 180) angle += 360;
-    while (angle > selected.move.rotate + 180) angle -= 360;
-    selected.move.rotate = angle;
+    while (angle < selected.next.rotate - 180) angle += 360;
+    while (angle > selected.next.rotate + 180) angle -= 360;
+    selected.next.rotate = angle;
   } else if (aspect == 'pan') {
     if (!event.button && !event.buttons) {
       aspect = 'position';
-      delete selected.move;
+      delete selected.next;
       return;
     }
     var viewBox = svg.viewBox.baseVal;
-    viewBox.x -= (event.clientX-selected.move.event.clientX)*scale;
-    viewBox.y -= (event.clientY-selected.move.event.clientY)*scale;
-    selected.move.event = event;
+    viewBox.x -= (event.clientX-selected.next.event.clientX)*scale;
+    viewBox.y -= (event.clientY-selected.next.event.clientY)*scale;
+    selected.next.event = event;
   }
 
   if (selected) draw(selected);
@@ -209,26 +209,26 @@ function draw(shoe) {
   // move(translate) and rotate shoe
   shoe.position.endElement();
   shoe.position.parentNode.setAttribute('transform', 'translate(' + 
-    shoe.move.x + ',' + shoe.move.y + ')');
+    shoe.next.x + ',' + shoe.next.y + ')');
   shoe.orientation.endElement();
   shoe.orientation.parentNode.setAttribute('transform', 'rotate(' + 
-    (typeof shoe.move.rotate == 'undefined' ? shoe.rotate : shoe.move.rotate) +
+    (typeof shoe.next.rotate == 'undefined' ? shoe.rotate : shoe.next.rotate) +
     ')');
 
   // update aside
   document.getElementById("move").textContent = 
-    shoe.move.x.toFixed() + ', ' + shoe.move.y.toFixed();
+    shoe.next.x.toFixed() + ', ' + shoe.next.y.toFixed();
   document.getElementById("rotate").textContent = 
-    shoe.move.rotate ? (shoe.move.rotate/5).toFixed()*5 : 0;
+    shoe.next.rotate ? (shoe.next.rotate/5).toFixed()*5 : 0;
 
   // draw path line
   var line = "M" + shoe.x + ',' + shoe.y + 
-    "L" + shoe.move.x + ',' + shoe.move.y;
-  if (shoe.move.x1 || shoe.move.y1) {
+    "L" + shoe.next.x + ',' + shoe.next.y;
+  if (shoe.next.x1 || shoe.next.y1) {
     line = "M" + shoe.x + ',' + shoe.y + "C" + 
-      shoe.move.x1 + ',' + shoe.move.y1 + ',' +
-      shoe.move.x2 + ',' + shoe.move.y2 + ',' +
-      shoe.move.x + ',' + shoe.move.y;
+      shoe.next.x1 + ',' + shoe.next.y1 + ',' +
+      shoe.next.x2 + ',' + shoe.next.y2 + ',' +
+      shoe.next.x + ',' + shoe.next.y;
   }
   path[shoe.node.parentNode.id].setAttribute('d', line);
 
@@ -236,23 +236,23 @@ function draw(shoe) {
 } 
 
 function move(x, y) {
-  if (!selected.move) {
-    selected.move = {x: selected.x, y: selected.y, rotate: selected.rotate};
+  if (!selected.next) {
+    selected.next = {x: selected.x, y: selected.y, rotate: selected.rotate};
   }
 
   if (nob) {
     if (nob.which == 1) {
-      selected.move.x1 += x;
-      selected.move.y1 -= y;
+      selected.next.x1 += x;
+      selected.next.y1 -= y;
     } else {
-      selected.move.x2 += x;
-      selected.move.y2 -= y;
+      selected.next.x2 += x;
+      selected.next.y2 -= y;
     }
     drawNobs(selected);
   } else {
     var movement = rotate({x: x, y: y}, selected.rotate);
-    selected.move.x += movement.x;
-    selected.move.y += movement.y;
+    selected.next.x += movement.x;
+    selected.next.y += movement.y;
   }
 
   draw(selected);
@@ -261,19 +261,19 @@ function move(x, y) {
 function moveTo(base, offset) {
   var movement = rotate(offset, base.rotate);
 
-  if (!selected.move) {
-    selected.move = {x: selected.x, y: selected.y, rotate: selected.rotate};
+  if (!selected.next) {
+    selected.next = {x: selected.x, y: selected.y, rotate: selected.rotate};
   }
 
-  selected.move.x = base.x + movement.x;
-  selected.move.y = base.y + movement.y;
+  selected.next.x = base.x + movement.x;
+  selected.next.y = base.y + movement.y;
 
   draw(selected);
 }
 
 function turn(angle) {
-  selected.move.rotate = 
-    ((selected.move.rotate + angle)/angle).toFixed() * angle;
+  selected.next.rotate = 
+    ((selected.next.rotate + angle)/angle).toFixed() * angle;
   draw(selected);
 }
 
@@ -327,19 +327,19 @@ function saveFigure() {
 }
 
 function drawNobs(selected) {
-  if (!selected.move || !('x1' in selected.move)) return;
+  if (!selected.next || !('x1' in selected.next)) return;
 
   document.querySelector('#nob1 path').setAttribute('d',
     "M" + selected.x + ',' + selected.y + 
-      'L' + selected.move.x1 + ',' + selected.move.y1);
-  document.querySelector('#nob1 circle').setAttribute('cx', selected.move.x1);
-  document.querySelector('#nob1 circle').setAttribute('cy', selected.move.y1);
+      'L' + selected.next.x1 + ',' + selected.next.y1);
+  document.querySelector('#nob1 circle').setAttribute('cx', selected.next.x1);
+  document.querySelector('#nob1 circle').setAttribute('cy', selected.next.y1);
 
   document.querySelector('#nob2 path').setAttribute('d',
-    "M" + selected.move.x + ',' + selected.move.y + 
-      'L' + selected.move.x2 + ',' + selected.move.y2);
-  document.querySelector('#nob2 circle').setAttribute('cx', selected.move.x2);
-  document.querySelector('#nob2 circle').setAttribute('cy', selected.move.y2);
+    "M" + selected.next.x + ',' + selected.next.y + 
+      'L' + selected.next.x2 + ',' + selected.next.y2);
+  document.querySelector('#nob2 circle').setAttribute('cx', selected.next.x2);
+  document.querySelector('#nob2 circle').setAttribute('cy', selected.next.y2);
 }
 
 function hideNobs() {
@@ -360,48 +360,48 @@ function moveToPosition(n, event) {
   var rmove = {x: -move.x, y: -move.y};
   if (n==3 || n==5) rmove.y = move.y;
 
-  var match = (n != 3 && n != 5) && (selected.rotate != selected.move.rotate);
+  var match = (n != 3 && n != 5) && (selected.rotate != selected.next.rotate);
 
   if (selected == shoes.follower.right) {
     if (!event.shiftKey) {
       select(shoes.leader.left);
-      selected.move.rotate = shoes.leader.right.rotate - move.rotate;
+      selected.next.rotate = shoes.leader.right.rotate - move.rotate;
       moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
     }
     select(shoes.follower.right);
-    selected.move.rotate = shoes.follower.left.rotate + move.rotate;
+    selected.next.rotate = shoes.follower.left.rotate + move.rotate;
     moveTo(shoes.follower.left, {x: move.x, y: move.y});
 
   } else if (selected == shoes.follower.left) {
     if (!event.shiftKey) {
       select(shoes.leader.right);
-      selected.move.rotate = shoes.leader.left.rotate + move.rotate;
+      selected.next.rotate = shoes.leader.left.rotate + move.rotate;
       moveTo(shoes.leader.left, {x: move.x, y: move.y});
     }
     select(shoes.follower.left);
-    selected.move.rotate = shoes.follower.right.rotate - move.rotate;
+    selected.next.rotate = shoes.follower.right.rotate - move.rotate;
     moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
 
   } else if (selected == shoes.leader.left) {
-    if (!match) selected.move.rotate = shoes.leader.right.rotate - move.rotate;
+    if (!match) selected.next.rotate = shoes.leader.right.rotate - move.rotate;
     moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
 
     if (!event.shiftKey) {
       select(shoes.follower.right);
       if (match) {
-        selected.move.rotate = shoes.leader.left.move.rotate + 180;
-        while (selected.move.rotate - selected.rotate >= 180) {
-          selected.move.rotate -= 360;
+        selected.next.rotate = shoes.leader.left.next.rotate + 180;
+        while (selected.next.rotate - selected.rotate >= 180) {
+          selected.next.rotate -= 360;
         }
-        while (selected.rotate - selected.move.rotate > 180) {
-          selected.move.rotate += 360;
+        while (selected.rotate - selected.next.rotate > 180) {
+          selected.next.rotate += 360;
         }
-        moveTo({x: shoes.leader.left.x + shoes.leader.left.move.x,
-          y: shoes.leader.left.y + shoes.leader.left.move.y,
-          rotate: shoes.leader.left.move.rotate},
+        moveTo({x: shoes.leader.left.x + shoes.leader.left.next.x,
+          y: shoes.leader.left.y + shoes.leader.left.next.y,
+          rotate: shoes.leader.left.next.rotate},
           shoes.gap.people);
       } else {
-        selected.move.rotate = shoes.follower.left.rotate + move.rotate;
+        selected.next.rotate = shoes.follower.left.rotate + move.rotate;
         moveTo(shoes.follower.left, {x: move.x, y: move.y});
       }
     }
@@ -409,24 +409,24 @@ function moveToPosition(n, event) {
     select(shoes.leader.left);
 
   } else if (selected == shoes.leader.right) {
-    if (!match) selected.move.rotate = shoes.leader.left.rotate + move.rotate;
+    if (!match) selected.next.rotate = shoes.leader.left.rotate + move.rotate;
     moveTo(shoes.leader.left, {x: move.x, y: move.y});
 
     if (!event.shiftKey) {
       select(shoes.follower.left);
       if (match) {
-        selected.move.rotate = shoes.leader.right.move.rotate + 180;
-        while (selected.move.rotate - selected.rotate >= 180) {
-          selected.move.rotate -= 360;
+        selected.next.rotate = shoes.leader.right.next.rotate + 180;
+        while (selected.next.rotate - selected.rotate >= 180) {
+          selected.next.rotate -= 360;
         }
-        while (selected.rotate - selected.move.rotate > 180) {
-          selected.move.rotate += 360;
+        while (selected.rotate - selected.next.rotate > 180) {
+          selected.next.rotate += 360;
         }
-        moveTo({x: shoes.leader.right.move.x, y: shoes.leader.right.move.y,
-          rotate: shoes.leader.right.move.rotate},
+        moveTo({x: shoes.leader.right.next.x, y: shoes.leader.right.next.y,
+          rotate: shoes.leader.right.next.rotate},
           shoes.gap.people);
       } else {
-        selected.move.rotate = shoes.follower.right.rotate - move.rotate;
+        selected.next.rotate = shoes.follower.right.rotate - move.rotate;
         moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
       }
     }
@@ -505,7 +505,7 @@ window.addEventListener('keydown', function(event) {
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
         var shoe = shoes[person][foot];
-        shoe.move = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
         draw(shoe);
       });
     });
@@ -514,25 +514,24 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 67) { // c
     var nobs = document.getElementById('nobs');
 
-    if (selected && selected.move && (selected.move.x || selected.move.y)) {
-      if (selected.move.x1 || selected.move.y1) {
+    if (selected && selected.next && (selected.next.x || selected.next.y)) {
+      if (selected.next.x1 || selected.next.y1) {
         if (nobs.style.display == 'none') {
           nobs.style.display = 'inherit';
         } else {
           hideNobs();
         }
       } else {
-        var dx = selected.move.x - selected.x;
-        var dy = selected.move.y - selected.y;
+        var dx = selected.next.x - selected.x;
+        var dy = selected.next.y - selected.y;
         var r = Math.sqrt(dx*dx + dy*dy)/2;
         var theta = Math.atan2(dy, dx);
         var shift = {x: r*Math.sin(theta+Math.PI/4),
           y: r*Math.cos(theta+Math.PI/4)};
-        selected.move.x1 = selected.x+shift.x;
-        selected.move.y1 = selected.y-shift.y;
-        selected.move.x2 = selected.move.x-shift.x;
-        selected.move.y2 = selected.move.y+shift.y;
-        console.log([{x: selected.x, y: selected.y}, shift, selected.move]);
+        selected.next.x1 = selected.x+shift.x;
+        selected.next.y1 = selected.y-shift.y;
+        selected.next.x2 = selected.next.x-shift.x;
+        selected.next.y2 = selected.next.y+shift.y;
         drawNobs(selected);
         draw(selected);
         nobs.style.display = 'inherit';
@@ -590,21 +589,23 @@ window.addEventListener('keydown', function(event) {
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
         var shoe = shoes[person][foot];
-        if (!shoe.move) return;
-        if (shoe.move.x || shoe.move.y || shoe.move.rotate != shoe.rotate) {
+        if (!shoe.next) return;
+        if (shoe.next.x || shoe.next.y || shoe.next.rotate != shoe.rotate) {
           if (!step[person]) step[person] = {}
           step[person][foot] = {}
-          if (shoe.move.x || shoe.move.y) {
+          if (shoe.next.x || shoe.next.y) {
             var movement = rotate(
-              {x: shoe.move.x - shoe.x, y: shoe.move.y - shoe.y}, shoe.rotate);
+              {x: shoe.next.x - shoe.x, y: shoe.next.y - shoe.y}, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
-            if ('x1' in shoe.move) {
-              var movement1 = rotate({x: shoe.move.x1, y: shoe.move.y1},
+            if ('x1' in shoe.next) {
+              var movement1 = rotate(
+                {x: shoe.next.x1-shoe.x, y: shoe.next.y1-shoe.y},
                 shoe.rotate);
-              var movement2 = rotate({x: shoe.move.x2, y: shoe.move.y2},
+              var movement2 = rotate(
+                {x: shoe.next.x2-shoe.x, y: shoe.next.y2-shoe.y},
                 shoe.rotate);
-              step[person][foot].path = "C" + 
+              step[person][foot].path = "c" + 
                 parseFloat(movement1.x.toFixed(3)) + ',' +
                 parseFloat(movement1.y.toFixed(3)) + ',' +
                 parseFloat(movement2.x.toFixed(3)) + ',' +
@@ -614,16 +615,16 @@ window.addEventListener('keydown', function(event) {
               step[person][foot].path = "l" + movement.x + ',' + movement.y;
             }
             if (!shoe.prev) shoe.prev = {};
-            shoe.prev.x = shoe.x = shoe.move.x;
-            shoe.prev.y = shoe.y = shoe.move.y;
+            shoe.prev.x = shoe.x = shoe.next.x;
+            shoe.prev.y = shoe.y = shoe.next.y;
           }
-          if (shoe.move.rotate != shoe.rotate) {
-            shoe.move.rotate = (shoe.move.rotate/5).toFixed()*5;
-            step[person][foot].rotate = shoe.move.rotate - shoe.rotate;
-            shoe.rotate = shoe.move.rotate;
+          if (shoe.next.rotate != shoe.rotate) {
+            shoe.next.rotate = (shoe.next.rotate/5).toFixed()*5;
+            step[person][foot].rotate = shoe.next.rotate - shoe.rotate;
+            shoe.rotate = shoe.next.rotate;
           }
         }
-        shoe.move = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
         draw(shoe);
       });
     });
