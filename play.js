@@ -329,46 +329,47 @@ function reset(state) {
     if (!node) return;
     ["left", "right"].forEach(function(side) {
       var shoe = shoes[person][side];
-      var prevshoe = prevshoes[person][side];
+      var prev = prevshoes[person][side].prev || {};
       var color = shoes[person].color;
       shoe.node = node.getElementsByClassName(side)[0];
       shoe.title = shoe.node.getElementsByTagName("title")[0];
+      if (!shoe.prev) shoe.prev = prev;
 
       // position
       shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
       if (
         shoe.position.parentNode.getAttribute('transform') ||
-        !('prevx' in prevshoe) || !('prevy' in prevshoe)
+        !('x' in prev) || !('y' in prev)
       ) {
         shoe.position.endElement();
         shoe.position.parentNode.setAttribute('transform',
           'translate(' + shoe.x + ',' + shoe.y + ')');
-      } else if (shoe.x != prevshoe.prevx || shoe.y != prevshoe.prevy) {
+      } else if (shoe.x != prev.x || shoe.y != prev.y) {
         shoe.position.setAttribute('path',
-          "M" + prevshoe.prevx + ',' + prevshoe.prevy + 
+          "M" + prev.x + ',' + prev.y + 
           "L" + shoe.x + ',' + shoe.y);
         shoe.position.setAttribute('dur', '0.01s');
         shoe.position.beginElement();
       }
-      shoe.prevx = shoe.x;
-      shoe.prevy = shoe.y;
+      shoe.prev.x = shoe.x;
+      shoe.prev.y = shoe.y;
 
       // orientation
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
       if (
         shoe.orientation.parentNode.getAttribute('transform') ||
-        !('prevrotate' in prevshoe)
+        !('rotate' in prev)
       ) {
         shoe.orientation.endElement();
         shoe.orientation.parentNode.setAttribute('transform',
           'rotate(' + shoe.rotate + ')');
-      } else if (shoe.rotate != prevshoe.prevrotate) {
-        shoe.orientation.setAttribute('from', prevshoe.prevrotate);
+      } else if (shoe.rotate != prev.rotate) {
+        shoe.orientation.setAttribute('from', prev.rotate);
         shoe.orientation.setAttribute('to', shoe.rotate);
         shoe.orientation.setAttribute('dur', '0.01s');
         shoe.orientation.beginElement();
       }
-      shoe.prevrotate = shoe.rotate;
+      shoe.prev.rotate = shoe.rotate;
 
       // ball
       if (!shoe.ball || typeof shoe.ball == 'string') {
@@ -525,11 +526,13 @@ function tic() {
 
         if (op.dest) {
           if ('rotate' in op.dest) {
-            shoe.prevrotate = shoe.rotate = op.dest.rotate;
+            if (!shoe.prev) shoe.prev = {};
+            shoe.prev.rotate = shoe.rotate = op.dest.rotate;
           }
           if ('x' in op.dest && 'y' in op.dest) {
-            shoe.prevx = shoe.x = op.dest.x;
-            shoe.prevy = shoe.y = op.dest.y;
+            if (!shoe.prev) shoe.prev = {};
+            shoe.prev.x = shoe.x = op.dest.x;
+            shoe.prev.y = shoe.y = op.dest.y;
           }
           shoe.title.textContent = shoe.x + ',' + shoe.y + 
             ' (' + shoe.rotate + ')';
