@@ -126,10 +126,20 @@ function collectSteps() {
   var list = document.querySelectorAll("#routine li");
   for (var i=0; i<list.length; i++) {
     var index = list[i].getAttribute('data-index');
-    var length = steps.length;
-    var figure = clone(syllabus[dance].figures[index].steps);
+
+    // make a copy, and point each element to the original step
+    var original = syllabus[dance].figures[index].steps;
+    var figure = clone(original);
+    for (var i=0; i<original.length; i++) figure[i].step = i;
+
+    // reset count at the beginning of the figure
     if (figure.length && !('count' in figure[0])) figure[0].count = 1;
+
+    // concatenate figure to steps
+    var length = steps.length;
     steps.push.apply(steps, figure);
+
+    // if figure not empty, point to listItem from the first and last entry
     if (steps.length != length) {
       steps[length].listItem = list[i];
       steps[steps.length-1].listItem = list[i];
