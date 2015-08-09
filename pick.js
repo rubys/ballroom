@@ -130,7 +130,7 @@ function collectSteps() {
     // make a copy, and point each element to the original step
     var original = syllabus[dance].figures[index].steps;
     var figure = clone(original);
-    for (var i=0; i<original.length; i++) figure[i].step = i;
+    for (var j=0; j<original.length; j++) figure[j].step = j;
 
     // reset count at the beginning of the figure
     if (figure.length && !('count' in figure[0])) figure[0].count = 1;
