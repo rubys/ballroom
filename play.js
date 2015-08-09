@@ -322,18 +322,18 @@ function compile() {
 // apply initial settings
 function reset(state) {
   var prevshoes = shoes || state;
-  if (shoes != state) shoes = clone(state);
+  var nextshoes = (shoes == state) ? shoes : clone(state);
 
   ["leader", "follower"].forEach(function(person) {
     var node = document.getElementById(person);
     if (!node) return;
     ["left", "right"].forEach(function(side) {
-      var shoe = shoes[person][side];
-      var prev = prevshoes[person][side].prev || {};
-      var color = shoes[person].color;
+      var shoe = nextshoes[person][side];
+      var prev = prevshoes[person][side].next || {};
+      var color = nextshoes[person].color;
       shoe.node = node.getElementsByClassName(side)[0];
       shoe.title = shoe.node.getElementsByTagName("title")[0];
-      if (!shoe.prev) shoe.prev = prev;
+      if (!shoe.next) shoe.next = prev;
 
       // position
       shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
@@ -351,8 +351,6 @@ function reset(state) {
         shoe.position.setAttribute('dur', '0.01s');
         shoe.position.beginElement();
       }
-      shoe.prev.x = shoe.x;
-      shoe.prev.y = shoe.y;
 
       // orientation
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
@@ -369,7 +367,6 @@ function reset(state) {
         shoe.orientation.setAttribute('dur', '0.01s');
         shoe.orientation.beginElement();
       }
-      shoe.prev.rotate = shoe.rotate;
 
       // ball
       if (!shoe.ball || typeof shoe.ball == 'string') {
@@ -388,8 +385,16 @@ function reset(state) {
       shoe.heel.node.parentNode.setAttribute("d", shoe.path.heel);
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
+
+      // initialize next and previous
+      if (nextshoes != prevshoes) {
+        shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+      }
     });
   });
+
+  shoes = nextshoes;
 }
 
 // capture paths
@@ -463,6 +468,20 @@ function tic() {
       step = routine[clock-direction];
     }
 
+    // update next/previous
+    ["leader", "follower"].forEach(function(person) {
+      ["left", "right"].forEach(function(side) {
+        var shoe = shoes[person][side];
+        if (direction == 1) {
+          shoe.prev = shoe.next;
+          shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        } else {
+          shoe.next = shoe.prev;
+          shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        }
+     });
+   });
+
     // process advance
     if (advance == 1) {
       advance = false;
@@ -526,13 +545,11 @@ function tic() {
 
         if (op.dest) {
           if ('rotate' in op.dest) {
-            if (!shoe.prev) shoe.prev = {};
-            shoe.prev.rotate = shoe.rotate = op.dest.rotate;
+            shoe.rotate = op.dest.rotate;
           }
           if ('x' in op.dest && 'y' in op.dest) {
-            if (!shoe.prev) shoe.prev = {};
-            shoe.prev.x = shoe.x = op.dest.x;
-            shoe.prev.y = shoe.y = op.dest.y;
+            shoe.x = op.dest.x;
+            shoe.y = op.dest.y;
           }
           shoe.title.textContent = shoe.x + ',' + shoe.y + 
             ' (' + shoe.rotate + ')';
