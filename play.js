@@ -479,8 +479,8 @@ function tic() {
           shoe.next = shoe.prev;
           shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
         }
-     });
-   });
+      });
+    });
 
     // process advance
     if (advance == 1) {
