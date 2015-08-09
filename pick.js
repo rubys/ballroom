@@ -20,7 +20,6 @@ fetch(null, 'index.json', function(result) {
     var routine = document.getElementById('routine');
     while (routine.hasChildNodes()) routine.lastChild.remove();
 
-    var svg = document.getElementsByTagName('svg')[0];
     svg.removeAttribute('viewBox');
 
     displayMenu();

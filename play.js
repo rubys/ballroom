@@ -590,7 +590,6 @@ function resize() {
   view.miny -= 100;
   view.maxy += 100;
 
-  var svg = document.getElementsByTagName('svg')[0];
   if (svg.viewBox.baseVal) {
     var viewBox = svg.viewBox.baseVal;
     if (viewBox.x < view.minx) view.minx = viewBox.x;

@@ -1,7 +1,7 @@
 var aspect = "position";
 var newFigure;
 
-var svg = document.getElementsByTagName('svg')[0];
+var svg = document.querySelector('#floor svg');
 var selected = null;
 var nob = null;
 
