@@ -2,7 +2,6 @@
 <html>
   <meta charset="utf-8"/> 
   <link rel="stylesheet" href="ballroom.css"/>
-
   <aside>
     <h1>Rumba</h1>
 
@@ -40,10 +39,41 @@
     </div>
 
     <p>
-      <button onclick="prev()">&#x2590;&#x25C0;&#xA0;</button>
-      <button onclick="pause()">&#x258C;&#x258C;</button>
-      <button onclick="next()">&#x25B6;&#x258C;</button>
-      <button onclick="play()">&#xA0;&#x25B6;&#xA0;</button>
+      <button onclick="prev()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <g>
+            <title>Step Reverse</title>
+            <path d="M10,10h20v80h-20zM30,50L90,20v60z"/>
+          </g>
+        </svg>
+      </button>
+
+      <button onclick="pause()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <g>
+            <title>Pause</title>
+            <path d="M20,10h20v80h-20zM60,10h20v80h-20z"/>
+          </g>
+        </svg>
+      </button>
+
+      <button onclick="next()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <g>
+            <title>Step Advance</title>
+            <path d="M80,10h20v80h-20zM70,50L10,20v60z"/>
+          </g>
+        </svg>
+      </button>
+
+      <button onclick="play()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <g>
+            <title>Play</title>
+            <path d="M80,50L10,10v80z"/>
+          </g>
+        </svg>
+      </button>
     </p>
 
     <p><input id="beats" type="range" min="30" max="120" value="60"/></p>

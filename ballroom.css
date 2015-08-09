@@ -11,12 +11,15 @@ svg, #edit {
   display: none;
 }
 
-p {
-  margin-left: 2em;
+button svg {
+  display: inherit;
+  width: 20px;
+  height: 20px;
+  padding-top: 4px;
 }
 
-button {
-  line-height: 2em;
+p {
+  margin-left: 2em;
 }
 
 h2 {
