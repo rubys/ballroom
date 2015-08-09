@@ -116,7 +116,7 @@ function select(event) {
     selected.node.parentNode.id + "'s " +selected.node.classList[0];
 
   document.getElementById("position").textContent = 
-    selected.x.toFixed() + ', ' + selected.y.toFixed();
+    selected.prev.x.toFixed() + ', ' + selected.prev.y.toFixed();
   document.getElementById("orientation").textContent = selected.rotate;
 
   if (selected.ball.node.parentNode.getAttribute('fill') == '#FFF') {
@@ -162,27 +162,30 @@ function mouseMove(event) {
         return;
       }
 
-      if (selected.next && (selected.next.x || selected.next.y)) return;
-      selected.next = {event: event, x: selected.x, y: selected.y};
-      aspect = 'pan';
+      if (selected.x != selected.prev.x || selected.y != selected.prev.y) {
+        return;
+      } else {
+        selected.event = event;
+        aspect = 'pan';
+     }
     } else {
       return;
     }
   }
 
   if (aspect == 'position') {
-    selected.next.x += (event.clientX-selected.next.event.clientX)*scale;
-    selected.next.y += (event.clientY-selected.next.event.clientY)*scale;
-    selected.next.event = event;
+    selected.x += (event.clientX-selected.next.event.clientX)*scale;
+    selected.y += (event.clientY-selected.next.event.clientY)*scale;
+    selected.event = event;
   } else if (aspect == 'orientation') {
     var rect = svg.getBoundingClientRect();
     var viewBox = svg.viewBox.baseVal;
-    var dy = (event.clientY-rect.top)*scale+viewBox.y - selected.next.y;
-    var dx = (event.clientX-rect.left)*scale+viewBox.x - selected.next.x;
+    var dy = (event.clientY-rect.top)*scale+viewBox.y - selected.y;
+    var dx = (event.clientX-rect.left)*scale+viewBox.x - selected.x;
     var angle = Math.atan2(-dx, dy) / Math.PI * 180;
-    while (angle < selected.next.rotate - 180) angle += 360;
-    while (angle > selected.next.rotate + 180) angle -= 360;
-    selected.next.rotate = angle;
+    while (angle < selected.rotate - 180) angle += 360;
+    while (angle > selected.rotate + 180) angle -= 360;
+    selected.rotate = angle;
   } else if (aspect == 'pan') {
     if (!event.button && !event.buttons) {
       aspect = 'position';
@@ -209,26 +212,25 @@ function draw(shoe) {
   // move(translate) and rotate shoe
   shoe.position.endElement();
   shoe.position.parentNode.setAttribute('transform', 'translate(' + 
-    shoe.next.x + ',' + shoe.next.y + ')');
+    shoe.x + ',' + shoe.y + ')');
   shoe.orientation.endElement();
   shoe.orientation.parentNode.setAttribute('transform', 'rotate(' + 
-    (typeof shoe.next.rotate == 'undefined' ? shoe.rotate : shoe.next.rotate) +
-    ')');
+    shoe.rotate + ')');
 
   // update aside
   document.getElementById("move").textContent = 
-    shoe.next.x.toFixed() + ', ' + shoe.next.y.toFixed();
+    shoe.x.toFixed() + ', ' + shoe.y.toFixed();
   document.getElementById("rotate").textContent = 
-    shoe.next.rotate ? (shoe.next.rotate/5).toFixed()*5 : 0;
+    (shoe.rotate/5).toFixed()*5;
 
   // draw path line
-  var line = "M" + shoe.x + ',' + shoe.y + 
-    "L" + shoe.next.x + ',' + shoe.next.y;
+  var line = "M" + shoe.prev.x + ',' + shoe.prev.y + 
+    "L" + shoe.x + ',' + shoe.y;
   if (shoe.next.x1 || shoe.next.y1) {
-    line = "M" + shoe.x + ',' + shoe.y + "C" + 
+    line = "M" + shoe.prev.x + ',' + shoe.prev.y + "C" + 
       shoe.next.x1 + ',' + shoe.next.y1 + ',' +
       shoe.next.x2 + ',' + shoe.next.y2 + ',' +
-      shoe.next.x + ',' + shoe.next.y;
+      shoe.x + ',' + shoe.y;
   }
   path[shoe.node.parentNode.id].setAttribute('d', line);
 
@@ -236,10 +238,6 @@ function draw(shoe) {
 } 
 
 function move(x, y) {
-  if (!selected.next) {
-    selected.next = {x: selected.x, y: selected.y, rotate: selected.rotate};
-  }
-
   if (nob) {
     if (nob.which == 1) {
       selected.next.x1 += x;
@@ -251,8 +249,8 @@ function move(x, y) {
     drawNobs(selected);
   } else {
     var movement = rotate({x: x, y: y}, selected.rotate);
-    selected.next.x += movement.x;
-    selected.next.y += movement.y;
+    selected.x += movement.x;
+    selected.y += movement.y;
   }
 
   draw(selected);
@@ -261,19 +259,15 @@ function move(x, y) {
 function moveTo(base, offset) {
   var movement = rotate(offset, base.rotate);
 
-  if (!selected.next) {
-    selected.next = {x: selected.x, y: selected.y, rotate: selected.rotate};
-  }
-
-  selected.next.x = base.x + movement.x;
-  selected.next.y = base.y + movement.y;
+  selected.x = base.x + movement.x;
+  selected.y = base.y + movement.y;
 
   draw(selected);
 }
 
 function turn(angle) {
-  selected.next.rotate = 
-    ((selected.next.rotate + angle)/angle).toFixed() * angle;
+  selected.rotate = 
+    ((selected.rotate + angle)/angle).toFixed() * angle;
   draw(selected);
 }
 
@@ -330,13 +324,13 @@ function drawNobs(selected) {
   if (!selected.next || !('x1' in selected.next)) return;
 
   document.querySelector('#nob1 path').setAttribute('d',
-    "M" + selected.x + ',' + selected.y + 
+    "M" + selected.prev.x + ',' + selected.prev.y + 
       'L' + selected.next.x1 + ',' + selected.next.y1);
   document.querySelector('#nob1 circle').setAttribute('cx', selected.next.x1);
   document.querySelector('#nob1 circle').setAttribute('cy', selected.next.y1);
 
   document.querySelector('#nob2 path').setAttribute('d',
-    "M" + selected.next.x + ',' + selected.next.y + 
+    "M" + selected.x + ',' + selected.y + 
       'L' + selected.next.x2 + ',' + selected.next.y2);
   document.querySelector('#nob2 circle').setAttribute('cx', selected.next.x2);
   document.querySelector('#nob2 circle').setAttribute('cy', selected.next.y2);
@@ -360,48 +354,47 @@ function moveToPosition(n, event) {
   var rmove = {x: -move.x, y: -move.y};
   if (n==3 || n==5) rmove.y = move.y;
 
-  var match = (n != 3 && n != 5) && (selected.rotate != selected.next.rotate);
+  var match = (n != 3 && n != 5) && (selected.rotate != selected.prev.rotate);
 
   if (selected == shoes.follower.right) {
     if (!event.shiftKey) {
       select(shoes.leader.left);
-      selected.next.rotate = shoes.leader.right.rotate - move.rotate;
+      selected.rotate = shoes.leader.right.prev.rotate - move.rotate;
       moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
     }
     select(shoes.follower.right);
-    selected.next.rotate = shoes.follower.left.rotate + move.rotate;
+    selected.rotate = shoes.follower.left.prev.rotate + move.rotate;
     moveTo(shoes.follower.left, {x: move.x, y: move.y});
 
   } else if (selected == shoes.follower.left) {
     if (!event.shiftKey) {
       select(shoes.leader.right);
-      selected.next.rotate = shoes.leader.left.rotate + move.rotate;
+      selected.rotate = shoes.leader.left.prev.rotate + move.rotate;
       moveTo(shoes.leader.left, {x: move.x, y: move.y});
     }
     select(shoes.follower.left);
-    selected.next.rotate = shoes.follower.right.rotate - move.rotate;
+    selected.rotate = shoes.follower.right.prev.rotate - move.rotate;
     moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
 
   } else if (selected == shoes.leader.left) {
-    if (!match) selected.next.rotate = shoes.leader.right.rotate - move.rotate;
+    if (!match) selected.rotate = shoes.leader.right.prev.rotate - move.rotate;
     moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
 
     if (!event.shiftKey) {
       select(shoes.follower.right);
       if (match) {
-        selected.next.rotate = shoes.leader.left.next.rotate + 180;
-        while (selected.next.rotate - selected.rotate >= 180) {
-          selected.next.rotate -= 360;
+        selected.rotate = shoes.leader.left.rotate + 180;
+        while (selected.rotate - selected.prev.rotate >= 180) {
+          selected.rotate -= 360;
         }
-        while (selected.rotate - selected.next.rotate > 180) {
-          selected.next.rotate += 360;
+        while (selected.prev.rotate - selected.rotate > 180) {
+          selected.rotate += 360;
         }
-        moveTo({x: shoes.leader.left.x + shoes.leader.left.next.x,
-          y: shoes.leader.left.y + shoes.leader.left.next.y,
-          rotate: shoes.leader.left.next.rotate},
+        moveTo({x: shoes.leader.left.x, y: shoes.leader.left.y,
+          rotate: shoes.leader.left.rotate},
           shoes.gap.people);
       } else {
-        selected.next.rotate = shoes.follower.left.rotate + move.rotate;
+        selected.rotate = shoes.follower.left.prev.rotate + move.rotate;
         moveTo(shoes.follower.left, {x: move.x, y: move.y});
       }
     }
@@ -409,24 +402,24 @@ function moveToPosition(n, event) {
     select(shoes.leader.left);
 
   } else if (selected == shoes.leader.right) {
-    if (!match) selected.next.rotate = shoes.leader.left.rotate + move.rotate;
+    if (!match) selected.rotate = shoes.leader.left.prev.rotate + move.rotate;
     moveTo(shoes.leader.left, {x: move.x, y: move.y});
 
     if (!event.shiftKey) {
       select(shoes.follower.left);
       if (match) {
-        selected.next.rotate = shoes.leader.right.next.rotate + 180;
-        while (selected.next.rotate - selected.rotate >= 180) {
-          selected.next.rotate -= 360;
+        selected.rotate = shoes.leader.right.rotate + 180;
+        while (selected.rotate - selected.prev.rotate >= 180) {
+          selected.rotate -= 360;
         }
-        while (selected.rotate - selected.next.rotate > 180) {
-          selected.next.rotate += 360;
+        while (selected.prev.rotate - selected.rotate > 180) {
+          selected.rotate += 360;
         }
-        moveTo({x: shoes.leader.right.next.x, y: shoes.leader.right.next.y,
-          rotate: shoes.leader.right.next.rotate},
+        moveTo({x: shoes.leader.right.x, y: shoes.leader.right.y,
+          rotate: shoes.leader.right.rotate},
           shoes.gap.people);
       } else {
-        selected.next.rotate = shoes.follower.right.rotate - move.rotate;
+        selected.rotate = shoes.follower.right.prev.rotate - move.rotate;
         moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
       }
     }
@@ -505,7 +498,9 @@ window.addEventListener('keydown', function(event) {
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
         var shoe = shoes[person][foot];
-        shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        shoe.x = shoe.prev.x;
+        shoe.y = shoe.prev.y;
+        shoe.rotate = shoe.prev.rotate;
         draw(shoe);
       });
     });
@@ -514,7 +509,7 @@ window.addEventListener('keydown', function(event) {
   } else if (event.keyCode == 67) { // c
     var nobs = document.getElementById('nobs');
 
-    if (selected && selected.next && (selected.next.x || selected.next.y)) {
+    if (selected && selected.next && (selected.x || selected.y)) {
       if (selected.next.x1 || selected.next.y1) {
         if (nobs.style.display == 'none') {
           nobs.style.display = 'inherit';
@@ -522,16 +517,16 @@ window.addEventListener('keydown', function(event) {
           hideNobs();
         }
       } else {
-        var dx = selected.next.x - selected.x;
-        var dy = selected.next.y - selected.y;
+        var dx = selected.x - selected.prev.x;
+        var dy = selected.y - selected.prev.y;
         var r = Math.sqrt(dx*dx + dy*dy)/2;
         var theta = Math.atan2(dy, dx);
         var shift = {x: r*Math.sin(theta+Math.PI/4),
           y: r*Math.cos(theta+Math.PI/4)};
-        selected.next.x1 = selected.x+shift.x;
-        selected.next.y1 = selected.y-shift.y;
-        selected.next.x2 = selected.next.x-shift.x;
-        selected.next.y2 = selected.next.y+shift.y;
+        selected.next.x1 = selected.prev.x+shift.x;
+        selected.next.y1 = selected.prev.y-shift.y;
+        selected.next.x2 = selected.x-shift.x;
+        selected.next.y2 = selected.y+shift.y;
         drawNobs(selected);
         draw(selected);
         nobs.style.display = 'inherit';
@@ -589,22 +584,25 @@ window.addEventListener('keydown', function(event) {
     ["leader", "follower"].forEach(function(person) {
       ["left", "right"].forEach(function(foot) {
         var shoe = shoes[person][foot];
-        if (!shoe.next) return;
-        if (shoe.next.x || shoe.next.y || shoe.next.rotate != shoe.rotate) {
+        if (
+          shoe.x != shoe.prev.x || shoe.y != shoe.prev.y ||
+          shoe.rotate != shoe.prev.rotate
+        ) {
           if (!step[person]) step[person] = {}
-          step[person][foot] = {}
-          if (shoe.next.x || shoe.next.y) {
+          if (!step[person][foot]) step[person][foot] = {}
+
+          if (shoe.x != shoe.prev.x || shoe.y != shoe.prev.y) {
             var movement = rotate(
-              {x: shoe.next.x - shoe.x, y: shoe.next.y - shoe.y}, shoe.rotate);
+              {x: shoe.x - shoe.prev.x, y: shoe.y - shoe.prev.y}, shoe.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
             if ('x1' in shoe.next) {
               var movement1 = rotate(
-                {x: shoe.next.x1-shoe.x, y: shoe.next.y1-shoe.y},
-                shoe.rotate);
+                {x: shoe.next.x1-shoe.prev.x, y: shoe.next.y1-shoe.prev.y},
+                shoe.prev.rotate);
               var movement2 = rotate(
-                {x: shoe.next.x2-shoe.x, y: shoe.next.y2-shoe.y},
-                shoe.rotate);
+                {x: shoe.next.x2-shoe.prev.x, y: shoe.next.y2-shoe.prev.y},
+                shoe.prev.rotate);
               step[person][foot].path = "c" + 
                 parseFloat(movement1.x.toFixed(3)) + ',' +
                 parseFloat(movement1.y.toFixed(3)) + ',' +
@@ -614,14 +612,13 @@ window.addEventListener('keydown', function(event) {
             } else {
               step[person][foot].path = "l" + movement.x + ',' + movement.y;
             }
-            if (!shoe.prev) shoe.prev = {};
-            shoe.prev.x = shoe.x = shoe.next.x;
-            shoe.prev.y = shoe.y = shoe.next.y;
+            shoe.prev.x = shoe.x;
+            shoe.prev.y = shoe.y;
           }
-          if (shoe.next.rotate != shoe.rotate) {
-            shoe.next.rotate = (shoe.next.rotate/5).toFixed()*5;
-            step[person][foot].rotate = shoe.next.rotate - shoe.rotate;
-            shoe.rotate = shoe.next.rotate;
+          if (shoe.rotate != shoe.prev.rotate) {
+            shoe.rotate = (shoe.rotate/5).toFixed()*5;
+            step[person][foot].rotate = shoe.rotate - shoe.prev.rotate;
+            shoe.prev.rotate = shoe.rotate;
           }
         }
         shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
