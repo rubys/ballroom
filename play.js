@@ -390,6 +390,7 @@ function reset(state) {
       if (nextshoes != prevshoes) {
         shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
         shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        aside.step = 0;
       }
     });
   });
@@ -459,6 +460,8 @@ function tic() {
 //  aside.image.setAttribute('src', step.image);
   }
 
+  if (direction == -1 && 'step' in step) aside.step = step.step;
+
   if (step.count && (step.leader || step.follower)) {
     // process changes to bpm value
     if (bpm != parseFloat(aside.beats.value)) {
@@ -496,6 +499,8 @@ function tic() {
       }
     }
   }
+
+  if (direction == 1 && 'step' in step) aside.step = step.step;
 
   for (var attr in step) {
     if (attr == 'text') {
