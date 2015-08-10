@@ -102,9 +102,7 @@ function select(event) {
   if (!('y' in selected.next)) selected.next.y = selected.y;
   if (!('rotate' in selected.next)) selected.next.rotate = selected.rotate;
 
-  if (event.clientX) {
-    selected.next.event = event;
-  }
+  if (event.clientX) selected.event = event;
 
   var paths = selected.node.querySelectorAll('path');
   for (var i=0; i<paths.length; i++) {
@@ -136,9 +134,7 @@ function select(event) {
 }
 
 function deselect(event) {
-  if (selected && selected.next && selected.next.event) {
-    delete selected.next.event;
-  }
+  if (selected && selected.event) delete selected.event;
   if (nob && nob.event) delete nob.event;
 }
 
@@ -151,7 +147,7 @@ function selectHeel(event) {
 }
 
 function mouseMove(event) {
-  if (!selected || !selected.next || !selected.next.event) {
+  if (!selected || !selected.event) {
     if (event.button == 1 || event.buttons == 1) {
       if (!selected) selected = {};
 
@@ -174,8 +170,8 @@ function mouseMove(event) {
   }
 
   if (aspect == 'position') {
-    selected.x += (event.clientX-selected.next.event.clientX)*scale;
-    selected.y += (event.clientY-selected.next.event.clientY)*scale;
+    selected.x += (event.clientX-selected.event.clientX)*scale;
+    selected.y += (event.clientY-selected.event.clientY)*scale;
     selected.event = event;
   } else if (aspect == 'orientation') {
     var rect = svg.getBoundingClientRect();
@@ -193,9 +189,9 @@ function mouseMove(event) {
       return;
     }
     var viewBox = svg.viewBox.baseVal;
-    viewBox.x -= (event.clientX-selected.next.event.clientX)*scale;
-    viewBox.y -= (event.clientY-selected.next.event.clientY)*scale;
-    selected.next.event = event;
+    viewBox.x -= (event.clientX-selected.event.clientX)*scale;
+    viewBox.y -= (event.clientY-selected.event.clientY)*scale;
+    selected.event = event;
   }
 
   if (selected) draw(selected);
