@@ -104,6 +104,9 @@ function displayMenu() {
               figures[index].steps = steps;
             });
           }
+
+          // clear stepname
+          document.getElementById('stepname').value = '';
         });
       } else {
         // mark row as unavailable

@@ -20,10 +20,10 @@ process.stdin.on('end', function() {
   if (!request.dance || !request.figure || !request.steps) return;
 
   // write out figure
-  var fileName = 'data/' + toFileName(request.dance) + '/' +
-    toFileName(request.figure) + '.json';
-  if (fs.existsSync(fileName)) fs.unlinkSync(fileName);
-  fs.writeFileSync(fileName, JSON.stringify(request.steps, null, 2) + "\n");
+  var fileName = toFileName(request.figure) + '.json';
+  var fullName = 'data/' + toFileName(request.dance) + '/' + fileName;
+  if (fs.existsSync(fullName)) fs.unlinkSync(fullName);
+  fs.writeFileSync(fullName, JSON.stringify(request.steps, null, 2) + "\n");
 
   // update index
   var indexName = 'data/' + toFileName(request.dance) + '/index.json';
@@ -35,8 +35,7 @@ process.stdin.on('end', function() {
     }
   }
   if (i >= index.figures.length) {
-    index.figures.push({name: request.figure,
-      file: toFileName(request.figure) + '.json'});
+    index.figures.push({name: request.figure, file: fileName});
   }
 
   // write out index

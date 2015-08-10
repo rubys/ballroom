@@ -12,21 +12,30 @@ aside.input = {
 }
 
 function editmode() {
-  // create a new figure in the syllabus
-  var name = document.getElementById('stepname').value;
-  name = name || 'New Figure';
-  newFigure = {figure: '-', name: name, steps: []};
-  syllabus[dance].figures.push(newFigure);
-
-  // add it to the routine
   var routine = document.getElementById('routine');
-  var index = syllabus[dance].figures.length - 1;
-  var li = document.createElement('li');
-  li.setAttribute('data-index', index);
-  var span = document.createElement('span');
-  span.textContent = syllabus[dance].figures[index].name;
-  li.appendChild(span);
-  routine.appendChild(li);
+
+  var name = document.getElementById('stepname').value;
+  var listitems = routine.querySelectorAll('li')
+
+  if (!name && listitems.length == 1) {
+    // edit existing figure
+    var index = listitems[0].getAttribute('data-index');
+    newFigure = syllabus[dance].figures[index];
+  } else {
+    // create a new figure in the syllabus
+    name = name || 'New Figure';
+    newFigure = {figure: '-', name: name, steps: []};
+    syllabus[dance].figures.push(newFigure);
+
+    // add it to the routine
+    var index = syllabus[dance].figures.length - 1;
+    var li = document.createElement('li');
+    li.setAttribute('data-index', index);
+    var span = document.createElement('span');
+    span.textContent = syllabus[dance].figures[index].name;
+    li.appendChild(span);
+    routine.appendChild(li);
+  }
 
   // display count
   aside.count.textContent = 'count: ' + (count = 0);
