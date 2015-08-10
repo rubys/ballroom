@@ -11,8 +11,7 @@ aside.input = {
   note: document.querySelector('input[name=note]')
 }
 
-document.getElementById('editmode').addEventListener('click', function() {
-
+function editmode() {
   // create a new figure in the syllabus
   var name = document.getElementById('stepname').value;
   name = name || 'New Figure';
@@ -56,7 +55,9 @@ document.getElementById('editmode').addEventListener('click', function() {
     resize();
     select(selected);
   }, 200);
-});
+};
+
+document.getElementById('editmode').addEventListener('click', editmode);
 
 function toggle(part) {
   var person = selected.node.parentNode.id;
@@ -264,6 +265,7 @@ function moveTo(base, offset) {
 function turn(angle) {
   selected.rotate = 
     ((selected.rotate + angle)/angle).toFixed() * angle;
+  delete selected.undoRotate;
   draw(selected);
 }
 
@@ -347,30 +349,42 @@ function moveToPosition(n, event) {
 
   if (n==4 && event.altKey) move.y = -move.y;
 
+  var originalSelection = selected;
+
+  if (selected.undoRotate) {
+    selected.rotate = selected.prev.rotate;
+    delete selected.undoRotate;
+  }
+
+  var match = (selected.rotate != selected.prev.rotate);
+
+  if (n == 3 || n == 5) {
+    selected.undoRotate = !match;
+    match = false;
+  }
+
   var rmove = {x: -move.x, y: -move.y};
   if (n==3 || n==5) rmove.y = move.y;
 
-  var match = (n != 3 && n != 5) && (selected.rotate != selected.prev.rotate);
-
   if (selected == shoes.follower.right) {
+    selected.rotate = shoes.follower.left.prev.rotate + move.rotate;
+    moveTo(shoes.follower.left, {x: move.x, y: move.y});
+
     if (!event.shiftKey) {
       select(shoes.leader.left);
       selected.rotate = shoes.leader.right.prev.rotate - move.rotate;
       moveTo(shoes.leader.right, {x: rmove.x, y: rmove.y});
     }
-    select(shoes.follower.right);
-    selected.rotate = shoes.follower.left.prev.rotate + move.rotate;
-    moveTo(shoes.follower.left, {x: move.x, y: move.y});
 
   } else if (selected == shoes.follower.left) {
+    selected.rotate = shoes.follower.right.prev.rotate - move.rotate;
+    moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
+
     if (!event.shiftKey) {
       select(shoes.leader.right);
       selected.rotate = shoes.leader.left.prev.rotate + move.rotate;
       moveTo(shoes.leader.left, {x: move.x, y: move.y});
     }
-    select(shoes.follower.left);
-    selected.rotate = shoes.follower.right.prev.rotate - move.rotate;
-    moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
 
   } else if (selected == shoes.leader.left) {
     if (!match) selected.rotate = shoes.leader.right.prev.rotate - move.rotate;
@@ -395,8 +409,6 @@ function moveToPosition(n, event) {
       }
     }
 
-    select(shoes.leader.left);
-
   } else if (selected == shoes.leader.right) {
     if (!match) selected.rotate = shoes.leader.left.prev.rotate + move.rotate;
     moveTo(shoes.leader.left, {x: move.x, y: move.y});
@@ -419,9 +431,9 @@ function moveToPosition(n, event) {
         moveTo(shoes.follower.right, {x: rmove.x, y: rmove.y});
       }
     }
-
-    select(shoes.leader.right);
   }
+
+  select(originalSelection);
 }
 
 // copy support
@@ -529,6 +541,16 @@ window.addEventListener('keydown', function(event) {
       }
     }
 
+  } else if (event.keyCode == 69) { // e
+    editmode();
+
+  } else if (event.keyCode == 80) { // p
+    if (paused) {
+      play();
+    } else {
+      pause();
+    }
+
   } else if (event.keyCode == 81) { // q
     aside.input.duration.value = '1';
 
@@ -589,7 +611,8 @@ window.addEventListener('keydown', function(event) {
 
           if (shoe.x != shoe.prev.x || shoe.y != shoe.prev.y) {
             var movement = rotate(
-              {x: shoe.x - shoe.prev.x, y: shoe.y - shoe.prev.y}, shoe.rotate);
+              {x: shoe.x - shoe.prev.x, y: shoe.y - shoe.prev.y}, 
+              shoe.prev.rotate);
             movement.x = parseFloat(movement.x.toFixed(3));
             movement.y = parseFloat(movement.y.toFixed(3));
             if ('x1' in shoe.next) {
@@ -618,6 +641,7 @@ window.addEventListener('keydown', function(event) {
           }
         }
         shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+        delete shoe.undoRotate;
         draw(shoe);
       });
     });
@@ -631,7 +655,7 @@ window.addEventListener('keydown', function(event) {
 
     if (!('step' in aside) || aside.step >= figure.steps.length) {
       figure.steps.push(step);
-      aside.step = figure.steps.length;
+      delete aside.step;
     } else {
       figure.steps[aside.step] = step;
     }

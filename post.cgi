@@ -35,7 +35,8 @@ process.stdin.on('end', function() {
     }
   }
   if (i >= index.figures.length) {
-    index.figures.push({name: request.figure, file: fileName});
+    index.figures.push({name: request.figure,
+      file: toFileName(request.figure) + '.json'});
   }
 
   // write out index
