@@ -21,7 +21,7 @@ function pause() {
 function play() {
   document.getElementById('syllabus').style.display="none";
   if (routine.length == 0) showStage();
-  if (clock == routine.length) {
+  if (clock == routine.length && !aside.step) {
     clock = 0;
     reset(syllabus[dance].initial);
   }
@@ -30,16 +30,22 @@ function play() {
 }
 
 function next() {
+  direction = +1;
+
   if (clock == routine.length) {
-    clock = 0;
-    reset(syllabus[dance].initial);
+    if (aside.step) {
+      paused = false;
+      return;
+    } else {
+      play();
+      paused = true;
+    }
   } else if (!paused) {
     return;
   }
 
   reset(shoes);
   advance = 2;
-  direction = +1;
 }
 
 function prev() {
@@ -436,9 +442,14 @@ function tic() {
     aside.count.textContent = 'count: ' + (count-1);
     if (aside.text) aside.text.textContent = '';
     if (aside.note) aside.note.textContent = '';
-    path.leader.setAttribute('d', 'M0,0');
-    path.follower.setAttribute('d', 'M0,0');
-    paused = true;
+    if (advance) {
+      advance = false;
+    } else {
+      path.leader.setAttribute('d', 'M0,0');
+      path.follower.setAttribute('d', 'M0,0');
+      paused = true;
+      aside.step = null;
+    }
     if (aside.listItem) aside.listItem.classList.remove('active');
     aside.listItem = null;
     return;
