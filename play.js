@@ -448,7 +448,7 @@ function tic() {
       path.leader.setAttribute('d', 'M0,0');
       path.follower.setAttribute('d', 'M0,0');
       paused = true;
-      aside.step = null;
+      delete aside.step;
     }
     if (aside.listItem) aside.listItem.classList.remove('active');
     aside.listItem = null;

@@ -621,7 +621,21 @@ window.addEventListener('keydown', function(event) {
         draw(shoe);
       });
     });
-    newFigure.steps.push(step);
+
+    var figure = newFigure;
+    if (!figure) {
+      if (!aside.listItem) return;
+      var index = aside.listItem.getAttribute('data-index');
+      figure = syllabus[dance].figures[index];
+    }
+
+    if (!('step' in aside) || aside.step >= figure.steps.length) {
+      figure.steps.push(step);
+      aside.step = figure.steps.length;
+    } else {
+      figure.steps[aside.step] = step;
+    }
+
     compile();
     clock = routine.length;
 
