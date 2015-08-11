@@ -15,7 +15,10 @@ function suspend() {
   document.activeElement.blur();
 
   if (newFigure) {
-    draw(selected);
+    var step = newFigure.steps[aside.step];
+    aside.input.duration.value = step.time || 1;
+    aside.input.text.value = step.text || '';
+    aside.input.note.value = step.note || '';
   } else {
     selected = {};
   }
@@ -52,15 +55,16 @@ function editmode() {
 
   // resize floor
   document.getElementById('edit').style.display = 'block';
+  floor = {};
+  reset(syllabus[dance].initial);
   showStage();
-  if (scale < 1) {
+  if (scale < 1 && newFigure.steps.length == 0) {
     floor.minx /= scale/2;
     floor.miny /= scale/2;
     floor.maxx /= scale/2;
     floor.maxy /= scale/2;
   }
   resize();
-  reset(syllabus[dance].initial);
 
   // select first foot
   select(document.querySelector("#follower .right"));
@@ -97,7 +101,7 @@ function toggle(part) {
 }
 
 function select(event) {
-  if (!newFigure) return;
+  if (!newFigure || direction == -1) return;
 
   if (selected && selected.node) {
     var stroke = shoes[selected.node.parentNode.id].color;
