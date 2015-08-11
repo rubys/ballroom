@@ -196,7 +196,8 @@ function compile() {
                op.to -= 360;
             }
 	    shoe.rotate += op.rotate;
-            ops.forward.dest = {rotate: shoe.rotate};
+            if (!ops.forward.dest) ops.forward.dest = {};
+            ops.forward.dest.rotate = shoe.rotate;
 	  }
 
 	  // construct reverse
@@ -473,7 +474,7 @@ function tic() {
 
   if (direction == -1 && 'step' in step) aside.step = step.step;
 
-  if (step.count && (step.leader || step.follower)) {
+  if ('step' in step) {
     // process changes to bpm value
     if (bpm != parseFloat(aside.beats.value)) {
       clearInterval(timer);
@@ -500,9 +501,11 @@ function tic() {
     if (advance == 1) {
       advance = false;
       clock -= direction;
+      suspend();
       return;
     } else if (advance == 2) {
       if (direction == -1) {
+        suspend();
         advance = false;
         clock++;
       } else {
@@ -569,6 +572,8 @@ function tic() {
           }
           shoe.title.textContent = shoe.x + ',' + shoe.y + 
             ' (' + shoe.rotate + ')';
+
+          selected = shoe;
         }
 
         if (op.heel && op.heel.to != shoe.heel.fill) {

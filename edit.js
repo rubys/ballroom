@@ -11,6 +11,16 @@ aside.input = {
   note: document.querySelector('input[name=note]')
 }
 
+function suspend() {
+  document.activeElement.blur();
+
+  if (newFigure) {
+    draw(selected);
+  } else {
+    selected = {};
+  }
+}
+
 function editmode() {
   var routine = document.getElementById('routine');
 
@@ -87,6 +97,8 @@ function toggle(part) {
 }
 
 function select(event) {
+  if (!newFigure) return;
+
   if (selected && selected.node) {
     var stroke = shoes[selected.node.parentNode.id].color;
     var paths = selected.node.querySelectorAll('path');
@@ -157,6 +169,8 @@ function selectHeel(event) {
 }
 
 function mouseMove(event) {
+  if (!newFigure) return;
+  
   if (!selected || !selected.event) {
     if (event.button == 1 || event.buttons == 1) {
       if (!selected) selected = {};
@@ -168,7 +182,10 @@ function mouseMove(event) {
         return;
       }
 
-      if (selected.x != selected.prev.x || selected.y != selected.prev.y) {
+      if (
+        'prev' in selected &&
+        (selected.x != selected.prev.x || selected.y != selected.prev.y)
+      ) {
         return;
       } else {
         selected.event = event;
@@ -454,6 +471,8 @@ document.addEventListener('copy', function(event) {
 });
 
 window.addEventListener('keydown', function(event) {
+  if (!newFigure && event.keyCode != 69) return;
+
   if (document.activeElement.tagName.toLowerCase() == 'input') {
     if (event.keyCode != 13) return;
   }
@@ -645,6 +664,8 @@ window.addEventListener('keydown', function(event) {
           }
           if (shoe.rotate != shoe.prev.rotate) {
             shoe.rotate = (shoe.rotate/5).toFixed()*5;
+            while (shoe.rotate - shoe.prev.rotate > 180) shoe.rotate -= 360;
+            while (shoe.prev.rotate - shoe.rotate > 180) shoe.rotate += 360;
             step[person][foot].rotate = shoe.rotate - shoe.prev.rotate;
             shoe.prev.rotate = shoe.rotate;
           }
@@ -669,11 +690,18 @@ window.addEventListener('keydown', function(event) {
       figure.steps[aside.step] = step;
     }
 
+    var resumePoint = routine[clock] ? routine[clock].step : null;
     compile();
     clock = routine.length;
+    if (resumePoint) {
+      for (clock=0; clock<routine.length; clock++) {
+        if (routine[clock].step == resumePoint) break;
+      }
+    }
 
     aside.count.textContent = 'count: ' + (count+=step.time);
 
+    hideNobs();
     selectNextFoot();
     selectNextFoot();
 
