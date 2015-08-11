@@ -1,0 +1,735 @@
+[
+  {
+    "figure": "Cross Lead Box",
+    "time": 2,
+    "text": "slow",
+    "note": "half a box (1)",
+    "leader": {
+      "left": "forward"
+    },
+    "follower": {
+      "right": "back"
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c0,90,10,100,100,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c0,-90,-10,-100-100,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": "together"
+    },
+    "follower": {
+      "right": "together"
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "leader rotates on step back (2)",
+    "leader": {
+      "right": {
+        "path": "l20,-80",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l20,80"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "leader steps to the side",
+    "leader": {
+      "left": {
+        "path": "c0,-100,0,-200,100,-200",
+        "rotate": -135
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l80,200"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "note": "follower passes in front",
+    "leader": {
+      "right": {
+        "path": "l-70.004,-19.092",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l130,260"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "follower spirals (3)",
+    "leader": {
+      "left": {
+        "path": "l-45.962,45.962",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c230.36,145.538,62.111,313.799,-140,325",
+        "rotate": -180
+      },
+      "left": {
+        "rotate": -180
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "leader": {
+      "right": {
+        "path": "l-125.865,188.09",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l50,-285"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ],
+    "text": "quick ..."
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "follower": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "(4)",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "(4)",
+    "leader": {
+      "left": {
+        "path": "l0,200"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,-200"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "(5)",
+    "follower": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c0,90,10,100,150,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c0,-90,-10,-100,-150,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "leader": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ],
+    "text": "... quick"
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "(6)",
+    "leader": {
+      "right": {
+        "path": "l0,-100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l0,100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "l0,-200"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,200"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "(7)",
+    "follower": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "leader": {
+      "right": {
+        "path": "l0,-200"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l0,200"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ],
+    "text": "quick ..."
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "follower": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "(8)",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c3.031,-92.99,-44.885,-93.297,-150,-100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c7.323,97.592,56.389,100.2,150,100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  }
+]
