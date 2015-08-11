@@ -66,7 +66,6 @@ function displayMenu() {
     // update syllabus table
     while (tbody.hasChildNodes()) tbody.lastChild.remove();
 
-    var routine = document.getElementById('routine');
     var section = '1';
 
     for (var i=0; i<figures.length; i++) {
@@ -96,7 +95,7 @@ function displayMenu() {
           var span = document.createElement('span');
           span.textContent = figures[index].name;
           li.appendChild(span);
-          routine.appendChild(li);
+          document.getElementById('routine').appendChild(li);
 
           // fetch steps
           if (!figures[index].steps) {
@@ -107,6 +106,9 @@ function displayMenu() {
 
           // clear stepname
           document.getElementById('stepname').value = '';
+
+          // clear routine
+          clock = routine.length = 0;
         });
       } else {
         // mark row as unavailable
