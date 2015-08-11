@@ -182,27 +182,22 @@
     "time": 1,
     "text": "... quick",
     "note": "leader rocks back / follower rocks forward",
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
       }
-    ]
+    },
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    }
   },
   {
     "time": 2,
@@ -263,18 +258,18 @@
       {
         "time": -0.25,
         "leader": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         },
         "follower": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         }
@@ -295,7 +290,7 @@
         "rotate": -180
       },
       "right": {
-        "path": "c150,100,-10,300,-94.979,251.9",
+        "path": "c109.245,81.723,46.938,274.91,-89.979,263.9",
         "rotate": -180
       }
     },
@@ -303,18 +298,18 @@
       {
         "time": -0.25,
         "leader": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         },
         "follower": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         }
@@ -327,31 +322,31 @@
     "note": "side",
     "leader": {
       "right": {
-        "path": "l143.972,206.154",
+        "path": "l189.288,227.285",
         "rotate": -25
       }
     },
     "follower": {
       "left": {
-        "path": "l-83.564,-139.994"
+        "path": "l-173.564,-134.994"
       }
     },
     "delay": [
       {
         "time": -0.25,
         "leader": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         },
         "follower": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         }
@@ -364,30 +359,30 @@
     "note": "leader steps forward / follower steps back",
     "leader": {
       "left": {
-        "path": "c90,0,100,10,100,100"
+        "path": "c105.352,9.144,147.497,18.356,150,100"
       }
     },
     "follower": {
       "right": {
-        "path": "c-60,0,-65,-10,-65,-117"
+        "path": "c-88.492,-4.086,-149.183,-8.24,-150,-100"
       }
     },
     "delay": [
       {
         "time": -0.25,
         "leader": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         },
         "follower": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         }
@@ -398,32 +393,6 @@
     "time": 1,
     "text": "... quick",
     "note": "leader rocks back / follower rocks forward",
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "time": 2,
-    "text": "slow",
-    "note": "leader rocks forward / follower rocks back",
     "leader": {
       "right": {
         "heel": "down"
@@ -442,35 +411,56 @@
     }
   },
   {
+    "time": 2,
+    "text": "slow",
+    "note": "leader rocks forward / follower rocks back",
+    "leader": {
+      "right": {
+        "heel": "up"
+      },
+      "left": {
+        "heel": "down"
+      }
+    },
+    "follower": {
+      "left": {
+        "heel": "up"
+      },
+      "right": {
+        "heel": "down"
+      }
+    }
+  },
+  {
     "time": 1,
     "text": "quick ...",
     "note": "side",
     "leader": {
       "right": {
-        "path": "c0,90,10,100,100,100"
+        "path": "c2.503,86.702,54.764,95.914,150,100"
       }
     },
     "follower": {
       "left": {
-        "path": "c0,-90,-10,-100,-100,-100"
+        "path": "c-4.189,-90.074,-69.939,-99.286,-150,-100"
       }
     },
     "delay": [
       {
         "time": -0.25,
         "leader": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         },
         "follower": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         }
@@ -479,38 +469,37 @@
   },
   {
     "time": 1,
-    "text": "... quick",
-    "note": "together",
     "leader": {
       "left": {
-        "path": "l100,0"
+        "path": "l150,0"
       }
     },
     "follower": {
       "right": {
-        "path": "l-100,0"
+        "path": "l-150,0"
       }
     },
     "delay": [
       {
         "time": -0.25,
         "leader": {
-          "right": {
+          "left": {
             "heel": "down"
           },
-          "left": {
+          "right": {
             "heel": "up"
           }
         },
         "follower": {
-          "left": {
+          "right": {
             "heel": "down"
           },
-          "right": {
+          "left": {
             "heel": "up"
           }
         }
       }
-    ]
+    ],
+    "text": "... quick"
   }
 ]
