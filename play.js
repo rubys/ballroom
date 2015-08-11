@@ -453,6 +453,7 @@ function tic() {
     }
     if (aside.listItem) aside.listItem.classList.remove('active');
     aside.listItem = null;
+    suspend();
     return;
   }
 

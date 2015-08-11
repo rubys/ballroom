@@ -15,12 +15,21 @@ function suspend() {
   document.activeElement.blur();
 
   if (newFigure) {
-    var step = newFigure.steps[aside.step];
+    var step = newFigure.steps[aside.step] || {};
     aside.input.duration.value = step.time || 1;
     aside.input.text.value = step.text || '';
     aside.input.note.value = step.note || '';
   } else {
     selected = {};
+  }
+
+  if (!('step' in aside)) {
+    ["leader", "follower"].forEach(function(person) {
+      ["left", "right"].forEach(function(foot) {
+        var shoe = shoes[person][foot];
+        shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+      });
+    });
   }
 }
 
