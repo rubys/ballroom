@@ -38,12 +38,12 @@
     "time": 1,
     "leader": {
       "right": {
-        "path": "l150,100"
+        "path": "c-1.661,89.406,41.735,96.092,150,100"
       }
     },
     "follower": {
       "left": {
-        "path": "l-150,-100"
+        "path": "c-3.428,-90.424,-42.753,-98.127,-150,-100"
       }
     },
     "delay": [
@@ -178,27 +178,22 @@
   },
   {
     "time": 1,
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
       }
-    ],
+    },
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
     "text": "... quick"
   },
   {
@@ -321,7 +316,7 @@
     },
     "follower": {
       "left": {
-        "path": "l282.843,282.843",
+        "path": "c-61.176,166.174,78.444,328.985,282.843,282.843",
         "rotate": 135
       },
       "right": {
@@ -390,34 +385,29 @@
   },
   {
     "time": 1,
-    "delay": [
-      {
-        "time": -0.25,
-        "leader": {
-          "right": {
-            "heel": "down"
-          },
-          "left": {
-            "heel": "up"
-          }
-        },
-        "follower": {
-          "left": {
-            "heel": "down"
-          },
-          "right": {
-            "heel": "up"
-          }
-        }
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
       }
-    ],
+    },
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
     "text": "... quick"
   },
   {
     "time": 1,
     "leader": {
       "left": {
-        "path": "l28.888,220.035",
+        "path": "c-90.991,47.46,-13.425,147.288,28.888,220.035",
         "rotate": -60
       }
     },
