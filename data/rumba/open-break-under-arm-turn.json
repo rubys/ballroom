@@ -1,6 +1,6 @@
 [
   {
-    "time": 1,
+    "time": 2,
     "leader": {
       "left": {
         "path": "l0,100"
@@ -105,7 +105,7 @@
     "text": "... quick"
   },
   {
-    "time": 1,
+    "time": 2,
     "leader": {
       "right": {
         "path": "l150,-30"
@@ -197,7 +197,7 @@
     "text": "... quick"
   },
   {
-    "time": 1,
+    "time": 2,
     "leader": {
       "left": {
         "path": "l-151.016,208.433",
@@ -307,7 +307,7 @@
     "text": "... quick"
   },
   {
-    "time": 1,
+    "time": 2,
     "leader": {
       "right": {
         "path": "l136.016,234.413",
@@ -404,7 +404,7 @@
     "text": "... quick"
   },
   {
-    "time": 1,
+    "time": 2,
     "leader": {
       "left": {
         "path": "c-90.991,47.46,-13.425,147.288,28.888,220.035",
