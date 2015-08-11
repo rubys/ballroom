@@ -218,13 +218,13 @@
     "note": "follower spirals",
     "leader": {
       "left": {
-        "path": "l-46.669,46.669",
+        "path": "l-45.962,45.962",
         "rotate": -45
       }
     },
     "follower": {
       "right": {
-        "path": "c250,100,0,320,-120,320",
+        "path": "c230.36,145.538,62.111,313.799,-140,325",
         "rotate": -180
       },
       "left": {
@@ -257,13 +257,13 @@
     "note": "side",
     "leader": {
       "right": {
-        "path": "l0.707,174.655",
+        "path": "l50.912,223.445",
         "rotate": -45
       }
     },
     "follower": {
       "left": {
-        "path": "l-40,-180"
+        "path": "l-100,-185"
       }
     },
     "image": "images/rumba/1d-cross-body-lead/pictures1234.png",
@@ -295,12 +295,12 @@
     "note": "together",
     "leader": {
       "left": {
-        "path": "h80"
+        "path": "l150,0"
       }
     },
     "follower": {
       "right": {
-        "path": "h-70"
+        "path": "l-150,0"
       }
     },
     "image": "images/rumba/1d-cross-body-lead/pictures1256.png",
