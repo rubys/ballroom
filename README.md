@@ -2,7 +2,8 @@ Ballroom: visualize ballroom dance routines
 ===
 
 This tool is intended to help me visualize dance steps.  It very much is a work
-in progress.
+in progress.  Feel free to play with the
+[live demo](http://rubys.github.io/ballroom/) (readonly).
 
 Works best on Firefox.  Works (with some occasional flicker) on Chrome and
 Safari.  Does not work on Internet Explorer or Edge as it requires SVG animation
