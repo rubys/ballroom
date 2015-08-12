@@ -2,8 +2,8 @@
   {
     "figure": "Cross Lead Box",
     "time": 2,
-    "text": "slow",
-    "note": "half a box (1)",
+    "text": "slow (1)",
+    "note": "half a box",
     "leader": {
       "left": "forward"
     },
@@ -100,8 +100,8 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "leader rotates on step back (2)",
+    "text": "slow (2)",
+    "note": "leader rotates on step back",
     "leader": {
       "right": {
         "path": "l20,-80",
@@ -211,8 +211,8 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "follower spirals (3)",
+    "text": "slow (3)",
+    "note": "follower spirals",
     "leader": {
       "left": {
         "path": "l-45.962,45.962",
@@ -308,8 +308,7 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "(4)",
+    "text": "slow (4)",
     "follower": {
       "left": {
         "heel": "down"
@@ -330,7 +329,6 @@
   {
     "time": 1,
     "text": "quick ...",
-    "note": "(4)",
     "leader": {
       "left": {
         "path": "l0,200"
@@ -385,8 +383,7 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "(5)",
+    "text": "slow (5)",
     "follower": {
       "right": {
         "heel": "down"
@@ -476,8 +473,7 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "(6)",
+    "text": "slow (6)",
     "leader": {
       "right": {
         "path": "l0,-100"
@@ -567,8 +563,7 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "(7)",
+    "text": "slow (7)",
     "follower": {
       "right": {
         "heel": "down"
@@ -643,8 +638,7 @@
   },
   {
     "time": 2,
-    "text": "slow",
-    "note": "(8)",
+    "text": "slow (8)",
     "follower": {
       "left": {
         "heel": "down"
