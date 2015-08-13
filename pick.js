@@ -132,7 +132,9 @@ function displayMenu() {
 
           // fetch steps
           if (!figures[index].steps) {
+            li.classList.add('loading');
             fetch(dance, figures[index].file, function(steps) {
+              li.classList.remove('loading');
               figures[index].steps = steps;
             });
           }

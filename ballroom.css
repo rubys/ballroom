@@ -103,6 +103,10 @@ li span {
   color: black;
 }
 
+li.loading span {
+  color: #777;
+}
+
 #debug {
   margin-left: 250px;
   margin-top: 0;
