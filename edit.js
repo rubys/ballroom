@@ -132,10 +132,10 @@ function select(event) {
 
   nob = null;
   selected = shoes[shoe.parentNode.id][shoe.classList[0]];
-  if (!('next' in selected)) selected.next = {};
-  if (!('x' in selected.next)) selected.next.x = selected.x;
-  if (!('y' in selected.next)) selected.next.y = selected.y;
-  if (!('rotate' in selected.next)) selected.next.rotate = selected.rotate;
+  if (!('prev' in selected)) selected.prev = {};
+  if (!('x' in selected.prev)) selected.prev.x = selected.x;
+  if (!('y' in selected.prev)) selected.prev.y = selected.y;
+  if (!('rotate' in selected.prev)) selected.prev.rotate = selected.rotate;
 
   if (event.clientX) selected.event = event;
 

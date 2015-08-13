@@ -343,6 +343,9 @@ function reset(state) {
       if (!shoe.next) shoe.next = prev;
 
       // position
+      var position = rotate(shoe, -shoes.rotate);
+      shoe.x = position.x;
+      shoe.y = -position.y;
       shoe.position = shoe.node.getElementsByTagName("animateMotion")[0];
       if (
         shoe.position.parentNode.getAttribute('transform') ||
@@ -360,6 +363,7 @@ function reset(state) {
       }
 
       // orientation
+      // shoe.rotate += shoes.rotate;
       shoe.orientation = shoe.node.getElementsByTagName("animateTransform")[0]; 
       if (
         shoe.orientation.parentNode.getAttribute('transform') ||
@@ -383,6 +387,12 @@ function reset(state) {
       shoe.ball.node.parentNode.setAttribute("d", shoe.path.ball);
       shoe.ball.node.parentNode.setAttribute("fill", shoe.ball.fill);
       shoe.ball.node.parentNode.setAttribute("stroke", color);
+      if (shoes.rotate) {
+        shoe.ball.node.parentNode.setAttribute("transform",
+          "rotate(" + shoes.rotate + ")");
+      } else {
+        shoe.ball.node.parentNode.removeAttribute("transform");
+      }
 
       // heel
       if (!shoe.heel || typeof shoe.heel == 'string') {
@@ -392,13 +402,17 @@ function reset(state) {
       shoe.heel.node.parentNode.setAttribute("d", shoe.path.heel);
       shoe.heel.node.parentNode.setAttribute("fill", shoe.heel.fill);
       shoe.heel.node.parentNode.setAttribute("stroke", color);
+      if (shoes.rotate) {
+        shoe.heel.node.parentNode.setAttribute("transform",
+          "rotate(" + shoes.rotate + ")");
+      } else {
+        shoe.heel.node.parentNode.removeAttribute("transform");
+      }
 
       // initialize next and previous
-      if (nextshoes != prevshoes) {
-        shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
-        shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
-        aside.step = 0;
-      }
+      if (!shoe.next) shoe.next = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+      if (!shoe.prev) shoe.prev = {x: shoe.x, y: shoe.y, rotate: shoe.rotate};
+      if (nextshoes != prevshoes) aside.step = 0;
     });
   });
 
@@ -606,18 +620,6 @@ function resize() {
   view.maxx += 100;
   view.miny -= 100;
   view.maxy += 100;
-
-  if (svg.viewBox.baseVal) {
-    var viewBox = svg.viewBox.baseVal;
-    if (viewBox.x < view.minx) view.minx = viewBox.x;
-    if (viewBox.y < view.miny) view.miny = viewBox.y;
-    if (viewBox.x + viewBox.width > view.maxx) {
-      view.maxx = viewBox.x + viewBox.width ;
-    }
-    if (viewBox.y + viewBox.height > view.maxy) {
-      view.maxy = viewBox.y + viewBox.height;
-    }
-  }
 
   view.width = view.maxx - view.minx;
   view.height = view.maxy - view.miny;

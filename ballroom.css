@@ -109,3 +109,21 @@ li span {
   padding-top: 0.5em;
   display: none
 }
+
+#settings {
+  display: none;
+}
+
+#settings div {
+  margin-left: 2em;
+}
+
+#settings label {
+  float: left;
+  min-width: 5em;
+}
+
+#settings input {
+  text-align: right;
+  width: 4em;
+}

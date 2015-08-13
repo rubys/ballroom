@@ -39,7 +39,7 @@ function displayMenu() {
     var figures = definition.figures;
 
     // compute gaps
-    var shoes = definition.initial;
+    shoes = definition.initial;
     shoes.gap = {
       people: {
         x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
@@ -54,6 +54,11 @@ function displayMenu() {
 	    Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
       }
     };
+
+    if (!shoes.rotate) shoes.rotate = 0;
+    if (!shoes.step) shoes.step = {};
+    if (!shoes.step.forward) shoes.step.forward = 100;
+    if (!shoes.step.side) shoes.step.side = 100;
 
     // find syllabus table
     var tbody = document.getElementsByTagName('tbody')[0];
@@ -78,6 +83,34 @@ function displayMenu() {
       td.textContent = figures[i].name;
       tr.appendChild(td);
       tbody.appendChild(tr);
+
+      // updates settings - rotate
+      var rotate = document.getElementById('settings.rotate');
+      rotate.value = shoes.rotate;
+      rotate.addEventListener('change', function(event) {
+        if (clock == 0) {
+          var newshoes = clone(shoes);
+          newshoes.rotate = parseFloat(event.currentTarget.value);
+          reset(newshoes);
+        }
+        event.currentTarget.blur();
+      });
+
+      // updates settings - step size forward
+      var step = document.getElementById('settings.stepsize');
+      step.value = shoes.step.forward;
+      step.addEventListener('change', function(event) {
+        shoes.step.forward = parseFloat(event.currentTarget.value);
+        event.currentTarget.blur();
+      });
+
+      // updates settings - step size side
+      var side = document.getElementById('settings.sidesize');
+      side.value = shoes.step.side;
+      side.addEventListener('change', function(event) {
+        shoes.step.side = parseFloat(event.currentTarget.value);
+        event.currentTarget.blur();
+      });
 
       // add section breaks
       if (figures[i].figure[0] != section) {

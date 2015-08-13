@@ -1,8 +1,8 @@
 {
   "initial": {
     "step": {
-      "forward": 100,
-      "side": 150
+      "forward": 150,
+      "side": 100
     },
 
     "follower": {
