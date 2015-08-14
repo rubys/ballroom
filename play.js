@@ -6,7 +6,7 @@ var direction = +1;
 var shoes;
 
 function showStage() {
-  reset(syllabus[dance].initial);
+  reset(clone(syllabus[dance].initial));
   compile();
   resize();
 }
@@ -24,6 +24,7 @@ function play() {
   if (clock == routine.length && !aside.step) {
     clock = 0;
     reset(syllabus[dance].initial);
+    resize();
   }
   paused = false;
   direction = +1;
@@ -85,7 +86,8 @@ function compile() {
     maxy: Math.max.apply(Math, [
       shoes.follower.right.y, shoes.follower.left.y,
       shoes.leader.right.y, shoes.leader.left.y
-    ])
+    ]),
+    padding: floor.padding
   }
 
   var step;
@@ -336,7 +338,8 @@ function reset(state) {
     if (!node) return;
     ["left", "right"].forEach(function(side) {
       var shoe = nextshoes[person][side];
-      var prev = prevshoes[person][side].next || {};
+      var prev = prevshoes[person][side];
+      if (!prev.next) prev = {};
       var color = nextshoes[person].color;
       shoe.node = node.getElementsByClassName(side)[0];
       shoe.title = shoe.node.getElementsByTagName("title")[0];
@@ -616,10 +619,11 @@ function resize() {
   if (!floor.minx) return;
 
   var view = clone(floor);
-  view.minx -= 100;
-  view.maxx += 100;
-  view.miny -= 100;
-  view.maxy += 100;
+  if (!view.padding) view.padding = {x: 0, y: 0};
+  view.minx -= 100 + view.padding.x;
+  view.maxx += 100 + view.padding.x;
+  view.miny -= 100 + view.padding.y;
+  view.maxy += 100 + view.padding.y;
 
   view.width = view.maxx - view.minx;
   view.height = view.maxy - view.miny;

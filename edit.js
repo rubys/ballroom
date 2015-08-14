@@ -65,13 +65,10 @@ function editmode() {
   // resize floor
   document.getElementById('edit').style.display = 'block';
   floor = {};
-  reset(syllabus[dance].initial);
+  reset(clone(syllabus[dance].initial));
   showStage();
-  if (scale < 1 && newFigure.steps.length == 0) {
-    floor.minx /= scale/2;
-    floor.miny /= scale/2;
-    floor.maxx /= scale/2;
-    floor.maxy /= scale/2;
+  if (!floor.padding) {
+    floor.padding = {x: floor.maxx - floor.minx, y: floor.maxy - floor.miny}
   }
   resize();
 
