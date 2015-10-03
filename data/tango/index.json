@@ -1,0 +1,200 @@
+{
+  "initial": {
+    "step": {
+      "forward": 150,
+      "side": 100
+    },
+    "follower": {
+      "color": "#9B111E",
+      "right": {
+        "ball": "down",
+        "heel": "down",
+        "x": 15,
+        "y": -65,
+        "rotate": 180,
+        "path": {
+          "ball": "M10,9c4-8,5-19-9-48c-3-9-10-11-14,0c-10,28-4,39,2,45c5,9,20,6,21,3",
+          "heel": "M3,40c1,11,-11,15,-11,0z"
+        }
+      },
+      "left": {
+        "ball": "down",
+        "heel": "down",
+        "x": 65,
+        "y": -65,
+        "rotate": 180,
+        "path": {
+          "ball": "M-10,9c-4-8-5-19,9-48c3-9,10-11,14,0c10,28,4,39-2,45c-5,9-20,6-21,3",
+          "heel": "M-3,40c-1,11,11,15,11,0z"
+        }
+      }
+    },
+    "leader": {
+      "color": "#000",
+      "left": {
+        "ball": "down",
+        "heel": "down",
+        "x": -65,
+        "y": 65,
+        "rotate": 0,
+        "path": {
+          "ball": "M-9,8c-6-17,-7-34,8-49c1-1,14-13,19,0c6,28,6,20,-5,47z",
+          "heel": "M-8,28c-9,30,32,28,21,0z"
+        }
+      },
+      "right": {
+        "ball": "down",
+        "heel": "down",
+        "x": -15,
+        "y": 65,
+        "rotate": 0,
+        "path": {
+          "ball": "M9,8c6-17,7-34,-8-49c-1-1-14-13-19,0c-6,28-6,20,5,47z",
+          "heel": "M8,28c9,30-32,28-21,0z"
+        }
+      }
+    }
+  },
+  "figures": [
+    {
+      "figure": "1",
+      "name": "Tango Basic"
+    },
+    {
+      "figure": "1a",
+      "name": "Promenade Left Turn"
+    },
+    {
+      "figure": "1b",
+      "name": "Promonade Right Turn"
+    },
+    {
+      "figure": "1c",
+      "name": "Back Tango Close"
+    },
+    {
+      "figure": "2",
+      "name": "Tango Rocks"
+    },
+    {
+      "figure": "2a",
+      "name": "Rock Turn"
+    },
+    {
+      "figure": "2b",
+      "name": "Shadow Rocks"
+    },
+    {
+      "figure": "2c",
+      "name": "Left Turning Rocks"
+    },
+    {
+      "figure": "2d",
+      "name": "Rock and Box"
+    },
+    {
+      "figure": "3",
+      "name": "Medio Corte"
+    },
+    {
+      "figure": "3a",
+      "name": "Slow Left Rock Turn"
+    },
+    {
+      "figure": "3b",
+      "name": "Quick Left Rock Turn"
+    },
+    {
+      "figure": "3c",
+      "name": "Turning Rocks & Corte"
+    },
+    {
+      "figure": "4",
+      "name": "Flare Promenade"
+    },
+    {
+      "figure": "4a",
+      "name": "Outside Underarm Turn"
+    },
+    {
+      "figure": "4b",
+      "name": "Inside Underarm Turn"
+    },
+    {
+      "figure": "5",
+      "name": "La Puerta"
+    },
+    {
+      "figure": "5a",
+      "name": "Triple Fans"
+    },
+    {
+      "figure": "5b",
+      "name": "Slow & Quick Fans"
+    },
+    {
+      "figure": "6",
+      "name": "Argentine Link"
+    },
+    {
+      "figure": "6a",
+      "name": "Progressive Side Steps"
+    },
+    {
+      "figure": "6b",
+      "name": "Medio Corte & Progressive Side Step"
+    },
+    {
+      "figure": "6c",
+      "name": "Link to La Puerta"
+    },
+    {
+      "figure": "7",
+      "name": "Doble Corte"
+    },
+    {
+      "figure": "7a",
+      "name": "Progressive Half Turns"
+    },
+    {
+      "figure": "7b",
+      "name": "Chasse Corte"
+    },
+    {
+      "figure": "8",
+      "name": "El Abanico"
+    },
+    {
+      "figure": "8a",
+      "name": "Flash Point"
+    },
+    {
+      "figure": "8b",
+      "name": "Open Left Box (Reverse Turn)"
+    },
+    {
+      "figure": "8c",
+      "name": "Reverse Pivot"
+    },
+    {
+      "figure": "9",
+      "name": "Rock to Promenade and Four Step"
+    },
+    {
+      "figure": "9a",
+      "name": "Gancho and La Puerta"
+    },
+    {
+      "figure": "9b",
+      "name": "Open Four Step"
+    },
+    {
+      "figure": "10",
+      "name": "Pivot"
+    },
+    {
+      "figure": "10a",
+      "name": "Paseo Ocho"
+    }
+  ]
+}
