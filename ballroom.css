@@ -49,6 +49,10 @@ aside {
   width: 13em
 }
 
+#edit input.edit {
+  width: 3em
+}
+
 #edit input[type=checkbox] {
   width: 1em
 }

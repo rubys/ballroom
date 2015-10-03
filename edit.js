@@ -251,8 +251,8 @@ function draw(shoe) {
     shoe.rotate + ')');
 
   // update aside
-  document.getElementById("move").textContent = 
-    shoe.x.toFixed() + ', ' + shoe.y.toFixed();
+  document.getElementById("movex").textContent = shoe.x.toFixed();
+  document.getElementById("movey").textContent = shoe.y.toFixed();
   document.getElementById("rotate").textContent = 
     (shoe.rotate/5).toFixed()*5;
 
@@ -718,4 +718,46 @@ window.addEventListener('keydown', function(event) {
   } else {
     lastKey = event.keyCode;
   }
+});
+
+function dblclick(source, operation) {
+  source.addEventListener('dblclick', function(event) {
+    var input = document.createElement('input');
+    input.classList.add('edit');
+    input.value = event.target.textContent;
+    while (event.target.firstChild) event.target.firstChild.remove();
+    event.target.appendChild(input);
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+
+    input.addEventListener('blur', operation);
+
+    input.addEventListener('keydown', function(event) {
+      if (event.keyCode == 13) {
+        input.blur();
+        event.stopPropagation();
+      }
+    });
+  });
+}
+
+dblclick(document.getElementById('rotate'), function(event) {
+  selected.rotate = parseFloat(event.target.value);
+  var parent = event.target.parentNode;
+  while (parent.firstChild) parent.firstChild.remove();
+  draw(selected);
+});
+
+dblclick(document.getElementById('movex'), function(event) {
+  selected.x = parseFloat(event.target.value);
+  var parent = event.target.parentNode;
+  while (parent.firstChild) parent.firstChild.remove();
+  draw(selected);
+});
+
+dblclick(document.getElementById('movey'), function(event) {
+  selected.y = parseFloat(event.target.value);
+  var parent = event.target.parentNode;
+  while (parent.firstChild) parent.firstChild.remove();
+  draw(selected);
 });
