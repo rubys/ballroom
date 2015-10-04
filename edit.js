@@ -79,6 +79,14 @@ function editmode() {
   document.getElementById('syllabus').style.display="none";
   document.querySelector("#wall").style.display = "none";
 
+  // start pattern
+  var pattern = syllabus[dance].pattern;
+  if (pattern) {
+    if (pattern[0].time) aside.input.duration.value = pattern[0].time;
+    if (pattern[0].text) aside.input.text.value = pattern[0].text;
+    if (pattern[0].note) aside.input.note.value = pattern[0].note;
+  }
+
   // webkit workaround
   setTimeout(function() {
     resize();
@@ -613,16 +621,22 @@ window.addEventListener('keydown', function(event) {
 
     var step = {time: parseFloat(aside.input.duration.value)};
 
+    // continue pattern
+    var pattern = syllabus[dance].pattern || [{}];
+    if (pattern) pattern = pattern[(newFigure.steps.length+1) % pattern.length];
+
+    if (pattern.time) aside.input.duration.value = pattern.time;
+
     var text = aside.input.text.value;
     if (text) {
       step.text = text;
-      aside.input.text.value = '';
+      aside.input.text.value = pattern.text || '';
     }
 
     var note = aside.input.note.value;
     if (note) {
       step.note = note;
-      aside.input.note.value = '';
+      aside.input.note.value = pattern.note || '';
     }
 
     ["leader", "follower"].forEach(function(person) {
@@ -691,11 +705,14 @@ window.addEventListener('keydown', function(event) {
     clock = routine.length;
     if (resumePoint) {
       for (clock=0; clock<routine.length; clock++) {
+        if (routine[clock].step.count) count = routine[clock].step.count;
         if (routine[clock].step == resumePoint) break;
       }
+    } else {
+      count--;
     }
 
-    aside.count.textContent = 'count: ' + (count+=step.time);
+    aside.count.textContent = 'count: ' + count;
 
     hideNobs();
     selectNextFoot();

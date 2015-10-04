@@ -58,6 +58,21 @@
     }
   },
 
+  "pattern": [
+    {
+      "time": 2,
+      "text": "slow"
+    },
+    {
+      "time": 1,
+      "text": "quick ..."
+    },
+    {
+      "time": 1,
+      "text": "... quick"
+    }
+  ],
+
   "figures": [
     {
       "figure": "1",
