@@ -104,11 +104,11 @@ function compile() {
     } else {
       var ops = step;
       for (var i=0; i<step.time*4; i++) {
-	if (count && routine.length % 4 == 0) {
-	  ops.count = count++;
-	}
-	routine.push(ops);
-	ops = {}
+        if (count && routine.length % 4 == 0) {
+          ops.count = count++;
+        }
+        routine.push(ops);
+        ops = {}
       }
     }
 
@@ -129,66 +129,66 @@ function compile() {
     ["leader", "follower"].forEach(function(person) {
       if (!step[person]) return;
       ["left", "right"].forEach(function(foot) {
-	var ops = step[person][foot];
-	if (!ops) return;
+        var ops = step[person][foot];
+        if (!ops) return;
 
-	// aliases for movement
-	if (ops == 'forward') ops = step[person][foot] = {path: 'v100'}
-	if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
-	if (ops == 'side') {
+        // aliases for movement
+        if (ops == 'forward') ops = step[person][foot] = {path: 'v100'}
+        if (ops == 'back') ops = step[person][foot] = {path: 'v-100'}
+        if (ops == 'side') {
           if (foot == 'left') ops = step[person][foot] = {path: 'h-100'}
           if (foot == 'right')  ops = step[person][foot] = {path: 'h100'}
         }
-	if (ops == 'together') {
+        if (ops == 'together') {
           if (foot == 'right') ops = step[person][foot] = {path: 'h-100'}
           if (foot == 'left')  ops = step[person][foot] = {path: 'h100'}
         }
 
-	// shorthand for position.path
-	if (ops.path && !ops.position) {
-	  ops.position = {path: ops.path};
-	  delete ops.path;
-	}
+        // shorthand for position.path
+        if (ops.path && !ops.position) {
+          ops.position = {path: ops.path};
+          delete ops.path;
+        }
 
-	// shorthand for orientation.rotate
-	if (ops.rotate && !ops.orientation) {
-	  ops.orientation = {rotate: ops.rotate};
-	  delete ops.rotate;
-	}
+        // shorthand for orientation.rotate
+        if (ops.rotate && !ops.orientation) {
+          ops.orientation = {rotate: ops.rotate};
+          delete ops.rotate;
+        }
 
-	ops.forward = {};
-	if (step.time && !step.duration) step.duration = step.time;
+        ops.forward = {};
+        if (step.time && !step.duration) step.duration = step.time;
 
-	if (!ops.reverse) ops.reverse = {};
-	var last = routine[routine.length-1 - (step.time-step.duration)*4];
-	if (!last[person]) last[person] = {};
-	if (!last[person][foot]) last[person][foot] = {};
-	if (!last[person][foot].reverse) last[person][foot].reverse = {};
-	var reverse = last[person][foot].reverse;
+        if (!ops.reverse) ops.reverse = {};
+        var last = routine[routine.length-1 - (step.time-step.duration)*4];
+        if (!last[person]) last[person] = {};
+        if (!last[person][foot]) last[person][foot] = {};
+        if (!last[person][foot].reverse) last[person][foot].reverse = {};
+        var reverse = last[person][foot].reverse;
 
-	["position", "orientation", "ball", "heel"].forEach(function(attr) {
-	  op = ops[attr];
-	  if (!op) return;
+        ["position", "orientation", "ball", "heel"].forEach(function(attr) {
+          op = ops[attr];
+          if (!op) return;
           delete ops[attr];
 
-	  // aliases for raising/lowering
-	  if (op == 'up') {
-	    op = {from: shoes[person].color, to: '#FFF'};
-	  } else if (op == 'down') {
-	    op = {to: shoes[person].color, from: '#FFF'};
-	  }
+          // aliases for raising/lowering
+          if (op == 'up') {
+            op = {from: shoes[person].color, to: '#FFF'};
+          } else if (op == 'down') {
+            op = {to: shoes[person].color, from: '#FFF'};
+          }
 
-	  ops.forward[attr] = op;
+          ops.forward[attr] = op;
 
-	  if (step.duration) {
+          if (step.duration) {
             op.dur = Math.abs(60/bpm*step.duration) + 's';
           }
 
-	  // apply rotation
-	  if (op.rotate) {
-	    var shoe = shoes[person][foot];
-	    op.from = shoe.rotate; 
-	    op.to = shoe.rotate + op.rotate;
+          // apply rotation
+          if (op.rotate) {
+            var shoe = shoes[person][foot];
+            op.from = shoe.rotate; 
+            op.to = shoe.rotate + op.rotate;
             while (op.from <= 0 && op.to <= 0) {
                op.from += 360;
                op.to += 360;
@@ -197,117 +197,124 @@ function compile() {
                op.from -= 360;
                op.to -= 360;
             }
-	    shoe.rotate += op.rotate;
+            shoe.rotate += op.rotate;
             if (!ops.forward.dest) ops.forward.dest = {};
             ops.forward.dest.rotate = shoe.rotate;
-	  }
+          }
 
-	  // construct reverse
-	  reverse[attr] = clone(op); 
-	  if ('from' in op && 'to' in op) {
-	    reverse[attr].from = op.to;
-	    reverse[attr].to = op.from;
+          // construct reverse
+          reverse[attr] = clone(op); 
+          if ('from' in op && 'to' in op) {
+            reverse[attr].from = op.to;
+            reverse[attr].to = op.from;
             if (attr == 'orientation') {
               if (!('dest' in reverse)) reverse.dest = {}
               reverse.dest.rotate = op.from;
             }
-	  }
+          }
 
-	  if (op.path) {
-	    // parse path
-	    var result = [];
-	    var index = 0;
-	    while (index < op.path.length) {
-	      var match = op.path.slice(index).
-		match(/[ ,]*([a-zA-Z]|[+-]?\d+\.?\d*)/);
-	      if (match[1].match(/^[-\d]/)) {
-		result.push(parseFloat(match[1]));
-	      } else {
-		result.push(match[1]);
-	      }
-	      index += match[0].length;
-	    }
+          if (op.path) {
+            // parse path
+            var result = [];
+            var index = 0;
+            while (index < op.path.length) {
+              var match = op.path.slice(index).
+                match(/[ ,]*([a-zA-Z]|[+-]?\d+\.?\d*)/);
+              if (match[1].match(/^[-\d]/)) {
+                result.push(parseFloat(match[1]));
+              } else {
+                result.push(match[1]);
+              }
+              index += match[0].length;
+            }
 
-	    // normalize paths
-	    for (var i=result.length-1; i>=0; i--) {
-	      if (result[i] == 'v') {
-		result.splice(i+1, 0, 0);
-		result[i] = 'l';
-	      } else if (result[i] == 'h') {
-		result.splice(i+2, 0, 0);
-		result[i] = 'l';
-	      }
-	    }
+            // normalize paths
+            for (var i=result.length-1; i>=0; i--) {
+              if (result[i] == 'v') {
+                result.splice(i+1, 0, 0);
+                result[i] = 'l';
+              } else if (result[i] == 'h') {
+                result.splice(i+2, 0, 0);
+                result[i] = 'l';
+              }
+            }
 
-	    // perform rotation
-	    var angle = shoes[person][foot].rotate;
-	    for (var i=result.length-1; i>0; i--) {
-	      if (typeof(result[i])=="number") {
-		if (typeof(result[i-1])=="number") {
+            // perform rotation
+            var angle = shoes[person][foot].rotate;
+            for (var i=result.length-1; i>0; i--) {
+              if (typeof(result[i])=="number") {
+                if (typeof(result[i-1])=="number") {
                   var movement = rotate({x: result[i-1], y: result[i]}, angle);
-		  result[i-1] = movement.x;
-		  result[i] = movement.y;
-		  i--;
-		}
-	      }
-	    }
+                  result[i-1] = movement.x;
+                  result[i] = movement.y;
+                  i--;
+                }
+              }
+            }
 
-	    // extract, normalize offset
-	    var offset = result.slice(-2);
-	    if (result[0] == 'M') result = result.slice(3)
+            // extract, normalize offset
+            var offset = result.slice(-2);
+            if (result[0] == 'M') result = result.slice(3)
 
-	    // construct reverse
-	    rpath = clone(result);
-	    for (var i=0; i<rpath.length; i++) {
-	      if (rpath[i] == "c") {
-		[].splice.apply(rpath,
-		  [i+3,0].concat(rpath.splice(i+1,2)))
-		for (var j=1; j<5; j++) {
-		  rpath[i+j] = rpath[i + 6 - j%2] - rpath[i+j]
-		}
-	      } else if (typeof(rpath[i]) == "number") {
-		rpath[i] = -rpath[i];
-	      }
-	    }
+            // construct reverse
+            rpath = clone(result);
+            for (var i=0; i<rpath.length; i++) {
+              if (rpath[i] == "c") {
+                [].splice.apply(rpath,
+                  [i+3,0].concat(rpath.splice(i+1,2)))
+                for (var j=1; j<5; j++) {
+                  rpath[i+j] = rpath[i + 6 - j%2] - rpath[i+j]
+                }
+              } else if (typeof(rpath[i]) == "number") {
+                rpath[i] = -rpath[i];
+              }
+            }
 
             // capture initial location
             if (!reverse.dest) reverse.dest = {};
-	    reverse.dest.x = shoes[person][foot].x;
-	    reverse.dest.y = shoes[person][foot].y;
+            reverse.dest.x = shoes[person][foot].x;
+            reverse.dest.y = shoes[person][foot].y;
 
-	    // insert move commands
-	    result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
-	    shoes[person][foot].x += offset[0];
-	    shoes[person][foot].y += offset[1];
-	    rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+            // insert move commands
+            result.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
+            shoes[person][foot].x += offset[0];
+            shoes[person][foot].y += offset[1];
+            rpath.unshift('M', shoes[person][foot].x, shoes[person][foot].y);
 
             // capture final destination
             if (!ops.forward.dest) ops.forward.dest = {};
-	    ops.forward.dest.x = rpath[1];
-            ops.forward.dest.y = rpath[2];
+            var dest = ops.forward.dest;
+            dest.x = rpath[1];
+            dest.y = rpath[2];
+            if (rpath.length > 6) {
+              dest.x1 = reverse.dest.x - rpath[4].toString().replace(',', '');
+              dest.x2 = reverse.dest.x - rpath[6].toString().replace(',', '');
+              dest.y1 = reverse.dest.y - rpath[5].toString().replace(',', '');
+              dest.y2 = reverse.dest.y - rpath[7].toString().replace(',', '');
+            }
 
             // update floor dimensions
             if (floor.minx > rpath[1]) floor.minx = rpath[1];
             if (floor.maxx < rpath[1]) floor.maxx = rpath[1];
             if (floor.miny > rpath[2]) floor.miny = rpath[2];
             if (floor.maxy < rpath[2]) floor.maxy = rpath[2];
-	    
-	    // serialize result, rpath
-	    for (var i=result.length-1; i>0; i--) {
-	      if (typeof(result[i])=="number") {
-		if (typeof(result[i-1])=="number") {
-		  result[i] = ',' + result[i];
-		  rpath[i] = ',' + rpath[i];
-		} else {
-		  result[i] = result[i];
-		  rpath[i] = rpath[i];
-		}
-	      }
-	    }
-	    op.path = result.join('');
-	    reverse[attr].path = rpath.join('');
-	  }
-	});
+            
+            // serialize result, rpath
+            for (var i=result.length-1; i>0; i--) {
+              if (typeof(result[i])=="number") {
+                if (typeof(result[i-1])=="number") {
+                  result[i] = ',' + result[i];
+                  rpath[i] = ',' + rpath[i];
+                } else {
+                  result[i] = result[i];
+                  rpath[i] = rpath[i];
+                }
+              }
+            }
+            op.path = result.join('');
+            reverse[attr].path = rpath.join('');
+          }
+        });
       });
     });
 
@@ -587,6 +594,16 @@ function tic() {
           if ('x' in op.dest && 'y' in op.dest) {
             shoe.x = op.dest.x;
             shoe.y = op.dest.y;
+            if (shoe.next) {
+              if ('x1' in op.dest && 'y1' in op.dest) {
+                shoe.next.x1 = op.dest.x1;
+                shoe.next.y1 = op.dest.y1;
+              }
+              if ('x2' in op.dest && 'y2' in op.dest) {
+                shoe.next.x2 = op.dest.x2;
+                shoe.next.y2 = op.dest.y2;
+              }
+            }
           }
           shoe.title.textContent = shoe.x + ',' + shoe.y + 
             ' (' + shoe.rotate + ')';
