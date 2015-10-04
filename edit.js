@@ -430,12 +430,6 @@ function moveToPosition(n, event) {
       select(shoes.follower.right);
       if (match) {
         selected.rotate = shoes.leader.left.rotate + 180;
-        while (selected.rotate - selected.prev.rotate >= 180) {
-          selected.rotate -= 360;
-        }
-        while (selected.prev.rotate - selected.rotate > 180) {
-          selected.rotate += 360;
-        }
         moveTo({x: shoes.leader.left.x, y: shoes.leader.left.y,
           rotate: shoes.leader.left.rotate},
           shoes.gap.people);
@@ -453,12 +447,6 @@ function moveToPosition(n, event) {
       select(shoes.follower.left);
       if (match) {
         selected.rotate = shoes.leader.right.rotate + 180;
-        while (selected.rotate - selected.prev.rotate >= 180) {
-          selected.rotate -= 360;
-        }
-        while (selected.prev.rotate - selected.rotate > 180) {
-          selected.rotate += 360;
-        }
         moveTo({x: shoes.leader.right.x, y: shoes.leader.right.y,
           rotate: shoes.leader.right.rotate},
           shoes.gap.people);
@@ -674,8 +662,6 @@ window.addEventListener('keydown', function(event) {
           }
           if (shoe.rotate != shoe.prev.rotate) {
             shoe.rotate = (shoe.rotate/5).toFixed()*5;
-            while (shoe.rotate - shoe.prev.rotate > 180) shoe.rotate -= 360;
-            while (shoe.prev.rotate - shoe.rotate > 180) shoe.rotate += 360;
             step[person][foot].rotate = shoe.rotate - shoe.prev.rotate;
             shoe.prev.rotate = shoe.rotate;
           }
