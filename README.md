@@ -59,13 +59,17 @@ Creating a new step:
 
     2. Move the shoe.  This can be done by dragging and dropping the ball of
        the shoe or by using the keyboard.  Keyboard instructions follow this
-       list.
+       list.  Double clicking on either the x or y values following the
+       word *Move* in the sidebar will allow direct entry of the desired
+       stopping point.
 
     3. Rotate the shoe.  This can be done by dragging and dropping the heel
-       of the shoe.  Again keyboard instructions follow this list.
+       of the shoe.  Again keyboard instructions follow this list.  Double
+       clicking on the value following the word *Rotate* in the sidebar will
+       allow direct entry of the desired orientation.
 
-    4.  Repeat substeps *i* through *iii* as often as you like.  ***note***: Pressing the 
-        ESC key will reset the step you are working on.
+    4.  Repeat substeps *i* through *iii* as often as you like.  ***note***:
+        Pressing the ESC key will reset the step you are working on.
 
     5.  Adjust the number of beats, text, and note to be displayed as this
         step is being performed.  **Notes**:
