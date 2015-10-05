@@ -1,0 +1,247 @@
+[
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "left": {
+        "path": "l0,100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,-100"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c7.645,88.388,53.735,101.904,150,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c-4.301,-88.388,-57.079,-98.56,-150,-100"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l-150,0"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "c3.311,-77.065,28.128,-86.768,90,-85",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l0,100"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c0.583,-166.374,37.417,-192.626,170,-205",
+        "rotate": -135
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,200"
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "right": {
+        "path": "l10,-30",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l0,200"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "left": {
+        "path": "l-14.142,-14.142",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "left": {
+        "rotate": -90
+      },
+      "right": {
+        "path": "c91.275,176.659,2.725,342.341,-150,265",
+        "rotate": -180
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "c82.259,74.756,46.713,180.532,-61.947,245.389",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c170.943,-138.024,285.057,-46.976,270,75",
+        "rotate": -120
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "path": "c29.524,2.339,61.336,12.553,64.86,54.892",
+        "rotate": -45
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c66.984,10.424,68.061,21.495,67.045,69.919",
+        "rotate": -90
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "c9.637,60.519,-10.498,123.28,-92.785,139.958",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c115.709,-54.483,177.232,-36.22,234.625,72.292",
+        "rotate": -90
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c13.879,42.134,12.934,43.28,-12.785,59.958",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c58.159,-15.915,72.211,5.551,82.37,53.636",
+        "rotate": -90
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "right": {
+        "path": "c29.922,88.542,3.677,117.999,-72.467,142.902",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c106.825,-68.221,172.853,-52.103,239.755,50.528",
+        "rotate": -90
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "left": {
+        "path": "l7.533,62.902",
+        "rotate": -90
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l34.808,-34.68",
+        "rotate": -45
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "right": {
+        "path": "l0,-100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l-42.181,121.882",
+        "rotate": -15
+      }
+    }
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "path": "c-17.678,-88.388,-53.126,-113.435,-150,-100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c17.678,88.388,67.269,116.263,150,100"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l150,0"
+      }
+    }
+  }
+]

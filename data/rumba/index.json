@@ -63,16 +63,17 @@
       "time": 2,
       "text": "slow"
     },
+
     {
       "time": 1,
       "text": "quick ..."
     },
+
     {
       "time": 1,
       "text": "... quick"
     }
   ],
-
   "figures": [
     {
       "figure": "1",
@@ -187,7 +188,8 @@
 
     {
       "figure": "6",
-      "name": "Forward Spot Turn"
+      "name": "Forward Spot Turn",
+      "file": "forward-spot-turn.json"
     },
 
     {
