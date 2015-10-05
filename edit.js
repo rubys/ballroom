@@ -68,7 +68,8 @@ function editmode() {
   reset(clone(syllabus[dance].initial));
   showStage();
   if (!floor.padding) {
-    floor.padding = {x: floor.maxx - floor.minx, y: floor.maxy - floor.miny}
+    var padding = Math.max(shoes.step.forward, shoes.step.side);
+    floor.padding = {x: padding, y: padding}
   }
   resize();
 
