@@ -264,19 +264,29 @@ function draw(shoe) {
   document.getElementById("rotate").textContent = 
     (shoe.rotate/5).toFixed()*5;
 
-  // draw path line
-  var line = "M" + shoe.prev.x + ',' + shoe.prev.y + 
-    "L" + shoe.x + ',' + shoe.y;
-  if (shoe.next.x1 || shoe.next.y1) {
-    line = "M" + shoe.prev.x + ',' + shoe.prev.y + "C" + 
-      shoe.next.x1 + ',' + shoe.next.y1 + ',' +
-      shoe.next.x2 + ',' + shoe.next.y2 + ',' +
-      shoe.x + ',' + shoe.y;
-  }
-  path[shoe.node.parentNode.id].setAttribute('d', line);
+  // draw path lines
+  var line = '';
+  var person = shoe.node.parentNode.id;
+
+  ['left', 'right'].forEach(function (foot) {
+    var shoe = shoes[person][foot];
+    if (shoe.x != shoe.prev.x || shoe.y != shoe.prev.y) {
+      var segment = "M" + shoe.prev.x + ',' + shoe.prev.y + 
+        "L" + shoe.x + ',' + shoe.y;
+      if ('x1' in shoe.next && 'y2' in shoe.next) {
+        segment = "M" + shoe.prev.x + ',' + shoe.prev.y + "C" + 
+          shoe.next.x1 + ',' + shoe.next.y1 + ',' +
+          shoe.next.x2 + ',' + shoe.next.y2 + ',' +
+          shoe.x + ',' + shoe.y;
+      }
+      line += segment;
+    }
+  });
+
+  path[person].setAttribute('d', line);
 
   window.getSelection().removeAllRanges();
-} 
+}
 
 function move(x, y) {
   if (nob) {
