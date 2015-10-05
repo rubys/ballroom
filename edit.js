@@ -516,6 +516,39 @@ window.addEventListener('keydown', function(event) {
     move(0, -step);
     event.preventDefault();
 
+  } else if (event.keyCode == 48) { // 0
+    /* align with partner */
+    var movement;
+    var orientation;
+
+    if (selected == shoes.follower.right) {
+      movement = rotate(shoes.gap.people, shoes.leader.left.rotate);
+      selected.x = shoes.leader.left.x + movement.x;
+      selected.y = shoes.leader.left.y + movement.y;
+      orientation = shoes.leader.left.rotate + 180;
+    } else if (selected == shoes.follower.left) {
+      movement = rotate(shoes.gap.people, shoes.leader.right.rotate);
+      selected.x = shoes.leader.right.x + movement.x;
+      selected.y = shoes.leader.right.y + movement.y;
+      orientation = shoes.leader.right.rotate + 180;
+    } else if (selected == shoes.leader.right) {
+      movement = rotate(shoes.gap.people, shoes.follower.left.rotate);
+      selected.x = shoes.follower.left.x + movement.x;
+      selected.y = shoes.follower.left.y + movement.y;
+      orientation = shoes.follower.left.rotate - 180;
+    } else if (selected == shoes.leader.left) {
+      movement = rotate(shoes.gap.people, shoes.follower.right.rotate);
+      selected.x = shoes.follower.right.x + movement.x;
+      selected.y = shoes.follower.right.y + movement.y;
+      orientation = shoes.follower.right.rotate - 180;
+    }
+
+    while (orientation - selected.rotate > 180) orientation -= 360;
+    while (selected.rotate - orientation > 180) orientation += 360;
+    selected.rotate = orientation;
+
+    draw(selected);
+
   } else if (event.keyCode == 49) { // 1
     moveToPosition(1, event);
     event.preventDefault();

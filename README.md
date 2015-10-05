@@ -108,6 +108,9 @@ Keyboard shortcuts
   make the movement smaller.  Pressing **control** instead (**command** on Macs)
   will give you even more control over the movement.
 
+* **0** will move the selected foot to align with their partners.  This is
+  particularly useful to ensure that dance moves end with a proper alignment.
+
 * **1**, **2**, **3**, **4**, and **5** will move the feet to the first,
   second, third, fourth, or fifth position.  **Notes**:
 
