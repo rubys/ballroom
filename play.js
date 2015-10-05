@@ -566,10 +566,11 @@ function tic() {
           if (op.position.path) {
             var altfoot = 
               (foot == 'right' ? step[person].left : step[person].right);
-            altfoot = (direction == -1 ? altfoot.reverse : altfoot.forward);
+            altfoot = (direction == -1 ? altfoot && altfoot.reverse : 
+              altfoot && altfoot.forward);
 
             path[person].setAttribute('d', op.position.path + 
-              ((altfoot.position && altfoot.position.path) || ''));
+              ((altfoot && altfoot.position && altfoot.position.path) || ''));
           }
           for (var attr in op.position) {
             shoe.position.setAttribute(attr, op.position[attr]);

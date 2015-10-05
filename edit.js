@@ -748,7 +748,10 @@ window.addEventListener('keydown', function(event) {
     clock = routine.length;
     if (resumePoint) {
       for (clock=0; clock<routine.length; clock++) {
-        if (routine[clock].step.count) count = routine[clock].step.count;
+        if (routine[clock].step && routine[clock].step.count) {
+          count = routine[clock].step.count;
+        }
+
         if (routine[clock].step == resumePoint) break;
       }
     } else {
