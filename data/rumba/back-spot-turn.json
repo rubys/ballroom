@@ -1,0 +1,351 @@
+[
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "half of a box",
+    "leader": {
+      "left": {
+        "path": "l0,100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "side",
+    "leader": {
+      "right": {
+        "path": "c0.151,90.892,35.928,97.991,150,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c-8.915,-88.388,-39.684,-97.991,-150,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "note": "together",
+    "leader": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "side",
+    "leader": {
+      "right": {
+        "path": "l150,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l-150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "open break",
+    "leader": {
+      "left": {
+        "path": "l0,-100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,-100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "note": "rock",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "left hand down; prep for rotation",
+    "leader": {
+      "left": {
+        "path": "l0,100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l0,100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "spot turn",
+    "leader": {
+      "right": {
+        "path": "c1.609,-80.148,-141.467,-102.468,-235,-105",
+        "rotate": 30
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c0.464,94.097,105.866,127.203,172.679,132.417",
+        "rotate": 30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "note": "side",
+    "leader": {
+      "left": {
+        "path": "l-204.186,10",
+        "rotate": 30
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l141.865,17.417",
+        "rotate": 30
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "together",
+    "leader": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  }
+]
