@@ -313,6 +313,26 @@ function moveTo(base, offset) {
   selected.x = base.x + movement.x;
   selected.y = base.y + movement.y;
 
+  if (base.prev && 'rotate' in base.prev) {
+    if (movement.x == 0 || movement.y == 0) {
+        // eliminate full spins
+        while (base.rotate - base.prev.rotate > 180) base.rotate -= 360;
+        while (base.prev.rotate - base.rotate > 180) base.rotate += 360;
+    } else {
+      var right = (movement.x > 0);
+      var forward = (movement.y > 0);
+      if (right == forward) {
+        // ensure clockwise
+        while (base.rotate > base.prev.rotate) base.rotate -= 360;
+        while (base.rotate + 360 < base.prev.rotate) base.rotate += 360;
+      } else {
+        // ensure counter-clockwise
+        while (base.rotate < base.prev.rotate) base.rotate += 360;
+        while (base.rotate - 360 > base.prev.rotate) base.rotate -= 360;
+      }
+    }
+  }
+
   draw(selected);
 }
 
@@ -718,6 +738,8 @@ window.addEventListener('keydown', function(event) {
             shoe.prev.y = shoe.y;
           }
           if (shoe.rotate != shoe.prev.rotate) {
+            while (shoe.rotate - shoe.prev.rotate > 360) shoe.rotate -= 360;
+            while (shoe.prev.rotate - shoe.rotate > 360) shoe.rotate += 360;
             shoe.rotate = (shoe.rotate/5).toFixed()*5;
             step[person][foot].rotate = shoe.rotate - shoe.prev.rotate;
             shoe.prev.rotate = shoe.rotate;
