@@ -204,7 +204,8 @@
 
     {
       "figure": "7",
-      "name": "Back Spot Turn"
+      "name": "Back Spot Turn",
+      "file": "back-spot-turn.json"
     },
 
     {
