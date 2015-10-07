@@ -57,23 +57,36 @@ function displayMenu() {
     syllabus[dance] = definition;
     var figures = definition.figures;
 
-    // compute gaps
+    // compute gaps, if not provided
     shoes = definition.initial;
-    shoes.gap = {
-      people: {
-        x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
-	    Math.abs(shoes.leader.left.x - shoes.follower.right.x))/2,
-        y: (Math.abs(shoes.leader.right.y - shoes.follower.left.y) +
-	    Math.abs(shoes.leader.left.y - shoes.follower.right.y))/2
-      },
-      legs: {
-        x: (Math.abs(shoes.leader.right.x - shoes.leader.left.x) +
-	    Math.abs(shoes.follower.left.x - shoes.follower.right.x))/2,
-        y: (Math.abs(shoes.leader.right.y - shoes.leader.left.y) +
-	    Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
-      }
-    };
+    if (!shoes.gap) {
+      shoes.gap = {
+        people: {
+          x: (Math.abs(shoes.leader.right.x - shoes.follower.left.x) +
+              Math.abs(shoes.leader.left.x - shoes.follower.right.x))/2,
+          y: (Math.abs(shoes.leader.right.y - shoes.follower.left.y) +
+              Math.abs(shoes.leader.left.y - shoes.follower.right.y))/2
+        },
+        legs: {
+          x: (Math.abs(shoes.leader.right.x - shoes.leader.left.x) +
+              Math.abs(shoes.follower.left.x - shoes.follower.right.x))/2,
+          y: (Math.abs(shoes.leader.right.y - shoes.leader.left.y) +
+              Math.abs(shoes.follower.left.y - shoes.follower.right.y))/2
+        }
+      };
+    }
 
+    // compute shoe positions
+    shoes.leader.right.x = (shoes.gap.legs.x - shoes.gap.people.x)/2;
+    shoes.leader.right.y = (shoes.gap.legs.y + shoes.gap.people.y)/2;
+    shoes.follower.left.x = (shoes.gap.legs.x + shoes.gap.people.x)/2;
+    shoes.follower.left.y = (shoes.gap.legs.y - shoes.gap.people.y)/2;
+    shoes.leader.left.x = (-shoes.gap.legs.x - shoes.gap.people.x)/2;
+    shoes.leader.left.y = (-shoes.gap.legs.y + shoes.gap.people.y)/2;
+    shoes.follower.right.x = (-shoes.gap.legs.x + shoes.gap.people.x)/2;
+    shoes.follower.right.y = (-shoes.gap.legs.y - shoes.gap.people.y)/2;
+
+    // provide defaults
     if (!shoes.rotate) shoes.rotate = 0;
     if (!shoes.step) shoes.step = {};
     if (!shoes.step.forward) shoes.step.forward = 100;
