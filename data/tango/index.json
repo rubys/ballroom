@@ -259,11 +259,6 @@
     {
       "figure": "10a",
       "name": "Paseo Ocho"
-    },
-
-    {
-      "name": "New Figure",
-      "file": "new-figure.json"
     }
   ]
 }

@@ -3,12 +3,19 @@ var dances = [];
 var syllabus = {};
 
 fetch(null, 'index.json', function(result) {
+  if (window.location.hash.match(/^#\w+$/)) {
+    dance = window.location.hash.substr(1)
+  };
+
   dances = result;
   var select = document.getElementById('dance');
   dances.forEach(function(name) {
     var option = document.createElement('option');
     option.textContent = name;
-    if (name == dance) option.selected = true;
+    if (name.toLowerCase() == dance) {
+      document.querySelector('aside h1').textContent = name;
+      option.selected = true;
+    }
     select.appendChild(option);
   });
   displayMenu();
@@ -16,6 +23,7 @@ fetch(null, 'index.json', function(result) {
   select.addEventListener('change', function(event) {
     document.querySelector('aside h1').textContent = event.target.value;
     dance = event.target.value.toLowerCase();
+    window.location.hash = '#' + dance;
 
     var routine = document.getElementById('routine');
     while (routine.hasChildNodes()) routine.lastChild.remove();
@@ -25,6 +33,16 @@ fetch(null, 'index.json', function(result) {
     displayMenu();
     document.getElementById('stepname').value = '';
   });
+});
+
+window.addEventListener('hashchange', function(event) {
+  var select = document.getElementById('dance');
+  var hash = window.location.hash.substr(1);
+  dance = hash.toLowerCase();
+  dances.forEach(function(name) {
+    if (name.toLowerCase() == dance) select.value = name
+  });
+  select.dispatchEvent(new Event('change', {target: {value: hash}}));
 });
 
 document.querySelector('aside h1').addEventListener('click', function() {
