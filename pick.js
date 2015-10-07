@@ -5,6 +5,8 @@ var syllabus = {};
 fetch(null, 'index.json', function(result) {
   if (window.location.hash.match(/^#\w+$/)) {
     dance = window.location.hash.substr(1)
+  } else {
+    window.location.hash = '#' + dance;
   };
 
   dances = result;
@@ -37,12 +39,11 @@ fetch(null, 'index.json', function(result) {
 
 window.addEventListener('hashchange', function(event) {
   var select = document.getElementById('dance');
-  var hash = window.location.hash.substr(1);
-  dance = hash.toLowerCase();
+  dance = window.location.hash.substr(1).toLowerCase();
   dances.forEach(function(name) {
     if (name.toLowerCase() == dance) select.value = name
   });
-  select.dispatchEvent(new Event('change', {target: {value: hash}}));
+  select.dispatchEvent(new Event('change', {target: {value: dance}}));
 });
 
 document.querySelector('aside h1').addEventListener('click', function() {
