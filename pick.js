@@ -44,12 +44,14 @@ window.addEventListener('hashchange', function(event) {
     if (name.toLowerCase() == dance) select.value = name
   });
   select.dispatchEvent(new Event('change', {target: {value: dance}}));
+  document.querySelector('aside h1').dispatchEvent(new Event('click'));
 });
 
 document.querySelector('aside h1').addEventListener('click', function() {
   document.getElementById('syllabus').style.display="block";
   document.getElementById('edit').style.display = "none";
-  document.querySelector('#wall').style.display = "none";
+  document.querySelector('#floor').style.display = "none";
+  routine.length = 0;
 });
 
 function displayMenu() {

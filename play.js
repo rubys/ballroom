@@ -7,6 +7,7 @@ var shoes;
 
 function showStage() {
   reset(clone(syllabus[dance].initial));
+  document.querySelector('#floor').style.display = "block";
   compile();
   resize();
 }
