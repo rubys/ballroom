@@ -2,7 +2,7 @@
   {
     "time": 2,
     "text": "slow",
-    "note": "half of a box",
+    "note": "open break",
     "leader": {
       "left": {
         "path": "l0,100"
@@ -41,12 +41,12 @@
     "note": "side",
     "leader": {
       "right": {
-        "path": "c0.151,90.892,35.928,97.991,150,100"
+        "path": "c-0.891,91.041,60.701,99.149,150,100"
       }
     },
     "follower": {
       "left": {
-        "path": "c-8.915,-88.388,-39.684,-97.991,-150,-100"
+        "path": "c-1.762,-89.715,-31.522,-101.801,-150,-100"
       }
     },
     "delay": [
@@ -113,12 +113,12 @@
     "note": "side",
     "leader": {
       "right": {
-        "path": "l150,0"
+        "path": "l100,0"
       }
     },
     "follower": {
       "left": {
-        "path": "l-150,0"
+        "path": "l-100,0"
       }
     },
     "delay": [
@@ -146,7 +146,7 @@
   {
     "time": 1,
     "text": "quick ...",
-    "note": "open break",
+    "note": "back",
     "leader": {
       "left": {
         "path": "l0,-100"
@@ -203,10 +203,11 @@
   {
     "time": 2,
     "text": "slow",
-    "note": "left hand down; prep for rotation",
+    "text": "forward; leader steps side",
     "leader": {
       "left": {
-        "path": "l0,100"
+        "path": "c-53.033,17.678,-48.336,56.153,-50,100",
+        "rotate": 45
       }
     },
     "follower": {
@@ -239,17 +240,17 @@
   {
     "time": 1,
     "text": "quick ...",
-    "note": "spot turn",
+    "text": "leader spot turn",
     "leader": {
       "right": {
-        "path": "c1.609,-80.148,-141.467,-102.468,-235,-105",
-        "rotate": 30
+        "path": "c-83.817,-133.817,-195.872,-123.324,-307.782,-70.711",
+        "rotate": 75
       }
     },
     "follower": {
       "left": {
-        "path": "c0.464,94.097,105.866,127.203,172.679,132.417",
-        "rotate": 30
+        "path": "l50,100",
+        "rotate": 45
       }
     },
     "delay": [
@@ -277,17 +278,20 @@
   {
     "time": 1,
     "text": "... quick",
-    "note": "side",
+    "text": "follower steps in; leader steps around",
     "leader": {
       "left": {
-        "path": "l-204.186,10",
-        "rotate": 30
+        "path": "l-8.91,129.531",
+        "rotate": 135
       }
     },
     "follower": {
+      "left": {
+        "rotate": 45
+      },
       "right": {
-        "path": "l141.865,17.417",
-        "rotate": 30
+        "path": "c-69.563,37.352,-60.268,94.695,-45.554,151.2",
+        "rotate": 135
       }
     },
     "delay": [
@@ -315,7 +319,287 @@
   {
     "time": 2,
     "text": "slow",
-    "note": "together",
+    "text": "leader collects; follower steps around",
+    "leader": {
+      "right": {
+        "path": "c-89.914,-63.511,-169.829,-3.33,-141.357,123.881",
+        "rotate": 105
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "c-228.156,-3.017,-194.413,168.869,-51.2,264",
+        "rotate": 135
+      },
+      "right": {
+        "rotate": 45
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "text": "leader steps aside; follower's momentum puts here on the side",
+    "leader": {
+      "left": {
+        "path": "l-100,0"
+      }
+    },
+    "follower": {
+      "left": {
+        "rotate": 45 
+      },
+      "right": {
+        "path": "c-112.388,-126.087,-193.873,-155.04,-353.508,32.996",
+        "rotate": 135
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "note": "rock",
+    "follower": {
+      "left": {
+        "heel": "down"
+      },
+      "right": {
+        "heel": "up"
+      }
+    },
+    "leader": {
+      "right": {
+        "heel": "down"
+      },
+      "left": {
+        "heel": "up"
+      }
+    }
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "note": "leader steps diagonally forward and in; follower steps forward and rotates",
+    "leader": {
+      "left": {
+        "path": "l100,100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c47.02,174.885,38.951,244.231,-112.672,316.183",
+        "rotate": -135
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "note": "side",
+    "leader": {
+      "right": {
+        "path": "l150,100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l110.908,-100.708",
+        "rotate": -90
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
+    "leader": {
+      "left": {
+        "path": "l150,0"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "l-150,0"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 2,
+    "text": "slow",
+    "leader": {
+      "right": {
+        "path": "l0,-100"
+      }
+    },
+    "follower": {
+      "left": {
+        "path": "l0,100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "quick ...",
+    "leader": {
+      "left": {
+        "path": "c2.217,-89.715,-67.333,-101.801,-150,-100"
+      }
+    },
+    "follower": {
+      "right": {
+        "path": "c1.762,95.02,52.743,99.149,150,100"
+      }
+    },
+    "delay": [
+      {
+        "time": -0.25,
+        "leader": {
+          "left": {
+            "heel": "down"
+          },
+          "right": {
+            "heel": "up"
+          }
+        },
+        "follower": {
+          "right": {
+            "heel": "down"
+          },
+          "left": {
+            "heel": "up"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "time": 1,
+    "text": "... quick",
     "leader": {
       "right": {
         "path": "l-150,0"
