@@ -3,7 +3,7 @@ var dances = [];
 var syllabus = {};
 
 fetch(null, 'index.json', function(result) {
-  if (window.location.hash.match(/^#\w+$/)) {
+  if (window.location.hash.match(/^#[-\w]+$/)) {
     dance = window.location.hash.substr(1)
   } else {
     window.location.hash = '#' + dance;
@@ -14,7 +14,7 @@ fetch(null, 'index.json', function(result) {
   dances.forEach(function(name) {
     var option = document.createElement('option');
     option.textContent = name;
-    if (name.toLowerCase() == dance) {
+    if (name.toLowerCase().replace(/\W/g, '-') == dance) {
       document.querySelector('aside h1').textContent = name;
       option.selected = true;
     }
@@ -25,7 +25,7 @@ fetch(null, 'index.json', function(result) {
   select.addEventListener('change', function(event) {
     document.querySelector('aside h1').textContent = event.target.value;
     dance = event.target.value.toLowerCase();
-    window.location.hash = '#' + dance;
+    window.location.hash = '#' + dance.replace(/\W/g, '-');
 
     var routine = document.getElementById('routine');
     while (routine.hasChildNodes()) routine.lastChild.remove();
@@ -35,13 +35,14 @@ fetch(null, 'index.json', function(result) {
     displayMenu();
     document.getElementById('stepname').value = '';
   });
+
 });
 
 window.addEventListener('hashchange', function(event) {
   var select = document.getElementById('dance');
   dance = window.location.hash.substr(1).toLowerCase();
   dances.forEach(function(name) {
-    if (name.toLowerCase() == dance) select.value = name
+    if (name.replace(/\W/g, '-').toLowerCase() == dance) select.value = name
   });
   select.dispatchEvent(new Event('change', {target: {value: dance}}));
   document.querySelector('aside h1').dispatchEvent(new Event('click'));
@@ -88,6 +89,13 @@ function displayMenu() {
     shoes.follower.right.x = (-shoes.gap.legs.x + shoes.gap.people.x)/2;
     shoes.follower.right.y = (-shoes.gap.legs.y - shoes.gap.people.y)/2;
 
+    if (shoes.gap.rotate) {
+      rotate(shoes.leader.right, shoes.gap.rotate, shoes.leader.right);
+      rotate(shoes.leader.left, shoes.gap.rotate, shoes.leader.left);
+      rotate(shoes.follower.right, shoes.gap.rotate, shoes.follower.right);
+      rotate(shoes.follower.left, shoes.gap.rotate, shoes.follower.left);
+    }
+
     // provide defaults
     if (!shoes.rotate) shoes.rotate = 0;
     if (!shoes.step) shoes.step = {};
@@ -119,9 +127,9 @@ function displayMenu() {
       tbody.appendChild(tr);
 
       // updates settings - rotate
-      var rotate = document.getElementById('settings.rotate');
-      rotate.value = shoes.rotate;
-      rotate.addEventListener('change', function(event) {
+      var settingsRotate = document.getElementById('settings.rotate');
+      settingsRotate.value = shoes.rotate;
+      settingsRotate.addEventListener('change', function(event) {
         if (clock == 0) {
           var newshoes = clone(shoes);
           newshoes.rotate = parseFloat(event.currentTarget.value);
@@ -190,6 +198,8 @@ function displayMenu() {
         });
       }
     }
+
+    if (document.location.search == '?edit') editmode();
   });
 };
 

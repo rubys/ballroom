@@ -72,8 +72,17 @@ function rotate(input, angle, result) {
     cos = -Math.cos(radians);
   }
 
-  result.x = input.x*cos + input.y*sin;
-  result.y = -input.y*cos + input.x*sin;
+  var x = input.x*cos + input.y*sin;
+  var y = -input.y*cos + input.x*sin;
+
+  if ('rotate' in result) {
+    result.x = x;
+    result.y = -y;
+    result.rotate += 30;
+  } else {
+    result.x = x;
+    result.y = y;
+  }
 
   return result;
 }
