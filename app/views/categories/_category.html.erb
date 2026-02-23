@@ -1,0 +1,58 @@
+<div id="<%= dom_id category %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= category.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Order:</strong>
+    <%= category.order %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Day:</strong>
+    <%= category.day %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Time:</strong>
+    <%= category.time %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Duration:</strong>
+    <%= category.duration %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Ballrooms:</strong>
+    <%= category.ballrooms %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Split:</strong>
+    <%= category.split %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Cost override:</strong>
+    <%= category.cost_override %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Studio cost override:</strong>
+    <%= category.studio_cost_override %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Max heat size:</strong>
+    <%= category.max_heat_size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Locked:</strong>
+    <%= category.locked? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro:</strong>
+    <%= category.pro? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Routines:</strong>
+    <%= category.routines? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Use category scoring:</strong>
+    <%= category.use_category_scoring? ? "Yes" : "No" %>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  judge: one
+  heat: one
+  value: MyString
+  good: MyString
+  bad: MyString
+  comments: MyString
+  slot: 1
+
+two:
+  judge: two
+  heat: two
+  value: MyString
+  good: MyString
+  bad: MyString
+  comments: MyString
+  slot: 1

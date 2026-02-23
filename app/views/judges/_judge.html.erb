@@ -1,0 +1,26 @@
+<div id="<%= dom_id judge %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Person:</strong>
+    <%= judge.person_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Ballroom:</strong>
+    <%= judge.ballroom %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Present:</strong>
+    <%= judge.present? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Sort:</strong>
+    <%= judge.sort %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Review solos:</strong>
+    <%= judge.review_solos %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Show assignments:</strong>
+    <%= judge.show_assignments %>
+  </div>
+</div>

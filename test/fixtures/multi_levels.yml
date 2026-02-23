@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dance: one
+  name: MyString
+  couple_type: MyString
+  start_level: 1
+  stop_level: 1
+  start_age: 1
+  stop_age: 1
+
+two:
+  dance: two
+  name: MyString
+  couple_type: MyString
+  start_level: 1
+  stop_level: 1
+  start_age: 1
+  stop_age: 1

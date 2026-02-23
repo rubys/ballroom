@@ -1,0 +1,222 @@
+<div id="<%= dom_id event %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= event.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Date:</strong>
+    <%= event.date %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Location:</strong>
+    <%= event.location %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Email:</strong>
+    <%= event.email %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat cost:</strong>
+    <%= event.heat_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo cost:</strong>
+    <%= event.solo_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Multi cost:</strong>
+    <%= event.multi_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro heat cost:</strong>
+    <%= event.pro_heat_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro solo cost:</strong>
+    <%= event.pro_solo_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro multi cost:</strong>
+    <%= event.pro_multi_cost %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat length:</strong>
+    <%= event.heat_length %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo length:</strong>
+    <%= event.solo_length %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Dance limit:</strong>
+    <%= event.dance_limit %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Ballrooms:</strong>
+    <%= event.ballrooms %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Max heat size:</strong>
+    <%= event.max_heat_size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Current heat:</strong>
+    <%= event.current_heat %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Table size:</strong>
+    <%= event.table_size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat range cat:</strong>
+    <%= event.heat_range_cat %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat range level:</strong>
+    <%= event.heat_range_level %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat range age:</strong>
+    <%= event.heat_range_age %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Column order:</strong>
+    <%= event.column_order %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Assign judges:</strong>
+    <%= event.assign_judges %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo level:</strong>
+    <%= event.solo_level_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Backnums:</strong>
+    <%= event.backnums? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Locked:</strong>
+    <%= event.locked? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Include open:</strong>
+    <%= event.include_open? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Include closed:</strong>
+    <%= event.include_closed? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Include times:</strong>
+    <%= event.include_times? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Intermix:</strong>
+    <%= event.intermix? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Package required:</strong>
+    <%= event.package_required? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Partnerless entries:</strong>
+    <%= event.partnerless_entries? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Independent instructors:</strong>
+    <%= event.independent_instructors? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro heats:</strong>
+    <%= event.pro_heats? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Print studio heats:</strong>
+    <%= event.print_studio_heats? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Judge comments:</strong>
+    <%= event.judge_comments? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Judge recordings:</strong>
+    <%= event.judge_recordings? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Track ages:</strong>
+    <%= event.track_ages? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Agenda based entries:</strong>
+    <%= event.agenda_based_entries? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Strict scoring:</strong>
+    <%= event.strict_scoring? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Student judge assignments:</strong>
+    <%= event.student_judge_assignments? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Open scoring:</strong>
+    <%= event.open_scoring %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Closed scoring:</strong>
+    <%= event.closed_scoring %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo scoring:</strong>
+    <%= event.solo_scoring %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Multi scoring:</strong>
+    <%= event.multi_scoring %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat order:</strong>
+    <%= event.heat_order %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro am:</strong>
+    <%= event.pro_am %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Proam studio invoice:</strong>
+    <%= event.proam_studio_invoice %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Finalist:</strong>
+    <%= event.finalist %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Payment due:</strong>
+    <%= event.payment_due %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Theme:</strong>
+    <%= event.theme %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Font family:</strong>
+    <%= event.font_family %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Font size:</strong>
+    <%= event.font_size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Counter color:</strong>
+    <%= event.counter_color %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Student package description:</strong>
+    <%= event.student_package_description %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Studio formation cost:</strong>
+    <%= event.studio_formation_cost %>
+  </div>
+</div>

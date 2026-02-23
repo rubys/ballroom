@@ -1,0 +1,26 @@
+<div id="<%= dom_id billable %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= billable.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Type:</strong>
+    <%= billable.type %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Price:</strong>
+    <%= billable.price %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Order:</strong>
+    <%= billable.order %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Table size:</strong>
+    <%= billable.table_size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Couples:</strong>
+    <%= billable.couples? ? "Yes" : "No" %>
+  </div>
+</div>

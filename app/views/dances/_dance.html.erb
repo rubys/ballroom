@@ -1,0 +1,66 @@
+<div id="<%= dom_id dance %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= dance.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Order:</strong>
+    <%= dance.order %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Heat length:</strong>
+    <%= dance.heat_length %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Limit:</strong>
+    <%= dance.limit %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Col:</strong>
+    <%= dance.col %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Row:</strong>
+    <%= dance.row %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Cost override:</strong>
+    <%= dance.cost_override %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Semi finals:</strong>
+    <%= dance.semi_finals? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Open category:</strong>
+    <%= dance.open_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Closed category:</strong>
+    <%= dance.closed_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo category:</strong>
+    <%= dance.solo_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Multi category:</strong>
+    <%= dance.multi_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro open category:</strong>
+    <%= dance.pro_open_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro closed category:</strong>
+    <%= dance.pro_closed_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro solo category:</strong>
+    <%= dance.pro_solo_category_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Pro multi category:</strong>
+    <%= dance.pro_multi_category_id %>
+  </div>
+</div>

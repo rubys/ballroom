@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  key: MyString
+  region: MyString
+  latitude: 1.5
+  longitude: 1.5
+  locale: MyString
+  logo: MyString
+  sisters: MyString
+  trust_level: 1
+  user: one
+
+two:
+  name: MyString
+  key: MyString
+  region: MyString
+  latitude: 1.5
+  longitude: 1.5
+  locale: MyString
+  logo: MyString
+  sisters: MyString
+  trust_level: 1
+  user: two

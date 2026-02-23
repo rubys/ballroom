@@ -1,0 +1,26 @@
+<div id="<%= dom_id table %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Option:</strong>
+    <%= table.option_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Row:</strong>
+    <%= table.row %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Col:</strong>
+    <%= table.col %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Number:</strong>
+    <%= table.number %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Size:</strong>
+    <%= table.size %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Locked:</strong>
+    <%= table.locked? ? "Yes" : "No" %>
+  </div>
+</div>

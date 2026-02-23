@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  solo: one
+  on_floor: false
+
+two:
+  person: two
+  solo: two
+  on_floor: false

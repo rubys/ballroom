@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lead: one
+  follow: one
+  instructor: one
+  age: one
+  level: one
+  studio: one
+
+two:
+  lead: two
+  follow: two
+  instructor: two
+  age: two
+  level: two
+  studio: two

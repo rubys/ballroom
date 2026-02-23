@@ -1,0 +1,67 @@
+<%= form_with(model: location, class: "contents") do |form| %>
+  <% if location.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% location.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:name].none?, "border-red-400 focus:outline-red-600": location.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :key %>
+    <%= form.text_field :key, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:key].none?, "border-red-400 focus:outline-red-600": location.errors[:key].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :region %>
+    <%= form.text_field :region, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:region].none?, "border-red-400 focus:outline-red-600": location.errors[:region].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:latitude].none?, "border-red-400 focus:outline-red-600": location.errors[:latitude].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:longitude].none?, "border-red-400 focus:outline-red-600": location.errors[:longitude].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :locale %>
+    <%= form.text_field :locale, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:locale].none?, "border-red-400 focus:outline-red-600": location.errors[:locale].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :logo %>
+    <%= form.text_field :logo, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:logo].none?, "border-red-400 focus:outline-red-600": location.errors[:logo].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :sisters %>
+    <%= form.text_field :sisters, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:sisters].none?, "border-red-400 focus:outline-red-600": location.errors[:sisters].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :trust_level %>
+    <%= form.number_field :trust_level, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:trust_level].none?, "border-red-400 focus:outline-red-600": location.errors[:trust_level].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": location.errors[:user_id].none?, "border-red-400 focus:outline-red-600": location.errors[:user_id].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

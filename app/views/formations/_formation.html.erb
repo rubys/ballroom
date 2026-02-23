@@ -1,0 +1,14 @@
+<div id="<%= dom_id formation %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Person:</strong>
+    <%= formation.person_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Solo:</strong>
+    <%= formation.solo_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">On floor:</strong>
+    <%= formation.on_floor? ? "Yes" : "No" %>
+  </div>
+</div>

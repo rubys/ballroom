@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  order: 1
+  heat_length: 1
+  limit: 1
+  col: 1
+  row: 1
+  cost_override: 9.99
+  semi_finals: false
+  open_category: one
+  closed_category: one
+  solo_category: one
+  multi_category: one
+
+two:
+  name: MyString
+  order: 1
+  heat_length: 1
+  limit: 1
+  col: 1
+  row: 1
+  cost_override: 9.99
+  semi_finals: false
+  open_category: two
+  closed_category: two
+  solo_category: two
+  multi_category: two

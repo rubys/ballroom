@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  billable: one
+  question_text: MyText
+  question_type: MyString
+  choices: MyText
+  order: 1
+
+two:
+  billable: two
+  question_text: MyText
+  question_type: MyString
+  choices: MyText
+  order: 1

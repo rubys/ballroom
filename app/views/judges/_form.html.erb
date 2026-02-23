@@ -1,0 +1,47 @@
+<%= form_with(model: judge, class: "contents") do |form| %>
+  <% if judge.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(judge.errors.count, "error") %> prohibited this judge from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% judge.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :person_id %>
+    <%= form.text_field :person_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": judge.errors[:person_id].none?, "border-red-400 focus:outline-red-600": judge.errors[:person_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :ballroom %>
+    <%= form.text_field :ballroom, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": judge.errors[:ballroom].none?, "border-red-400 focus:outline-red-600": judge.errors[:ballroom].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :present %>
+    <%= form.checkbox :present, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": judge.errors[:present].none?, "border-red-400 focus:outline-red-600": judge.errors[:present].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :sort %>
+    <%= form.text_field :sort, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": judge.errors[:sort].none?, "border-red-400 focus:outline-red-600": judge.errors[:sort].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :review_solos %>
+    <%= form.text_field :review_solos, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": judge.errors[:review_solos].none?, "border-red-400 focus:outline-red-600": judge.errors[:review_solos].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :show_assignments %>
+    <%= form.text_field :show_assignments, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": judge.errors[:show_assignments].none?, "border-red-400 focus:outline-red-600": judge.errors[:show_assignments].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

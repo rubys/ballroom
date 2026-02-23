@@ -1,0 +1,2 @@
+class Billable < ApplicationRecord
+end

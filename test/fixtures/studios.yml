@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  ballroom: MyString
+  email: MyString
+  heat_cost: 9.99
+  multi_cost: 9.99
+  solo_cost: 9.99
+  student_heat_cost: 9.99
+  student_multi_cost: 9.99
+  student_registration_cost: 9.99
+  student_solo_cost: 9.99
+  tables: 1
+
+two:
+  name: MyString
+  ballroom: MyString
+  email: MyString
+  heat_cost: 9.99
+  multi_cost: 9.99
+  solo_cost: 9.99
+  student_heat_cost: 9.99
+  student_multi_cost: 9.99
+  student_registration_cost: 9.99
+  student_solo_cost: 9.99
+  tables: 1

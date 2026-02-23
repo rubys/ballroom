@@ -1,0 +1,52 @@
+<%= form_with(model: cat_extension, class: "contents") do |form| %>
+  <% if cat_extension.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(cat_extension.errors.count, "error") %> prohibited this cat_extension from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% cat_extension.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :category_id %>
+    <%= form.text_field :category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:category_id].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:category_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :part %>
+    <%= form.number_field :part, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:part].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:part].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :order %>
+    <%= form.number_field :order, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:order].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:order].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :start_heat %>
+    <%= form.number_field :start_heat, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:start_heat].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:start_heat].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :day %>
+    <%= form.text_field :day, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:day].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:day].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :time %>
+    <%= form.text_field :time, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:time].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:time].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :duration %>
+    <%= form.number_field :duration, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cat_extension.errors[:duration].none?, "border-red-400 focus:outline-red-600": cat_extension.errors[:duration].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

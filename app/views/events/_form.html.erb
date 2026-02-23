@@ -1,0 +1,292 @@
+<%= form_with(model: event, class: "contents") do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:name].none?, "border-red-400 focus:outline-red-600": event.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :date %>
+    <%= form.text_field :date, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:date].none?, "border-red-400 focus:outline-red-600": event.errors[:date].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:location].none?, "border-red-400 focus:outline-red-600": event.errors[:location].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:email].none?, "border-red-400 focus:outline-red-600": event.errors[:email].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_cost %>
+    <%= form.text_field :heat_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solo_cost %>
+    <%= form.text_field :solo_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:solo_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:solo_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :multi_cost %>
+    <%= form.text_field :multi_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:multi_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:multi_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :pro_heat_cost %>
+    <%= form.text_field :pro_heat_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:pro_heat_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:pro_heat_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :pro_solo_cost %>
+    <%= form.text_field :pro_solo_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:pro_solo_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:pro_solo_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :pro_multi_cost %>
+    <%= form.text_field :pro_multi_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:pro_multi_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:pro_multi_cost].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_length %>
+    <%= form.number_field :heat_length, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_length].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_length].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solo_length %>
+    <%= form.number_field :solo_length, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:solo_length].none?, "border-red-400 focus:outline-red-600": event.errors[:solo_length].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :dance_limit %>
+    <%= form.number_field :dance_limit, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:dance_limit].none?, "border-red-400 focus:outline-red-600": event.errors[:dance_limit].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :ballrooms %>
+    <%= form.number_field :ballrooms, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:ballrooms].none?, "border-red-400 focus:outline-red-600": event.errors[:ballrooms].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :max_heat_size %>
+    <%= form.number_field :max_heat_size, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:max_heat_size].none?, "border-red-400 focus:outline-red-600": event.errors[:max_heat_size].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :current_heat %>
+    <%= form.number_field :current_heat, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:current_heat].none?, "border-red-400 focus:outline-red-600": event.errors[:current_heat].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :table_size %>
+    <%= form.number_field :table_size, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:table_size].none?, "border-red-400 focus:outline-red-600": event.errors[:table_size].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_range_cat %>
+    <%= form.number_field :heat_range_cat, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_range_cat].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_range_cat].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_range_level %>
+    <%= form.number_field :heat_range_level, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_range_level].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_range_level].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_range_age %>
+    <%= form.number_field :heat_range_age, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_range_age].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_range_age].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :column_order %>
+    <%= form.number_field :column_order, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:column_order].none?, "border-red-400 focus:outline-red-600": event.errors[:column_order].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :assign_judges %>
+    <%= form.number_field :assign_judges, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:assign_judges].none?, "border-red-400 focus:outline-red-600": event.errors[:assign_judges].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solo_level_id %>
+    <%= form.text_field :solo_level_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:solo_level_id].none?, "border-red-400 focus:outline-red-600": event.errors[:solo_level_id].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :backnums %>
+    <%= form.checkbox :backnums, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:backnums].none?, "border-red-400 focus:outline-red-600": event.errors[:backnums].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :locked %>
+    <%= form.checkbox :locked, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:locked].none?, "border-red-400 focus:outline-red-600": event.errors[:locked].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :include_open %>
+    <%= form.checkbox :include_open, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:include_open].none?, "border-red-400 focus:outline-red-600": event.errors[:include_open].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :include_closed %>
+    <%= form.checkbox :include_closed, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:include_closed].none?, "border-red-400 focus:outline-red-600": event.errors[:include_closed].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :include_times %>
+    <%= form.checkbox :include_times, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:include_times].none?, "border-red-400 focus:outline-red-600": event.errors[:include_times].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :intermix %>
+    <%= form.checkbox :intermix, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:intermix].none?, "border-red-400 focus:outline-red-600": event.errors[:intermix].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :package_required %>
+    <%= form.checkbox :package_required, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:package_required].none?, "border-red-400 focus:outline-red-600": event.errors[:package_required].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :partnerless_entries %>
+    <%= form.checkbox :partnerless_entries, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:partnerless_entries].none?, "border-red-400 focus:outline-red-600": event.errors[:partnerless_entries].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :independent_instructors %>
+    <%= form.checkbox :independent_instructors, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:independent_instructors].none?, "border-red-400 focus:outline-red-600": event.errors[:independent_instructors].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :pro_heats %>
+    <%= form.checkbox :pro_heats, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:pro_heats].none?, "border-red-400 focus:outline-red-600": event.errors[:pro_heats].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :print_studio_heats %>
+    <%= form.checkbox :print_studio_heats, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:print_studio_heats].none?, "border-red-400 focus:outline-red-600": event.errors[:print_studio_heats].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :judge_comments %>
+    <%= form.checkbox :judge_comments, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:judge_comments].none?, "border-red-400 focus:outline-red-600": event.errors[:judge_comments].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :judge_recordings %>
+    <%= form.checkbox :judge_recordings, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:judge_recordings].none?, "border-red-400 focus:outline-red-600": event.errors[:judge_recordings].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :track_ages %>
+    <%= form.checkbox :track_ages, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:track_ages].none?, "border-red-400 focus:outline-red-600": event.errors[:track_ages].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :agenda_based_entries %>
+    <%= form.checkbox :agenda_based_entries, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:agenda_based_entries].none?, "border-red-400 focus:outline-red-600": event.errors[:agenda_based_entries].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :strict_scoring %>
+    <%= form.checkbox :strict_scoring, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:strict_scoring].none?, "border-red-400 focus:outline-red-600": event.errors[:strict_scoring].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :student_judge_assignments %>
+    <%= form.checkbox :student_judge_assignments, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:student_judge_assignments].none?, "border-red-400 focus:outline-red-600": event.errors[:student_judge_assignments].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :open_scoring %>
+    <%= form.text_field :open_scoring, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:open_scoring].none?, "border-red-400 focus:outline-red-600": event.errors[:open_scoring].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :closed_scoring %>
+    <%= form.text_field :closed_scoring, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:closed_scoring].none?, "border-red-400 focus:outline-red-600": event.errors[:closed_scoring].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solo_scoring %>
+    <%= form.text_field :solo_scoring, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:solo_scoring].none?, "border-red-400 focus:outline-red-600": event.errors[:solo_scoring].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :multi_scoring %>
+    <%= form.text_field :multi_scoring, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:multi_scoring].none?, "border-red-400 focus:outline-red-600": event.errors[:multi_scoring].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_order %>
+    <%= form.text_field :heat_order, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:heat_order].none?, "border-red-400 focus:outline-red-600": event.errors[:heat_order].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :pro_am %>
+    <%= form.text_field :pro_am, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:pro_am].none?, "border-red-400 focus:outline-red-600": event.errors[:pro_am].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :proam_studio_invoice %>
+    <%= form.text_field :proam_studio_invoice, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:proam_studio_invoice].none?, "border-red-400 focus:outline-red-600": event.errors[:proam_studio_invoice].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :finalist %>
+    <%= form.text_field :finalist, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:finalist].none?, "border-red-400 focus:outline-red-600": event.errors[:finalist].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :payment_due %>
+    <%= form.text_field :payment_due, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:payment_due].none?, "border-red-400 focus:outline-red-600": event.errors[:payment_due].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :theme %>
+    <%= form.text_field :theme, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:theme].none?, "border-red-400 focus:outline-red-600": event.errors[:theme].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :font_family %>
+    <%= form.text_field :font_family, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:font_family].none?, "border-red-400 focus:outline-red-600": event.errors[:font_family].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :font_size %>
+    <%= form.text_field :font_size, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:font_size].none?, "border-red-400 focus:outline-red-600": event.errors[:font_size].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :counter_color %>
+    <%= form.text_field :counter_color, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:counter_color].none?, "border-red-400 focus:outline-red-600": event.errors[:counter_color].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_package_description %>
+    <%= form.text_field :student_package_description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:student_package_description].none?, "border-red-400 focus:outline-red-600": event.errors[:student_package_description].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :studio_formation_cost %>
+    <%= form.text_field :studio_formation_cost, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:studio_formation_cost].none?, "border-red-400 focus:outline-red-600": event.errors[:studio_formation_cost].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
