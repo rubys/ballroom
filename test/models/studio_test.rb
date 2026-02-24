@@ -34,4 +34,20 @@ class StudioTest < ActiveSupport::TestCase
     pair_names = studio.pairs.pluck(:name)
     assert_includes pair_names, "Two"
   end
+
+  test "studio1s through association" do
+    two = studios(:two)
+    # studio_pair one: studio1=one, studio2=two
+    # two's studio1_pairs = StudioPairs where studio2_id=two.id → pair one
+    # studio1s = studio1 from pair → studio one
+    assert_includes two.studio1s.pluck(:name), "One"
+  end
+
+  test "studio2s through association" do
+    one = studios(:one)
+    # studio_pair one: studio1=one, studio2=two
+    # one's studio2_pairs = StudioPairs where studio1_id=one.id → pair one
+    # studio2s = studio2 from pair → studio two
+    assert_includes one.studio2s.pluck(:name), "Two"
+  end
 end
