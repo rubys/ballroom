@@ -36,3 +36,13 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Juntos testing artifacts
+/node_modules
+/test/**/*.test.mjs
+/test/setup.mjs
+package.json
+package-lock.json
+vite.config.js
+vitest.config.js
+/bin/juntos
