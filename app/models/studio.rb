@@ -6,7 +6,7 @@ class Studio < ApplicationRecord
   has_many :studio1_pairs, class_name: "StudioPair", foreign_key: "studio1_id", dependent: :destroy
   has_many :studio2_pairs, class_name: "StudioPair", foreign_key: "studio2_id", dependent: :destroy
 
-  normalizes :name, with: -> name { name.strip }
+  normalizes :name, with: ->(name) { name.strip }
 
   scope :by_name, -> { order(:name) }
 
