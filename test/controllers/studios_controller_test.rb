@@ -17,7 +17,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create studio" do
     assert_difference("Studio.count") do
-      post studios_url, params: { studio: { ballroom: @studio.ballroom, email: @studio.email, heat_cost: @studio.heat_cost, multi_cost: @studio.multi_cost, name: @studio.name, solo_cost: @studio.solo_cost, student_heat_cost: @studio.student_heat_cost, student_multi_cost: @studio.student_multi_cost, student_registration_cost: @studio.student_registration_cost, student_solo_cost: @studio.student_solo_cost, tables: @studio.tables } }
+      post studios_url, params: { studio: { name: "New Studio" } }
     end
 
     assert_redirected_to studio_url(Studio.last)
@@ -34,7 +34,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update studio" do
-    patch studio_url(@studio), params: { studio: { ballroom: @studio.ballroom, email: @studio.email, heat_cost: @studio.heat_cost, multi_cost: @studio.multi_cost, name: @studio.name, solo_cost: @studio.solo_cost, student_heat_cost: @studio.student_heat_cost, student_multi_cost: @studio.student_multi_cost, student_registration_cost: @studio.student_registration_cost, student_solo_cost: @studio.student_solo_cost, tables: @studio.tables } }
+    patch studio_url(@studio), params: { studio: { name: "Updated" } }
     assert_redirected_to studio_url(@studio)
   end
 
@@ -45,5 +45,26 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to studios_url
+  end
+
+  test "should create studio with pair" do
+    assert_difference("StudioPair.count") do
+      post studios_url, params: { studio: { name: "Paired Studio", pair: studios(:two).name } }
+    end
+  end
+
+  test "should update studio with pair" do
+    new_studio = Studio.create!(name: "Another Studio")
+    assert_difference("StudioPair.count") do
+      patch studio_url(new_studio), params: { studio: { name: new_studio.name, pair: studios(:two).name } }
+    end
+  end
+
+  test "should unpair studios" do
+    assert_difference("StudioPair.count", -1) do
+      delete unpair_studio_url(@studio), params: { pair: studios(:two).name }
+    end
+
+    assert_redirected_to studio_url(@studio)
   end
 end

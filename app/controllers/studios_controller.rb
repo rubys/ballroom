@@ -1,5 +1,5 @@
 class StudiosController < ApplicationController
-  before_action :set_studio, only: %i[ show edit update destroy ]
+  before_action :set_studio, only: %i[ show edit update destroy unpair ]
 
   # GET /studios or /studios.json
   def index
@@ -25,6 +25,7 @@ class StudiosController < ApplicationController
 
     respond_to do |format|
       if @studio.save
+        add_pair
         format.html { redirect_to @studio, notice: "Studio was successfully created." }
         format.json { render :show, status: :created, location: @studio }
       else
@@ -38,6 +39,7 @@ class StudiosController < ApplicationController
   def update
     respond_to do |format|
       if @studio.update(studio_params)
+        add_pair
         format.html { redirect_to @studio, notice: "Studio was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @studio }
       else
@@ -57,6 +59,23 @@ class StudiosController < ApplicationController
     end
   end
 
+  # DELETE /studios/1/unpair
+  def unpair
+    pair_name = params[:pair]
+    pair_studio = Studio.find_by(name: pair_name)
+
+    if pair_studio
+      StudioPair.where(studio1: @studio, studio2: pair_studio)
+        .or(StudioPair.where(studio1: pair_studio, studio2: @studio))
+        .destroy_all
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @studio, notice: "Pair removed.", status: :see_other }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_studio
@@ -66,5 +85,15 @@ class StudiosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def studio_params
       params.expect(studio: [ :name, :ballroom, :email, :heat_cost, :multi_cost, :solo_cost, :student_heat_cost, :student_multi_cost, :student_registration_cost, :student_solo_cost, :tables ])
+    end
+
+    def add_pair
+      pair_name = params.dig(:studio, :pair)
+      return if pair_name.blank?
+
+      pair_studio = Studio.find_by(name: pair_name)
+      return unless pair_studio
+
+      StudioPair.find_or_create_by(studio1: @studio, studio2: pair_studio)
     end
 end

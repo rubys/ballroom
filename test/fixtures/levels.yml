@@ -1,7 +1,26 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+FG:
+  name: Full Gold
+
+AG:
+  name: Associate Gold
+
+FS:
+  name: Full Silver
+
+AS:
+  name: Associate Silver
+
+FB:
+  name: Full Bronze
+
+AB:
+  name: Associate Bronze
+
+N:
+  name: Newcomer
 
 one:
-  name: MyString
+  name: One
 
 two:
-  name: MyString
+  name: Two

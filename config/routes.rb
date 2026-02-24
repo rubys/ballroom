@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   resources :dances
   resources :cat_extensions
   resources :categories
-  resources :studios
+  resources :studios do
+    member do
+      delete :unpair
+    end
+  end
   resources :age_costs
   resources :ages
   resources :levels

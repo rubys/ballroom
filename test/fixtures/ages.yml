@@ -1,9 +1,39 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+J:
+  category: Junior
+  description: under 12
+
+A:
+  category: Adult
+  description: 16 and over
+
+A1:
+  category: Adult
+  description: under 35
+
+B:
+  category: Senior
+  description: 35 and over
+
+B1:
+  category: Senior
+  description: 50 and over
+
+C:
+  category: Senior
+  description: 60 and over
+
+C1:
+  category: Senior
+  description: 70 and over
+
+D:
+  category: Senior
+  description: 80 and over
 
 one:
-  category: MyString
-  description: MyString
+  category: One
+  description: One
 
 two:
-  category: MyString
-  description: MyString
+  category: Two
+  description: Two
