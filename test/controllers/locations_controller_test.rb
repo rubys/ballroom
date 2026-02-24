@@ -39,8 +39,9 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy location" do
+    location = Location.create!(user: users(:one), name: "Test")
     assert_difference("Location.count", -1) do
-      delete location_url(@location)
+      delete location_url(location)
     end
 
     assert_redirected_to locations_url

@@ -39,8 +39,9 @@ class HeatsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy heat" do
+    heat = Heat.create!(dance: dances(:one), entry: entries(:one), number: 99)
     assert_difference("Heat.count", -1) do
-      delete heat_url(@heat)
+      delete heat_url(heat)
     end
 
     assert_redirected_to heats_url

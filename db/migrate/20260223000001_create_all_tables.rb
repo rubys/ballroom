@@ -137,7 +137,7 @@ class CreateAllTables < ActiveRecord::Migration[8.1]
       t.boolean :locked, default: false
       t.timestamps
     end
-    add_index :tables, [:row, :col, :option_id], unique: true
+    add_index :tables, [ :row, :col, :option_id ], unique: true
 
     create_table :people do |t|
       t.string :name
@@ -197,7 +197,7 @@ class CreateAllTables < ActiveRecord::Migration[8.1]
       t.integer :slot
       t.timestamps
     end
-    add_index :scores, [:heat_id, :judge_id, :person_id], name: "index_scores_on_heat_judge_person", where: "heat_id < 0"
+    add_index :scores, [ :heat_id, :judge_id, :person_id ], name: "index_scores_on_heat_judge_person", where: "heat_id < 0"
     add_index :scores, :person_id, name: "index_scores_on_person_id", where: "person_id IS NOT NULL"
 
     create_table :solos do |t|
@@ -244,7 +244,7 @@ class CreateAllTables < ActiveRecord::Migration[8.1]
       t.integer :order
       t.timestamps
     end
-    add_index :questions, [:billable_id, :order]
+    add_index :questions, [ :billable_id, :order ]
 
     create_table :answers do |t|
       t.references :person, null: false, foreign_key: true
@@ -252,7 +252,7 @@ class CreateAllTables < ActiveRecord::Migration[8.1]
       t.text :answer_value
       t.timestamps
     end
-    add_index :answers, [:person_id, :question_id], unique: true
+    add_index :answers, [ :person_id, :question_id ], unique: true
 
     create_table :payments do |t|
       t.references :person, null: false, foreign_key: true

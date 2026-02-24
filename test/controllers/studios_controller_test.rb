@@ -39,8 +39,9 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy studio" do
+    studio = Studio.create!(name: "Deletable")
     assert_difference("Studio.count", -1) do
-      delete studio_url(@studio)
+      delete studio_url(studio)
     end
 
     assert_redirected_to studios_url

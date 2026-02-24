@@ -39,8 +39,9 @@ class BillablesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy billable" do
+    billable = Billable.create!(name: "Deletable")
     assert_difference("Billable.count", -1) do
-      delete billable_url(@billable)
+      delete billable_url(billable)
     end
 
     assert_redirected_to billables_url

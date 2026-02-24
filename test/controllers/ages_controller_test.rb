@@ -39,8 +39,9 @@ class AgesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy age" do
+    age = Age.create!(category: "Deletable")
     assert_difference("Age.count", -1) do
-      delete age_url(@age)
+      delete age_url(age)
     end
 
     assert_redirected_to ages_url

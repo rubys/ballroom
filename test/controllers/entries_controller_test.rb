@@ -39,8 +39,9 @@ class EntriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy entry" do
+    entry = Entry.create!(lead: people(:one), follow: people(:two), age: ages(:one), level: levels(:one))
     assert_difference("Entry.count", -1) do
-      delete entry_url(@entry)
+      delete entry_url(entry)
     end
 
     assert_redirected_to entries_url

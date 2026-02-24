@@ -39,8 +39,9 @@ class DancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy dance" do
+    dance = Dance.create!(name: "Deletable")
     assert_difference("Dance.count", -1) do
-      delete dance_url(@dance)
+      delete dance_url(dance)
     end
 
     assert_redirected_to dances_url

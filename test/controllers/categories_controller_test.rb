@@ -39,8 +39,9 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy category" do
+    category = Category.create!(name: "Deletable")
     assert_difference("Category.count", -1) do
-      delete category_url(@category)
+      delete category_url(category)
     end
 
     assert_redirected_to categories_url

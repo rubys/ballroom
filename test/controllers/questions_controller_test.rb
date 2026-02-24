@@ -39,8 +39,9 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy question" do
+    question = Question.create!(billable: billables(:one), question_text: "Test?", question_type: "text")
     assert_difference("Question.count", -1) do
-      delete question_url(@question)
+      delete question_url(question)
     end
 
     assert_redirected_to questions_url

@@ -39,8 +39,9 @@ class LevelsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy level" do
+    level = Level.create!(name: "Deletable")
     assert_difference("Level.count", -1) do
-      delete level_url(@level)
+      delete level_url(level)
     end
 
     assert_redirected_to levels_url

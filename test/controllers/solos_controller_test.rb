@@ -39,8 +39,9 @@ class SolosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy solo" do
+    solo = Solo.create!(heat: heats(:one), order: 99)
     assert_difference("Solo.count", -1) do
-      delete solo_url(@solo)
+      delete solo_url(solo)
     end
 
     assert_redirected_to solos_url

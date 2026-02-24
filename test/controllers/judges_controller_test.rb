@@ -39,8 +39,9 @@ class JudgesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy judge" do
+    judge = Judge.create!(person: Person.create!(name: "Judge Test"))
     assert_difference("Judge.count", -1) do
-      delete judge_url(@judge)
+      delete judge_url(judge)
     end
 
     assert_redirected_to judges_url

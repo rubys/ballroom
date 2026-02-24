@@ -17,7 +17,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create answer" do
     assert_difference("Answer.count") do
-      post answers_url, params: { answer: { answer_value: @answer.answer_value, person_id: @answer.person_id, question_id: @answer.question_id } }
+      post answers_url, params: { answer: { answer_value: @answer.answer_value, person_id: people(:two).id, question_id: questions(:one).id } }
     end
 
     assert_redirected_to answer_url(Answer.last)
