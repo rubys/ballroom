@@ -3,7 +3,7 @@ class StudiosController < ApplicationController
 
   # GET /studios or /studios.json
   def index
-    @studios = Studio.all
+    @studios = Studio.by_name
   end
 
   # GET /studios/1 or /studios/1.json
@@ -69,6 +69,8 @@ class StudiosController < ApplicationController
         .or(StudioPair.where(studio1: pair_studio, studio2: @studio))
         .destroy_all
       redirect_to edit_studio_url(@studio), notice: "#{pair_studio.name} was successfully unpaired."
+    else
+      redirect_to edit_studio_url(@studio), alert: "Studio not found."
     end
   end
 

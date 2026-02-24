@@ -72,6 +72,19 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
     assert_empty @studio.pairs
   end
 
+  test "should redirect with alert when unpair studio not found" do
+    post unpair_studio_url(@studio), params: { pair: "Nonexistent Studio" }
+    assert_redirected_to edit_studio_url(@studio)
+    assert_equal "Studio not found.", flash[:alert]
+  end
+
+  test "index lists studios ordered by name" do
+    get studios_url
+    assert_response :success
+    names = assigns(:studios).map(&:name)
+    assert_equal names.sort, names
+  end
+
   test "should destroy studio" do
     studio = Studio.create!(name: "Deletable")
     assert_difference("Studio.count", -1) do
