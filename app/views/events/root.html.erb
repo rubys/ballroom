@@ -1,0 +1,72 @@
+<div class="mx-auto md:w-2/3 lg:w-1/2">
+
+  <%= render 'shared/root_info_box' %>
+
+  <span class="absolute text-5xl -rotate-45 text-purple-600 border-2 p-2 border-purple-600 rounded-xl">Ballroom</span>
+
+  <h1 class="font-bold text-center text-4xl"><%= @event.name %></h1>
+
+  <p class="mt-4 text-center"><%= @event.location.to_s.lines.first.to_s.chomp %></p>
+
+  <p class="mt-2 text-center"><%= @event.date %></p>
+
+  <p class="mt-2 text-center"><%= pluralize(@heats, 'heat') %>
+  <% if @unscheduled > 0 -%>
+  + <%= @unscheduled %> unscheduled
+  <% end -%>
+  </p>
+
+  <% unless @judges.length == 0 %>
+  <h2 class="font-bold text-2xl mt-4 mb-2"><%= @judges.length == 1 ? 'Judge' : 'Judges' %></h2>
+  <ul class="list-disc list-inside">
+    <% @judges.each do |judge| %>
+      <% if @event.assign_judges? and not judge.present? %>
+      <li><%= link_to judge.display_name, judge, class: 'opacity-40' %></li>
+      <% else %>
+      <li><%= link_to judge.display_name, judge %></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <% unless @djs.length == 0 %>
+  <h2 class="font-bold text-2xl mt-4 mb-2">DJ<% if @emcees.length == 0 %> / Emcee<% end %></h2>
+  <ul class="list-disc list-inside">
+    <% @djs.each do |dj| %>
+      <li><%= link_to dj.display_name, dj %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <% unless @emcees.length == 0 %>
+  <h2 class="font-bold text-2xl mt-4 mb-2">Emcee</h2>
+  <ul class="list-disc list-inside">
+    <% @emcees.each do |emcee| %>
+      <li><%= link_to emcee.display_name, emcee %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <div class="mt-8 grid grid-cols-3 gap-1">
+    <%= link_to "Studios", studios_path, class: "btn-green" %>
+    <%= link_to "Students", students_people_path, class: "btn-blue" %>
+    <%= link_to "Heats", heats_path, class: "btn-green" %>
+
+    <%= link_to "Dances", dances_path, class: "btn-pale-blue" %>
+    <%= link_to "Agenda", categories_path, class: "btn-pale-green" %>
+    <% if @event.backnums %>
+    <%= link_to "Backs", backs_people_path, class: "btn-pale-blue" %>
+    <% else %>
+    <a role="link" aria-disabled="true" class="btn-pale-blue btn-disabled">Backs</a>
+    <% end %>
+
+    <%= link_to "Summary", summary_events_path, class: "btn-grey" %>
+    <%= link_to "Publish", publish_events_path, class: "btn-pale-orange" %>
+    <%= link_to "Settings", settings_events_path, class: "btn-grey" %>
+  </div>
+
+  <% if @heats == 0 && @unscheduled == 0 -%>
+  <p class="mt-4">Click on the <span class="text-emerald-600">&#x24D8;</span> in the top left corner of this page to see helpful hints.</p>
+  <% end -%>
+
+</div>

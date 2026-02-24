@@ -1,6 +1,21 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
 
+  # GET /
+  def root
+    @event = Event.current || Event.create(name: 'Untitled Event', date: Time.now.strftime('%Y-%m-%d'), location: 'Unknown Location')
+    @judges = Person.includes(:judge).where(type: 'Judge').by_name
+    @djs    = Person.where(type: 'DJ').by_name
+    @emcees = Person.where(type: 'Emcee').by_name
+
+    if @djs.empty? && !@emcees.empty?
+      @djs, @emcees = @emcees, []
+    end
+
+    @heats = Heat.where.not(number: ..0).distinct.count(:number)
+    @unscheduled = Heat.where(number: 0).count
+  end
+
   # GET /events or /events.json
   def index
     @events = Event.all

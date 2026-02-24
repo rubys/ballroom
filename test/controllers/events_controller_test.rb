@@ -5,6 +5,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     @event = events(:one)
   end
 
+  test "should get root" do
+    get root_url
+    assert_response :success
+  end
+
   test "should get index" do
     get events_url
     assert_response :success

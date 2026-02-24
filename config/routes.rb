@@ -17,8 +17,15 @@ Rails.application.routes.draw do
   resources :person_options
   resources :billables
   resources :judges
-  resources :people
-  resources :events
+  resources :people do
+    get 'students', on: :collection
+    get 'backs', on: :collection
+  end
+  resources :events do
+    get 'summary', on: :collection
+    get 'publish', on: :collection
+    get 'settings', on: :collection
+  end
   resources :entries
   resources :dances
   resources :cat_extensions
@@ -42,5 +49,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "events#root"
 end
