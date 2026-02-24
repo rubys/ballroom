@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  self.inheritance_column = nil
+
   belongs_to :studio, optional: true
   belongs_to :level, optional: true
   belongs_to :age, optional: true
