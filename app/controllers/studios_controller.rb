@@ -21,12 +21,12 @@ class StudiosController < ApplicationController
 
   # POST /studios or /studios.json
   def create
-    @studio = Studio.new(studio_params)
+    @studio = Studio.new(studio_params.except(:pair))
 
     respond_to do |format|
       if @studio.save
         add_pair
-        format.html { redirect_to @studio, notice: "Studio was successfully created." }
+        format.html { redirect_to @studio, notice: "#{@studio.name} was successfully created." }
         format.json { render :show, status: :created, location: @studio }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,9 +38,9 @@ class StudiosController < ApplicationController
   # PATCH/PUT /studios/1 or /studios/1.json
   def update
     respond_to do |format|
-      if @studio.update(studio_params)
+      if @studio.update(studio_params.except(:pair))
         add_pair
-        format.html { redirect_to @studio, notice: "Studio was successfully updated.", status: :see_other }
+        format.html { redirect_to @studio, notice: "#{@studio.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @studio }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,15 +51,15 @@ class StudiosController < ApplicationController
 
   # DELETE /studios/1 or /studios/1.json
   def destroy
-    @studio.destroy!
+    @studio.destroy
 
     respond_to do |format|
-      format.html { redirect_to studios_path, notice: "Studio was successfully destroyed.", status: :see_other }
+      format.html { redirect_to studios_url, status: 303, notice: "#{@studio.name} was successfully removed." }
       format.json { head :no_content }
     end
   end
 
-  # DELETE /studios/1/unpair
+  # POST /studios/1/unpair
   def unpair
     pair_name = params[:pair]
     pair_studio = Studio.find_by(name: pair_name)
@@ -68,11 +68,7 @@ class StudiosController < ApplicationController
       StudioPair.where(studio1: @studio, studio2: pair_studio)
         .or(StudioPair.where(studio1: pair_studio, studio2: @studio))
         .destroy_all
-    end
-
-    respond_to do |format|
-      format.html { redirect_to @studio, notice: "Pair removed.", status: :see_other }
-      format.json { head :no_content }
+      redirect_to edit_studio_url(@studio), notice: "#{pair_studio.name} was successfully unpaired."
     end
   end
 
@@ -84,7 +80,7 @@ class StudiosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def studio_params
-      params.expect(studio: [ :name, :ballroom, :email, :heat_cost, :multi_cost, :solo_cost, :student_heat_cost, :student_multi_cost, :student_registration_cost, :student_solo_cost, :tables ])
+      params.expect(studio: [ :name, :pair, :ballroom, :email, :heat_cost, :multi_cost, :solo_cost, :student_heat_cost, :student_multi_cost, :student_registration_cost, :student_solo_cost, :tables ])
     end
 
     def add_pair

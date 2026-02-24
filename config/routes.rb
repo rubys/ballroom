@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :studios do
     member do
-      delete :unpair
+      post :unpair
     end
   end
   resources :age_costs

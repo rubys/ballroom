@@ -17,10 +17,11 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create studio" do
     assert_difference("Studio.count") do
-      post studios_url, params: { studio: { name: "New Studio" } }
+      post studios_url, params: { studio: { name: "Mars" } }
     end
 
     assert_redirected_to studio_url(Studio.last)
+    assert_equal "Mars was successfully created.", flash[:notice]
   end
 
   test "should show studio" do
@@ -34,8 +35,41 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update studio" do
-    patch studio_url(@studio), params: { studio: { name: "Updated" } }
+    patch studio_url(@studio), params: { studio: { name: @studio.name } }
     assert_redirected_to studio_url(@studio)
+    assert_equal "One was successfully updated.", flash[:notice]
+  end
+
+  test "should pair studio" do
+    three = studios(:three)
+
+    patch studio_url(@studio), params: { studio: { pair: three.name } }
+    assert_redirected_to studio_url(@studio)
+
+    assert_equal [ @studio.name ], three.pairs.pluck(:name)
+    pair_names = @studio.pairs.pluck(:name)
+    assert_equal 2, pair_names.length
+    assert_includes pair_names, three.name
+  end
+
+  test "should unpair studio - left" do
+    two = studios(:two)
+
+    post unpair_studio_url(@studio), params: { pair: two.name }
+    assert_redirected_to edit_studio_url(@studio)
+
+    assert_empty two.pairs
+    assert_empty @studio.pairs
+  end
+
+  test "should unpair studio - right" do
+    two = studios(:two)
+
+    post unpair_studio_url(two), params: { pair: @studio.name }
+    assert_redirected_to edit_studio_url(two)
+
+    assert_empty two.pairs
+    assert_empty @studio.pairs
   end
 
   test "should destroy studio" do
@@ -44,27 +78,8 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
       delete studio_url(studio)
     end
 
+    assert_response 303
     assert_redirected_to studios_url
-  end
-
-  test "should create studio with pair" do
-    assert_difference("StudioPair.count") do
-      post studios_url, params: { studio: { name: "Paired Studio", pair: studios(:two).name } }
-    end
-  end
-
-  test "should update studio with pair" do
-    new_studio = Studio.create!(name: "Another Studio")
-    assert_difference("StudioPair.count") do
-      patch studio_url(new_studio), params: { studio: { name: new_studio.name, pair: studios(:two).name } }
-    end
-  end
-
-  test "should unpair studios" do
-    assert_difference("StudioPair.count", -1) do
-      delete unpair_studio_url(@studio), params: { pair: studios(:two).name }
-    end
-
-    assert_redirected_to studio_url(@studio)
+    assert_equal "Deletable was successfully removed.", flash[:notice]
   end
 end
