@@ -65,6 +65,6 @@ class JudgesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def judge_params
-      params.expect(judge: [ :person_id, :ballroom, :present, :sort, :review_solos, :show_assignments ])
+      params.expect(judge: [ :person_id, :ballroom, :present, :sort_order, :review_solos, :show_assignments ])
     end
 end

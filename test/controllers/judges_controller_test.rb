@@ -17,7 +17,7 @@ class JudgesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create judge" do
     assert_difference("Judge.count") do
-      post judges_url, params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort: @judge.sort } }
+      post judges_url, params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort_order: @judge.sort_order } }
     end
 
     assert_redirected_to judge_url(Judge.last)
@@ -34,7 +34,7 @@ class JudgesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update judge" do
-    patch judge_url(@judge), params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort: @judge.sort } }
+    patch judge_url(@judge), params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort_order: @judge.sort_order } }
     assert_redirected_to judge_url(@judge)
   end
 
