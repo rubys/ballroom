@@ -1,5 +1,7 @@
 class CreateAllTables < ActiveRecord::Migration[8.1]
   def change
+    return if table_exists?(:events)
+
     create_table :levels do |t|
       t.string :name
       t.timestamps
