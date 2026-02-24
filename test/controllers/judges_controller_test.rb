@@ -34,8 +34,10 @@ class JudgesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update judge" do
-    patch judge_url(@judge), params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort_order: @judge.sort_order } }
+    patch judge_url(@judge), params: { judge: { ballroom: @judge.ballroom, person_id: @judge.person_id, present: @judge.present, review_solos: @judge.review_solos, show_assignments: @judge.show_assignments, sort_order: "A1" } }
     assert_redirected_to judge_url(@judge)
+    @judge.reload
+    assert_equal "A1", @judge.sort_order
   end
 
   test "should destroy judge" do
