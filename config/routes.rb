@@ -18,13 +18,13 @@ Rails.application.routes.draw do
   resources :billables
   resources :judges
   resources :people do
-    get 'students', on: :collection
-    get 'backs', on: :collection
+    get "students", on: :collection
+    get "backs", on: :collection
   end
   resources :events do
-    get 'summary', on: :collection
-    get 'publish', on: :collection
-    get 'settings', on: :collection
+    get "summary", on: :collection
+    get "publish", on: :collection
+    get "settings", on: :collection
   end
   resources :entries
   resources :dances

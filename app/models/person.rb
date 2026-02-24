@@ -14,7 +14,7 @@ class Person < ApplicationRecord
   scope :by_name, -> { order(:name) }
 
   def display_name
-    name && name.split(/,\s*/).rotate.join(' ')
+    name && name.split(/,\s*/).rotate.join(" ")
   end
 
   def present?
