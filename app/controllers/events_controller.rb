@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   # GET /
   def root
-    @event = Event.current || Event.create(name: "Untitled Event", date: Time.now.strftime("%Y-%m-%d"), location: "Unknown Location")
+    @event = Event.current
     @judges = Person.includes(:judge).where(type: "Judge").by_name
     @djs    = Person.where(type: "DJ").by_name
     @emcees = Person.where(type: "Emcee").by_name
