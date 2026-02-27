@@ -9,19 +9,16 @@ class StudiosSystemTest < ApplicationSystemTestCase
     click_on "New studio"
     fill_in "Name", with: "Galaxy Dance"
     click_on "Create Studio"
-    assert_text "Galaxy Dance"
-    assert_text "Showing studio"
+    assert_text "Galaxy Dance was successfully created."
 
     click_on "Edit this studio"
     fill_in "Name", with: "Galaxy Ballroom"
     click_on "Update Studio"
-    assert_text "Galaxy Ballroom"
-    assert_text "Showing studio"
+    assert_text "Galaxy Ballroom was successfully updated."
 
     accept_confirm do
       click_on "Destroy this studio"
     end
-    assert_text "Studios"
-    assert_text "New studio"
+    assert_text "Galaxy Ballroom was successfully removed."
   end
 end
