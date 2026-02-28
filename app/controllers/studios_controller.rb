@@ -15,14 +15,13 @@ class StudiosController < ApplicationController
   def new
     @studio = Studio.new
     @pairs = []
-    @avail = Studio.where.not(name: "Event Staff").map { |s| s.name }
+    @avail = Studio.where.not(name: "Event Staff").pluck(:name)
   end
 
   # GET /studios/1/edit
   def edit
     @pairs = []
-    @avail = Studio.where.not(name: "Event Staff").map { |s| s.name }
-    @avail = @avail.reject { |name| name == @studio.name }
+    @avail = Studio.where.not(name: ["Event Staff", @studio.name]).pluck(:name)
   end
 
   # POST /studios or /studios.json
@@ -36,7 +35,7 @@ class StudiosController < ApplicationController
         format.json { render :show, status: :created, location: @studio }
       else
         @pairs = []
-        @avail = Studio.where.not(name: "Event Staff").map { |s| s.name }
+        @avail = Studio.where.not(name: "Event Staff").pluck(:name)
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
@@ -52,8 +51,7 @@ class StudiosController < ApplicationController
         format.json { render :show, status: :ok, location: @studio }
       else
         @pairs = []
-        @avail = Studio.where.not(name: "Event Staff").map { |s| s.name }
-        @avail = @avail.reject { |name| name == @studio.name }
+        @avail = Studio.where.not(name: ["Event Staff", @studio.name]).pluck(:name)
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
