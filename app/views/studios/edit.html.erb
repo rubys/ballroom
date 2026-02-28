@@ -3,14 +3,11 @@
 
   <%= render "form", studio: @studio, avail: @avail %>
 
-  <div class="mx-auto flex">
   <% unless @studio.id == 0 %>
   <%= button_to 'Remove this studio', studio_path(@studio), class: "btn-grey my-0",
-    method: :delete, form: {data: { turbo_confirm: 'Are you sure?' }} %>
+    method: :delete, form: { class: "inline", data: { turbo_confirm: 'Are you sure?' }} %>
   <% end %>
-
   <%= link_to "Back to Studios", studios_path, class: "btn-green my-0" %>
-  </div>
 
   <% if @pairs and @pairs.size > 0 %>
   <h2 class="mt-8 font-bold text-2xl">Associated studios</h2>
