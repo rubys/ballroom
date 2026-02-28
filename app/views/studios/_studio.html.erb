@@ -1,46 +1,36 @@
-<div id="<%= dom_id studio %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= studio.name %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Ballroom:</strong>
-    <%= studio.ballroom %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Email:</strong>
-    <%= studio.email %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Heat cost:</strong>
-    <%= studio.heat_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Multi cost:</strong>
-    <%= studio.multi_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Solo cost:</strong>
-    <%= studio.solo_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Student heat cost:</strong>
-    <%= studio.student_heat_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Student multi cost:</strong>
-    <%= studio.student_multi_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Student registration cost:</strong>
-    <%= studio.student_registration_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Student solo cost:</strong>
-    <%= studio.student_solo_cost %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Tables:</strong>
-    <%= studio.tables %>
-  </div>
+<div id="<%= dom_id studio %>">
+    <div class="flex justify-between items-center">
+      <h1 class="mx-auto font-bold text-4xl pb-5"><%= studio.name %></h1>
+    </div>
+
+    <table class="table-fixed mx-auto">
+    <thead>
+      <tr>
+        <td class="row-head">Name
+        <td class="row-head">Type
+        <% if studio.id > 0 %>
+        <td class="row-head">Role
+        <td class="row-head">Level
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% studio.people.each do |person| %>
+      <tr>
+        <td class="row-main"><%= link_to person.name, person %></td>
+        <td class="row"><%= person.type %></td>
+        <% if studio.id > 0 %>
+        <td class="row"><%= person.role %></td>
+        <td class="row"><%= person.level&.name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this studio", studio, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this studio', edit_studio_path(studio), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
 </div>

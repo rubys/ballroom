@@ -1,29 +1,49 @@
-<% content_for :title, "Studios" %>
-
-<div class="w-full">
+<div class="mx-auto">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Studios</h1>
-    <%= link_to "New studio", new_studio_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  <div data-controller="info-box">
+    <div class="info-button">&#x24D8;</div>
+    <ul class="info-box">
+      <li>Studios are the primary organizational unit for managing participants at your event.
+      <li>Click on a studio name to view details and add people (Professionals, Guests, Students) to that studio.
+      <li>The Count column shows the total number of people associated with each studio.
+      <li>Use "New studio" to add a participating studio. Studios can be paired to enable cross-studio dancing.
+    </ul>
   </div>
 
-  <div id="studios" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @studios.any? %>
-      <% @studios.each do |studio| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render studio %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", studio, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_studio_path(studio), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", studio, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No studios found.</p>
+  <div class="flex justify-between items-center">
+    <h1 class="mx-auto font-bold text-4xl pb-5">Studios</h1>
+  </div>
+
+  <div id="studios" class="min-w-full">
+    <table class="table-fixed mx-auto">
+    <thead>
+      <tr>
+        <td class="row-head">Location</td>
+        <td class="row-head">Count</td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @studios.each do |studio| %>
+      <tr>
+        <td class="text-black font-medium"><%= link_to studio.name, studio %></td>
+        <td class="text-right"><%= studio.people.count %></td>
+      </tr>
     <% end %>
+      <tr>
+        <th class="row-foot-right">totals</th>
+        <td class="row-foot-right"><%= @total_count %></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 flex justify-between items-center">
+    <%= link_to 'New studio', new_studio_path, class: "btn-blue" %>
+    <div class="flex gap-2">
+      <%= link_to "Back to Event", root_path, class: "btn-green" %>
+    </div>
   </div>
 </div>

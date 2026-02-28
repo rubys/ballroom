@@ -16,8 +16,9 @@ class StudiosSystemTest < ApplicationSystemTestCase
     click_on "Update Studio"
     assert_text "Galaxy Ballroom was successfully updated."
 
+    click_on "Edit this studio"
     accept_confirm do
-      click_on "Destroy this studio"
+      click_on "Remove this studio"
     end
     assert_text "Galaxy Ballroom was successfully removed."
   end

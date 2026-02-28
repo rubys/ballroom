@@ -3,7 +3,8 @@ class StudiosController < ApplicationController
 
   # GET /studios or /studios.json
   def index
-    @studios = Studio.all
+    @studios = Studio.all.by_name
+    @total_count = Person.where("studio_id is not null").count
   end
 
   # GET /studios/1 or /studios/1.json
@@ -13,10 +14,14 @@ class StudiosController < ApplicationController
   # GET /studios/new
   def new
     @studio = Studio.new
+    @pairs = []
+    @avail = Studio.all.map { |s| s.name }.select { |name| name != "Event Staff" }
   end
 
   # GET /studios/1/edit
   def edit
+    @pairs = []
+    @avail = Studio.all.map { |s| s.name }.reject { |name| name == @studio.name or name == "Event Staff" }
   end
 
   # POST /studios or /studios.json
@@ -29,6 +34,8 @@ class StudiosController < ApplicationController
         format.html { redirect_to @studio, notice: "#{@studio.name} was successfully created." }
         format.json { render :show, status: :created, location: @studio }
       else
+        @pairs = []
+        @avail = Studio.all.map { |s| s.name }.select { |name| name != "Event Staff" }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
@@ -43,6 +50,8 @@ class StudiosController < ApplicationController
         format.html { redirect_to @studio, notice: "#{@studio.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @studio }
       else
+        @pairs = []
+        @avail = Studio.all.map { |s| s.name }.reject { |name| name == @studio.name or name == "Event Staff" }
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end

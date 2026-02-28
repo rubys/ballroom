@@ -1,15 +1,23 @@
-<% content_for :title, "Showing studio" %>
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+    <div data-controller="info-box">
+      <div class="info-button">&#x24D8;</div>
+      <ul class="info-box">
+        <li>Use "Add Person" to add Professionals, Guests, or Students to this studio.
+        <li>Click "Edit this studio" to change name, pair with another studio, or set pricing overrides.
+      </ul>
+    </div>
 
-  <h1 class="font-bold text-4xl">Showing studio</h1>
+    <%= render @studio %>
 
-  <%= render @studio %>
-
-  <%= link_to "Edit this studio", edit_studio_path(@studio), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to studios", studios_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this studio", @studio, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+    <div class="mt-8 grid grid-cols-3 gap-1">
+      <%= link_to 'Add Person', new_person_path(studio: @studio), class: "btn-blue" %>
+      <%= link_to 'Edit this studio', edit_studio_path(@studio), class: "btn-grey" %>
+      <%= link_to 'Back to Studios', studios_path, class: "btn-green" %>
+    </div>
+  </div>
 </div>

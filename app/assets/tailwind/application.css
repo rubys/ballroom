@@ -49,4 +49,22 @@
      m-2 rounded-lg py-3 px-5 text-white bg-purple-600 inline-flex font-medium
      justify-center items-center text-center
   }
+
+  .row-head { @apply
+     border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-2
+     text-slate-600 dark:text-slate-600 text-center
+  }
+
+  .row-main { @apply
+     p-2 pl-8 text-black dark:text-black
+  }
+
+  .row { @apply
+     p-1 pl-4 text-slate-500 dark:text-slate-400
+  }
+
+  .row-foot-right { @apply
+     border-t dark:border-slate-600 font-medium pt-2
+     text-slate-600 dark:text-slate-600 text-right
+  }
 }

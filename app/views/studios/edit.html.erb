@@ -1,10 +1,31 @@
-<% content_for :title, "Editing studio" %>
-
-<div class="md:w-2/3 w-full">
+<div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing studio</h1>
 
-  <%= render "form", studio: @studio %>
+  <%= render "form", studio: @studio, avail: @avail %>
 
-  <%= link_to "Show this studio", @studio, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to studios", studios_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="mx-auto flex">
+  <% unless @studio.id == 0 %>
+  <%= button_to 'Remove this studio', studio_path(@studio), class: "btn-grey my-0",
+    method: :delete, form: {data: { turbo_confirm: 'Are you sure?' }} %>
+  <% end %>
+
+  <%= link_to "Back to Studios", studios_path, class: "btn-green my-0" %>
+  </div>
+
+  <% if @pairs and @pairs.size > 0 %>
+  <h2 class="mt-8 font-bold text-2xl">Associated studios</h2>
+  <ul class="list-disc list-inside">
+  <% @pairs.sort_by {|studio| studio.name}.each do |pair| %>
+  <li class="group flex">
+    <span class="leading-8 mr-4">&bull;&nbsp;<%= pair.name %></span>
+    <form method="post" action="<%= unpair_studio_path(@studio) %>">
+    <input type="hidden" name="pair" value="<%= pair.name %>">
+    <button type="submit" class='group-hover:inline hidden x-2 rounded-lg py-1 px-2 text-white bg-red-600 font-medium'>Unpair</button>
+    </form>
+  </li>
+  <% end %>
+  </ul>
+  <% end %>
+  </div>
+
 </div>
