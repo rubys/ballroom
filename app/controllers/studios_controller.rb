@@ -21,7 +21,7 @@ class StudiosController < ApplicationController
   # GET /studios/1/edit
   def edit
     @pairs = []
-    @avail = Studio.where.not(name: ["Event Staff", @studio.name]).pluck(:name)
+    @avail = Studio.where.not(name: [ "Event Staff", @studio.name ]).pluck(:name)
   end
 
   # POST /studios or /studios.json
@@ -51,7 +51,7 @@ class StudiosController < ApplicationController
         format.json { render :show, status: :ok, location: @studio }
       else
         @pairs = []
-        @avail = Studio.where.not(name: ["Event Staff", @studio.name]).pluck(:name)
+        @avail = Studio.where.not(name: [ "Event Staff", @studio.name ]).pluck(:name)
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end

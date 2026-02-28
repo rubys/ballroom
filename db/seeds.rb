@@ -20,7 +20,7 @@ Age.delete_all
   "B1" => "55-65",
   "C" => "66-75",
   "C1" => "76-85",
-  "D" => "86+",
+  "D" => "86+"
 }.each do |category, description|
   Age.create!(category: category, description: description)
 end
@@ -33,7 +33,7 @@ Level.delete_all
   "Assoc. Silver",
   "Full Silver",
   "Assoc. Gold",
-  "Full Gold",
+  "Full Gold"
 ].each do |name|
   Level.create!(name: name)
 end
@@ -69,7 +69,7 @@ Dance.delete_all
   "CW Shuffle",
   "Swing",
   "4 Count",
-  "Polka",
+  "Polka"
 ].each_with_index do |name, index|
   Dance.create!(name: name, order: index + 1)
 end
