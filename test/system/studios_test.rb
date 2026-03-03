@@ -1,6 +1,30 @@
 require "application_system_test_case"
 
 class StudiosSystemTest < ApplicationSystemTestCase
+  test "pair and unpair studios" do
+    studio = studios(:one)
+
+    visit edit_studio_url(studio)
+    assert_text "Associated studios"
+    assert_text "Two"
+
+    select "Three", from: "Pair"
+    click_on "Update Studio"
+    assert_text "One was successfully updated."
+
+    click_on "Edit this studio"
+    assert_text "Associated studios"
+    assert_text "Three"
+    assert_text "Two"
+
+    find("li.group", match: :first).hover
+    click_on "Unpair", match: :first
+    within("ul") do
+      assert_no_text "Three"
+      assert_text "Two"
+    end
+  end
+
   test "create, edit, and delete a studio" do
     visit root_url
     click_on "Studios"

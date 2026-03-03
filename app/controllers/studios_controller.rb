@@ -20,7 +20,7 @@ class StudiosController < ApplicationController
 
   # GET /studios/1/edit
   def edit
-    @pairs = []
+    @pairs = @studio.pairs
     @avail = Studio.where.not(name: [ "Event Staff", @studio.name ]).pluck(:name)
   end
 
