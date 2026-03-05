@@ -158,8 +158,8 @@ end
 
 # Compare two strings and return diff
 def compute_diff(rails_html, juntos_html, path)
-  rails_file = Tempfile.new(['rails', '.html'])
-  juntos_file = Tempfile.new(['juntos', '.html'])
+  rails_file = Tempfile.new([ 'rails', '.html' ])
+  juntos_file = Tempfile.new([ 'juntos', '.html' ])
   begin
     rails_file.write(rails_html)
     rails_file.close
