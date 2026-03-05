@@ -114,14 +114,12 @@ def normalize(html)
   # Normalize asset fingerprints: /assets/name-HASH.ext → /assets/name.ext
   text.gsub!(%r{/assets/([\w/]+)-[A-Za-z0-9]{8,}\.(css|js|png|svg|jpg)}, '/assets/\1.\2')
 
-  # Strip data-turbo-track attributes
-  text.gsub!(/\s*data-turbo-track="[^"]*"/, '')
+  # Note: data-turbo-track is now produced by both Rails and Juntos
 
   # Strip trailing self-closing slash inconsistencies: normalize " />" to ">"
   text.gsub!(%r{\s*/>}, '>')
 
-  # Strip flash notice placeholder (Rails renders it, Juntos may not or vice versa)
-  text.gsub!(/<p\s+class="[^"]*"\s+id="notice"><\/p>\n?/, '')
+  # Note: flash notice placeholder now handled correctly by both Rails and Juntos
 
   # Strip empty authenticity_token hidden inputs (present in Juntos forms, absent in Rails routes.call)
   text.gsub!(/<input\s+type="hidden"\s+name="authenticity_token"\s+value="">\s*/, '')
