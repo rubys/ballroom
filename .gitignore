@@ -42,11 +42,20 @@
 /test/**/*.test.mjs
 /test/__fixtures.mjs
 /test/setup.mjs
+/test/system/__fixtures.mjs
+/test/system/*.spec.mjs
+/test/system/*.spec.mjs.map
+/test/config/
+/test-results/
 package.json
 package-lock.json
 vite.config.js
 vitest.config.js
+playwright.config.js
 /bin/juntos
 
 # Juntos build artifacts
 .browser/
+/dist/
+/ejected/
+/config/routes.js
