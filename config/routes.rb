@@ -26,6 +26,11 @@ Rails.application.routes.draw do
     get "publish", on: :collection
     get "settings", on: :collection
   end
+
+  # Match showcase's singular /event/* URLs
+  get "event/summary", to: "events#summary", as: :summary_event_index
+  get "event/publish", to: "events#publish", as: :publish_event_index
+  get "event/settings", to: "events#settings", as: :settings_event_index
   resources :entries
   resources :dances
   resources :cat_extensions

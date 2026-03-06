@@ -8,7 +8,9 @@
 
   <p class="mt-4 text-center"><%= @event.location.to_s.split("\n").first %></p>
 
-  <p class="mt-2 text-center"><%= @event.date %></p>
+  <p class="mt-2 text-center" data-controller="date-range" data-date-range-date-value="<%= @event.date %>">
+    <span data-date-range-target="output"><%= localized_date(@event.date, @locale) %></span>
+  </p>
 
   <p class="mt-2 text-center"><%= pluralize(@heats, 'heat') %>
   <% if @unscheduled > 0 -%>
@@ -60,9 +62,9 @@
     <a role="link" aria-disabled="true" class="btn-pale-blue btn-disabled">Backs</a>
     <% end %>
 
-    <%= link_to "Summary", summary_events_path, class: "btn-grey" %>
-    <%= link_to "Publish", publish_events_path, class: "btn-pale-orange" %>
-    <%= link_to "Settings", settings_events_path, class: "btn-grey" %>
+    <%= link_to "Summary", summary_event_index_path , class: "btn-grey" %>
+    <%= link_to "Publish",  publish_event_index_path, class: "btn-pale-orange" %>
+    <%= link_to "Settings", settings_event_index_path , class: "btn-grey" %>
   </div>
 
   <% if @heats == 0 && @unscheduled == 0 -%>

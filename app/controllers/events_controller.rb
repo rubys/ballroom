@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   # GET /
   def root
     @event = Event.current
+    @locale = Location.pick(:locale) || "en_US"
     @judges = Person.includes(:judge).where(type: "Judge").by_name
     @djs    = Person.where(type: "DJ").by_name
     @emcees = Person.where(type: "Emcee").by_name
