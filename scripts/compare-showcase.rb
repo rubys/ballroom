@@ -177,8 +177,8 @@ end
 
 # Compare two strings and return diff
 def compute_diff(showcase_html, juntos_html, path)
-  showcase_file = Tempfile.new(['showcase', '.html'])
-  juntos_file = Tempfile.new(['juntos', '.html'])
+  showcase_file = Tempfile.new([ "showcase", ".html" ])
+  juntos_file = Tempfile.new([ "juntos", ".html" ])
   begin
     showcase_file.write(showcase_html)
     showcase_file.close
