@@ -4,8 +4,6 @@
   <%= render "form", studio: @studio %>
 
   <div class="mx-auto flex">
-  <input type="submit" class="rounded-lg px-5 bg-blue-600 text-white inline-block cursor-pointer" form="studio-form" value="Update Studio">
-
   <% unless @studio.id == 0 %>
   <%= button_to 'Remove this studio', studio_path(@studio), class: "btn-grey my-0",
     method: :delete, form: { class: "inline", data: { turbo_confirm: 'Are you sure?' }} %>
