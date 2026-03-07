@@ -95,6 +95,7 @@ class StudiosController < ApplicationController
       @student_cost_override = !!(@studio.student_heat_cost || @studio.student_solo_cost || @studio.student_multi_cost)
 
       event = Event.current
+      @ballrooms = event.ballrooms
       @studio.heat_cost ||= event.heat_cost
       @studio.solo_cost ||= event.solo_cost
       @studio.multi_cost ||= event.multi_cost
