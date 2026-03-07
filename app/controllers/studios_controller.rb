@@ -18,7 +18,7 @@ class StudiosController < ApplicationController
 
   # GET /studios/1/edit
   def edit
-    @avail.select! {|studio| studio != @studio.name and not @pairs.any? {|pair| pair.name == studio}}
+    @avail.select! { |studio| studio != @studio.name and not @pairs.any? { |pair| pair.name == studio } }
   end
 
   # POST /studios or /studios.json
@@ -51,7 +51,7 @@ class StudiosController < ApplicationController
         format.json { render :show, status: :ok, location: @studio }
       else
         setup_form
-        @avail.select! {|studio| studio != @studio.name and not @pairs.any? {|pair| pair.name == studio}}
+        @avail.select! { |studio| studio != @studio.name and not @pairs.any? { |pair| pair.name == studio } }
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
@@ -104,9 +104,9 @@ class StudiosController < ApplicationController
       @studio.student_solo_cost ||= @studio.solo_cost
       @studio.student_multi_cost ||= @studio.multi_cost
 
-      @student_packages = Billable.where(type: 'Student').ordered.pluck(:name, :id)
-      @professional_packages = Billable.where(type: 'Professional').ordered.pluck(:name, :id)
-      @guest_packages = Billable.where(type: 'Guest').ordered.pluck(:name, :id)
+      @student_packages = Billable.where(type: "Student").ordered.pluck(:name, :id)
+      @professional_packages = Billable.where(type: "Professional").ordered.pluck(:name, :id)
+      @guest_packages = Billable.where(type: "Guest").ordered.pluck(:name, :id)
 
       if @studio.default_student_package_id
         @studio.student_registration_cost ||= Billable.find(@studio.default_student_package_id).price
@@ -136,13 +136,13 @@ class StudiosController < ApplicationController
     end
 
     def cost_override
-      if studio_params[:cost_override] == '0'
+      if studio_params[:cost_override] == "0"
         params[:studio][:heat_cost] = nil
         params[:studio][:solo_cost] = nil
         params[:studio][:multi_cost] = nil
       end
 
-      if studio_params[:student_cost_override] == '0'
+      if studio_params[:student_cost_override] == "0"
         params[:studio][:student_heat_cost] = nil
         params[:studio][:student_solo_cost] = nil
         params[:studio][:student_multi_cost] = nil
