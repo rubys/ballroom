@@ -1,7 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New studio</h1>
 
-  <%= render "form", studio: @studio %>
+  <%= render "form", studio: @studio, avail: @avail, cost_override: @cost_override,
+    student_cost_override: @student_cost_override, student_packages: @student_packages,
+    professional_packages: @professional_packages, guest_packages: @guest_packages %>
 
   <%= link_to "Back to Studios", studios_path, class: "btn-green my-0" %>
 </div>
