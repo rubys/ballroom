@@ -2,8 +2,8 @@
 
 one:
   package: one
-  option: one
+  option: two
 
 two:
   package: two
-  option: two
+  option: one

@@ -4,6 +4,9 @@
   <li>Pairing studios enable Students from one studio to dance with Professionals and Students from a neighboring studio.</li>
   <li>Pairs can be removed by hovering over the associated studio name and clicking on the Unpair button that appears.</li>
   <li>If prices are not overridden for the studio, the prices defined in the settings will apply.</li>
+  <% unless @student_packages.empty? and @professional_packages.empty? and @guest_packages.empty? %>
+  <li>If packages are not defaulted, the defaults will be the first package listed for each type on the settings page.</li>
+  <% end %>
   <% if studio.id %>
   <li class="text-red-600 font-bold">Removing a studio will remove all professionals, guests, and students that are
   associated with the studio, and delete any heats and scores that have been entered for those individuals.
@@ -13,7 +16,7 @@
   </ul>
 </div>
 
-<%= form_with(model: studio, class: "contents") do |form| %>
+<%= form_with(model: studio, class: "contents", id: 'studio-form') do |form| %>
   <% if studio.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(studio.errors.count, "error") %> prohibited this studio from being saved:</h2>
@@ -31,15 +34,108 @@
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <% unless studio.id == 0 or avail.length == 0 %>
+  <% if Event.current.ballrooms >= 3 %>
   <div class="my-5">
-    <%= form.label 'pair'%>
-    <%= form.select 'pair', avail, {include_blank: true},
+    <%= form.label :ballroom, 'Ballroom preference' %>
+    <%= form.select :ballroom, ballroom_options, {include_blank: true},
       class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <% end %>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <% unless studio.id == 0 or @avail.length == 0 %>
+  <div class="my-5">
+    <%= form.label 'pair'%>
+    <%= form.select 'pair', @avail, {include_blank: true},
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+  <% end %>
+
+  <div data-controller="studio-price-override">
+  <% unless studio.id == 0 %>
+  <div class="my-5">
+    <%= form.check_box :cost_override, checked: @cost_override, class: 'entry-count h-10' %>
+    <%= form.label :cost_override, 'Override studio prices (for payments to host)' %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :heat_cost, 'Heats' %>
+    <%= form.number_field :heat_cost, step: :any,
+      value: number_to_currency(form.object.heat_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solo_cost, 'Solos' %>
+    <%= form.number_field :solo_cost, step: :any,
+      value: number_to_currency(form.object.solo_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :multi_cost, 'Multi-dances' %>
+    <%= form.number_field :multi_cost, step: :any,
+    value: number_to_currency(form.object.multi_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  </div>
+
+  <div data-controller="studio-price-override">
+  <div class="my-5">
+    <%= form.check_box :student_cost_override, checked: @student_cost_override, class: 'entry-count h-10' %>
+    <%= form.label :student_cost_override, 'Override student prices (for payments to studio)' %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_registration_cost, 'Registration' %>
+    <%= form.number_field :student_registration_cost, step: :any,
+      value: number_to_currency(form.object.student_registration_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_heat_cost, 'Heats' %>
+    <%= form.number_field :student_heat_cost, step: :any,
+      value: number_to_currency(form.object.student_heat_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_solo_cost, 'Solos' %>
+    <%= form.number_field :student_solo_cost, step: :any,
+      value: number_to_currency(form.object.student_solo_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_multi_cost, 'Multi-dances' %>
+    <%= form.number_field :student_multi_cost, step: :any,
+    value: number_to_currency(form.object.student_multi_cost.to_f, delimiter: '', unit: ''),
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  </div>
+
+  <% if @student_packages.length > 1 %>
+  <div class="my-5">
+    <%= form.label 'Default Student Package'%>
+    <%= form.select :default_student_package_id, @student_packages, {include_blank: true},
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
+
+  <% if @professional_packages.length > 1 %>
+  <div class="my-5">
+    <%= form.label 'Default Professional Package'%>
+    <%= form.select :default_professional_package_id, @professional_packages, {include_blank: true},
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
+  <% end %>
+
+  <% if @guest_packages.length > 1 %>
+  <div class="my-5">
+    <%= form.label 'Default Guest Package'%>
+    <%= form.select :default_guest_package_id, @guest_packages, {include_blank: true},
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
 <% end %>

@@ -1,5 +1,6 @@
 class StudiosController < ApplicationController
   before_action :set_studio, only: %i[ show edit update destroy unpair ]
+  before_action :setup_form, only: %i[ new edit ]
 
   # GET /studios or /studios.json
   def index
@@ -13,20 +14,18 @@ class StudiosController < ApplicationController
 
   # GET /studios/new
   def new
-    @studio = Studio.new
-    @pairs = []
-    @avail = Studio.where.not(name: "Event Staff").pluck(:name)
   end
 
   # GET /studios/1/edit
   def edit
-    @pairs = @studio.pairs
-    @avail = Studio.where.not(name: [ "Event Staff", @studio.name ]).pluck(:name)
+    @avail.select! {|studio| studio != @studio.name and not @pairs.any? {|pair| pair.name == studio}}
   end
 
   # POST /studios or /studios.json
   def create
-    @studio = Studio.new(studio_params.except(:pair))
+    @studio = Studio.new(studio_params.except(:pair, :cost_override, :student_cost_override))
+
+    cost_override
 
     respond_to do |format|
       if @studio.save
@@ -34,8 +33,7 @@ class StudiosController < ApplicationController
         format.html { redirect_to @studio, notice: "#{@studio.name} was successfully created." }
         format.json { render :show, status: :created, location: @studio }
       else
-        @pairs = []
-        @avail = Studio.where.not(name: "Event Staff").pluck(:name)
+        setup_form
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
@@ -45,13 +43,15 @@ class StudiosController < ApplicationController
   # PATCH/PUT /studios/1 or /studios/1.json
   def update
     respond_to do |format|
-      if @studio.update(studio_params.except(:pair))
-        add_pair
+      add_pair
+      cost_override
+
+      if @studio.update(studio_params.except(:pair, :cost_override, :student_cost_override))
         format.html { redirect_to @studio, notice: "#{@studio.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @studio }
       else
-        @pairs = []
-        @avail = Studio.where.not(name: [ "Event Staff", @studio.name ]).pluck(:name)
+        setup_form
+        @avail.select! {|studio| studio != @studio.name and not @pairs.any? {|pair| pair.name == studio}}
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
@@ -87,9 +87,41 @@ class StudiosController < ApplicationController
       @studio = Studio.find(params.expect(:id))
     end
 
+    def setup_form
+      @studio ||= Studio.new
+      @pairs = @studio.pairs
+      @avail = Studio.where.not(name: "Event Staff").pluck(:name)
+      @cost_override = !!(@studio.heat_cost || @studio.solo_cost || @studio.multi_cost)
+      @student_cost_override = !!(@studio.student_heat_cost || @studio.student_solo_cost || @studio.student_multi_cost)
+
+      event = Event.current
+      @studio.heat_cost ||= event.heat_cost
+      @studio.solo_cost ||= event.solo_cost
+      @studio.multi_cost ||= event.multi_cost
+
+      @studio.student_heat_cost ||= @studio.heat_cost
+      @studio.student_solo_cost ||= @studio.solo_cost
+      @studio.student_multi_cost ||= @studio.multi_cost
+
+      @student_packages = Billable.where(type: 'Student').ordered.pluck(:name, :id).to_h
+      @professional_packages = Billable.where(type: 'Professional').ordered.pluck(:name, :id).to_h
+      @guest_packages = Billable.where(type: 'Guest').ordered.pluck(:name, :id).to_h
+
+      if @studio.default_student_package_id
+        @studio.student_registration_cost ||= Billable.find(@studio.default_student_package_id).price
+      elsif not @student_packages.empty?
+        @studio.student_registration_cost ||= Billable.find(@student_packages.values.first).price
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def studio_params
-      params.expect(studio: [ :name, :pair, :ballroom, :email, :heat_cost, :multi_cost, :solo_cost, :student_heat_cost, :student_multi_cost, :student_registration_cost, :student_solo_cost, :tables ])
+      params.expect(studio: [ :name, :pair, :ballroom, :email,
+        :cost_override, :heat_cost, :solo_cost, :multi_cost,
+        :student_cost_override, :student_registration_cost,
+        :student_heat_cost, :student_solo_cost, :student_multi_cost,
+        :default_student_package_id, :default_professional_package_id,
+        :default_guest_package_id, :tables ])
     end
 
     def add_pair
@@ -100,5 +132,19 @@ class StudiosController < ApplicationController
       return unless pair_studio
 
       StudioPair.find_or_create_by(studio1: @studio, studio2: pair_studio)
+    end
+
+    def cost_override
+      if studio_params[:cost_override] == '0'
+        params[:studio][:heat_cost] = nil
+        params[:studio][:solo_cost] = nil
+        params[:studio][:multi_cost] = nil
+      end
+
+      if studio_params[:student_cost_override] == '0'
+        params[:studio][:student_heat_cost] = nil
+        params[:studio][:student_solo_cost] = nil
+        params[:studio][:student_multi_cost] = nil
+      end
     end
 end

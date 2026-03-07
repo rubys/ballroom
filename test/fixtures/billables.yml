@@ -1,17 +1,35 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  type: 
-  price: 9.99
+  name: Student Basic
+  type: Student
+  price: 50.00
   order: 1
-  table_size: 1
-  couples: false
 
 two:
-  name: MyString
-  type: 
-  price: 9.99
+  name: Professional Basic
+  type: Professional
+  price: 75.00
   order: 1
-  table_size: 1
-  couples: false
+
+student_premium:
+  name: Student Premium
+  type: Student
+  price: 100.00
+  order: 2
+
+professional_premium:
+  name: Professional Premium
+  type: Professional
+  price: 150.00
+  order: 2
+
+guest_basic:
+  name: Guest Basic
+  type: Guest
+  price: 25.00
+  order: 1
+
+guest_premium:
+  name: Guest Premium
+  type: Guest
+  price: 50.00
+  order: 2
