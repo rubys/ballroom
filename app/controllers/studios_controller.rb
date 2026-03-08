@@ -19,6 +19,7 @@ class StudiosController < ApplicationController
   # GET /studios/1/edit
   def edit
     @avail.select! { |studio| studio != @studio.name and not @pairs.any? { |pair| pair.name == studio } }
+    @locked = Event.current.locked?
   end
 
   # POST /studios or /studios.json
@@ -52,6 +53,7 @@ class StudiosController < ApplicationController
       else
         setup_form
         @avail.select! { |studio| studio != @studio.name and not @pairs.any? { |pair| pair.name == studio } }
+        @locked = Event.current.locked?
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @studio.errors, status: :unprocessable_entity }
       end
