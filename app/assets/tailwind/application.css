@@ -10,6 +10,12 @@
    hidden list-disc list-outside border-double border-4 rounded-lg border-emerald-600 mx-4 my-8 pl-8 pr-4 py-4 text-left
   }
 
+  .entry-count { @apply
+    shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-12
+    disabled:opacity-50 disabled:cursor-not-allowed
+    ml-4 mr-2
+  }
+
   .btn-disabled { @apply
     cursor-not-allowed opacity-30
   }
