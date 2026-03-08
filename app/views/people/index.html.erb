@@ -1,29 +1,49 @@
-<% content_for :title, "People" %>
-
-<div class="w-full">
+<div class="w-full mx-auto">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">People</h1>
-    <%= link_to "New person", new_person_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
+  <h1 class="text-center font-bold text-4xl mb-4">Event Participants</h1>
 
-  <div id="people" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @people.any? %>
-      <% @people.each do |person| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render person %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", person, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_person_path(person), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", person, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
+  <table class="table-fixed mx-auto">
+  <thead>
+    <tr>
+      <td class="row-head">Name</td>
+      <td class="row-head">Type</td>
+      <% if @people.any? { |person| not person.role.blank? } %>
+      <td class="row-head">Role</td>
       <% end %>
-    <% else %>
-      <p class="text-center my-10">No people found.</p>
-    <% end %>
-  </div>
+      <% if @people.any? { |person| person.level_id } %>
+      <td class="row-head">Level</td>
+      <% end %>
+      <% if @track_ages and @people.any? { |person| person.age_id } %>
+      <td class="row-head">Age</td>
+      <% end %>
+      <td class="row-head">Studio</td>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @people.each do |person| %>
+    <tr>
+      <td class="row-main"><%= link_to person.name, person %></td>
+      <td class="row"><%= person.type %></td>
+      <% if @people.any? { |person| not person.role.blank? } %>
+      <td class="row"><%= person.role %></td>
+      <% end %>
+      <% if @people.any? { |person| person.level_id } %>
+      <td class="row"><%= person.level&.name %></td>
+      <% end %>
+      <% if @track_ages and @people.any? { |person| person.age_id } %>
+      <td class="row text-center"><%= person.age&.description %></td>
+      <% end %>
+      <td class="row"><%= link_to person.studio&.name || "", studio_path(person.studio) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+
+  <% if @people.empty? %>
+  <p class="text-center mt-8">To add people, go to the <%= link_to "Studios", studios_path %> page and add a studio, then add people to that studio.</p>
+  <% end %>
 </div>

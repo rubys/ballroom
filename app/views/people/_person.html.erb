@@ -1,54 +1,63 @@
-<div id="<%= dom_id person %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= person.name %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Type:</strong>
-    <%= person.type %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Role:</strong>
-    <%= person.role %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Back:</strong>
-    <%= person.back %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Available:</strong>
-    <%= person.available %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Independent:</strong>
-    <%= person.independent? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Studio:</strong>
-    <%= person.studio_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Level:</strong>
-    <%= person.level_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Age:</strong>
-    <%= person.age_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Exclude:</strong>
-    <%= person.exclude_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Invoice to:</strong>
-    <%= person.invoice_to_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Package:</strong>
-    <%= person.package_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Table:</strong>
-    <%= person.table_id %>
-  </div>
+<div id="<%= dom_id person %>">
+  <h1 class="font-bold text-4xl pb-5"><%= person.display_name %></h1>
+
+  <table>
+    <tbody>
+      <% if person.studio %>
+      <tr>
+        <td class="row">Studio</td>
+        <td class="row-main"><%= link_to person.studio.name, studio_path(person.studio) %></td>
+      </tr>
+      <% end %>
+
+      <tr>
+        <td class="row">Type</td>
+        <td class="row-main"><%= person.type %></td>
+      </tr>
+
+      <% if person.type == "Student" %>
+      <tr>
+        <td class="row">Level</td>
+        <td class="row-main"><%= person.level&.name %></td>
+      </tr>
+
+      <% if @track_ages %>
+      <tr>
+        <td class="row">Age</td>
+        <td class="row-main">
+          <%= person.age&.category %>
+          (<%= person.age&.description %>)
+        </td>
+      </tr>
+      <% end %>
+      <% end %>
+
+      <% if %w(Student Professional).include? person.type %>
+      <tr>
+        <td class="row">Role</td>
+        <td class="row-main"><%= person.role %></td>
+      </tr>
+      <% end %>
+
+      <% if %w(Leader Both).include? person.role %>
+      <tr>
+        <td class="row">Back #</td>
+        <td class="row-main"><%= person.back %></td>
+      </tr>
+      <% end %>
+
+      <% if person.exclude %>
+      <tr>
+        <td class="row">Avoid scheduling with</td>
+        <td class="row-main"><%= link_to person.exclude.display_name, person_path(person.exclude) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this person", person_path(person), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this person", edit_person_path(person), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
 </div>

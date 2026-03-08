@@ -1,10 +1,19 @@
-<% content_for :title, "Editing person" %>
-
-<div class="md:w-2/3 w-full">
+<div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing person</h1>
 
   <%= render "form", person: @person %>
 
-  <%= link_to "Show this person", @person, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to people", people_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="mx-auto flex">
+    <input type="submit" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" form="person-form" value="Update Person">
+
+    <% if not @locked %>
+    <%= button_to "Remove this person", person_path(@person), method: :delete, class: "btn-grey my-0", form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <% end %>
+
+    <% if @person.studio %>
+    <%= link_to "Back to Studio", studio_path(@person.studio), class: "btn-green my-0" %>
+    <% else %>
+    <%= link_to "Back to Event Staff", studio_path(0), class: "btn-green my-0" %>
+    <% end %>
+  </div>
 </div>

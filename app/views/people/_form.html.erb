@@ -1,9 +1,9 @@
-<%= form_with(model: person, class: "contents") do |form| %>
+<%= form_with(model: person, class: "contents", id: "person-form") do |form| %>
   <% if person.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
 
-      <ul class="list-disc ml-6">
+      <ul>
         <% person.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -13,70 +13,61 @@
 
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:name].none?, "border-red-400 focus:outline-red-600": person.errors[:name].any?}] %>
+    <%= form.text_field :name, placeholder: "last, first", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+
+  <% if @person.studio %>
+  <div class="my-5">
+    <%= form.label :studio_id %>
+    <%= form.select :studio_id, @studios, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% else %>
+  <input type="hidden" name="person[studio_id]" value="0">
+  <% end %>
 
   <div class="my-5">
     <%= form.label :type %>
-    <%= form.text_field :type, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:type].none?, "border-red-400 focus:outline-red-600": person.errors[:type].any?}] %>
+    <%= form.select :type, @types, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <% if @include_independent_instructors %>
   <div class="my-5">
-    <%= form.label :role %>
-    <%= form.text_field :role, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:role].none?, "border-red-400 focus:outline-red-600": person.errors[:role].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :back %>
-    <%= form.number_field :back, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:back].none?, "border-red-400 focus:outline-red-600": person.errors[:back].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :available %>
-    <%= form.text_field :available, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:available].none?, "border-red-400 focus:outline-red-600": person.errors[:available].any?}] %>
-  </div>
-
-  <div class="my-5 flex items-center gap-2">
     <%= form.label :independent %>
-    <%= form.checkbox :independent, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": person.errors[:independent].none?, "border-red-400 focus:outline-red-600": person.errors[:independent].any?}] %>
+    <%= form.check_box :independent, class: "block h-10" %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :studio_id %>
-    <%= form.text_field :studio_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:studio_id].none?, "border-red-400 focus:outline-red-600": person.errors[:studio_id].any?}] %>
-  </div>
+  <% end %>
 
   <div class="my-5">
     <%= form.label :level_id %>
-    <%= form.text_field :level_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:level_id].none?, "border-red-400 focus:outline-red-600": person.errors[:level_id].any?}] %>
+    <%= form.select :level_id, @levels, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <% if @track_ages %>
+  <div class="my-5">
+    <%= form.label :category, "Age" %>
+    <%= form.select :age_id, @ages, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :role %>
+    <%= form.select :role, @roles, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :age_id %>
-    <%= form.text_field :age_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:age_id].none?, "border-red-400 focus:outline-red-600": person.errors[:age_id].any?}] %>
+    <%= form.label :back, "Back Number" %>
+    <%= form.number_field :back, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :exclude_id %>
-    <%= form.text_field :exclude_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:exclude_id].none?, "border-red-400 focus:outline-red-600": person.errors[:exclude_id].any?}] %>
+    <%= form.label :exclude_id, "Avoid scheduling the same time as" %>
+    <%= form.select :exclude_id, @exclude, { include_blank: true }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <% if @tables %>
   <div class="my-5">
-    <%= form.label :invoice_to_id %>
-    <%= form.text_field :invoice_to_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:invoice_to_id].none?, "border-red-400 focus:outline-red-600": person.errors[:invoice_to_id].any?}] %>
+    <%= form.label :table_id, "Table" %>
+    <%= form.select :table_id, @tables, { include_blank: "No table assigned" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :package_id %>
-    <%= form.text_field :package_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:package_id].none?, "border-red-400 focus:outline-red-600": person.errors[:package_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :table_id %>
-    <%= form.text_field :table_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": person.errors[:table_id].none?, "border-red-400 focus:outline-red-600": person.errors[:table_id].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+  <% end %>
 <% end %>
