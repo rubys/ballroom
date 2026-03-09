@@ -10,7 +10,7 @@
     <tr>
       <td class="row-head">Name</td>
       <td class="row-head">Type</td>
-      <% if @people.any? { |person| not person.role.blank? } %>
+      <% if @people.any? { |person| person.role.present? } %>
       <td class="row-head">Role</td>
       <% end %>
       <% if @people.any? { |person| person.level_id } %>
@@ -28,7 +28,7 @@
     <tr>
       <td class="row-main"><%= link_to person.name, person %></td>
       <td class="row"><%= person.type %></td>
-      <% if @people.any? { |person| not person.role.blank? } %>
+      <% if @people.any? { |person| person.role.present? } %>
       <td class="row"><%= person.role %></td>
       <% end %>
       <% if @people.any? { |person| person.level_id } %>

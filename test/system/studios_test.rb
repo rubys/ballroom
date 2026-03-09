@@ -19,7 +19,7 @@ class StudiosSystemTest < ApplicationSystemTestCase
 
     find("li.group", match: :first).hover
     click_on "Unpair", match: :first
-    within("ul") do
+    within("ul.list-disc") do
       assert_no_text "Three"
       assert_text "Two"
     end
