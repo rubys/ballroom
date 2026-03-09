@@ -1,5 +1,5 @@
 class Dance < ApplicationRecord
-  normalizes :name, with: -> name { name.strip }
+  normalizes :name, with: ->(name) { name.strip }
 
   scope :ordered, -> { order(arel_table[:order]) }
 
