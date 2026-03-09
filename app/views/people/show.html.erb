@@ -9,7 +9,7 @@
     <%= link_to "Edit this person", edit_person_path(@person), class: "btn-blue" %>
 
     <% if @person.studio %>
-    <%= link_to "Back to Studio", studio_path(@person.studio), class: "btn-green" %>
+    <%= link_to "Back to Studio", @person.studio, class: "btn-green" %>
     <% else %>
     <%= link_to "Back to Event Staff", studio_path(0), class: "btn-green" %>
     <% end %>

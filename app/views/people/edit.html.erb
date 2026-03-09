@@ -11,7 +11,7 @@
     <% end %>
 
     <% if @person.studio %>
-    <%= link_to "Back to Studio", studio_path(@person.studio), class: "btn-green my-0" %>
+    <%= link_to "Back to Studio", @person.studio, class: "btn-green my-0" %>
     <% else %>
     <%= link_to "Back to Event Staff", studio_path(0), class: "btn-green my-0" %>
     <% end %>

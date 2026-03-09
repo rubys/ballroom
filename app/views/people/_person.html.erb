@@ -6,7 +6,7 @@
       <% if person.studio %>
       <tr>
         <td class="row">Studio</td>
-        <td class="row-main"><%= link_to person.studio.name, studio_path(person.studio) %></td>
+        <td class="row-main"><%= link_to person.studio.name, person.studio %></td>
       </tr>
       <% end %>
 
@@ -49,7 +49,7 @@
       <% if person.exclude %>
       <tr>
         <td class="row">Avoid scheduling with</td>
-        <td class="row-main"><%= link_to person.exclude.display_name, person_path(person.exclude) %></td>
+        <td class="row-main"><%= link_to person.exclude.display_name, person.exclude %></td>
       </tr>
       <% end %>
     </tbody>
