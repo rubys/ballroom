@@ -6,7 +6,7 @@
   <div class="mx-auto flex">
     <input type="submit" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" form="person-form" value="Update Person">
 
-    <% if not @locked %>
+    <% unless @locked %>
     <%= button_to "Remove this person", person_path(@person), method: :delete, class: "btn-grey my-0", form: { data: { turbo_confirm: "Are you sure?" } } %>
     <% end %>
 

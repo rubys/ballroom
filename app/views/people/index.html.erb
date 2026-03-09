@@ -16,7 +16,7 @@
       <% if @people.any? { |person| person.level_id } %>
       <td class="row-head">Level</td>
       <% end %>
-      <% if @track_ages and @people.any? { |person| person.age_id } %>
+      <% if @track_ages && @people.any? { |person| person.age_id } %>
       <td class="row-head">Age</td>
       <% end %>
       <td class="row-head">Studio</td>
@@ -34,7 +34,7 @@
       <% if @people.any? { |person| person.level_id } %>
       <td class="row"><%= person.level&.name %></td>
       <% end %>
-      <% if @track_ages and @people.any? { |person| person.age_id } %>
+      <% if @track_ages && @people.any? { |person| person.age_id } %>
       <td class="row text-center"><%= person.age&.description %></td>
       <% end %>
       <td class="row"><% if person.studio %><%= link_to person.studio.name, studio_path(person.studio) %><% end %></td>

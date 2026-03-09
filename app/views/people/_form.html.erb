@@ -1,4 +1,4 @@
-<%= form_with(model: person, class: "contents", id: "person-form") do |form| %>
+<%= form_with(model: person, class: "contents", id: "person-form", data: { controller: "person" }) do |form| %>
   <% if person.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -22,50 +22,50 @@
     <%= form.select :studio_id, @studios, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <% else %>
-  <input type="hidden" name="person[studio_id]" value="0">
+  <%= form.hidden_field :studio_id, value: 0 %>
   <% end %>
 
   <div class="my-5">
     <%= form.label :type %>
-    <%= form.select :type, @types, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :type, @types, {}, data: { action: "person#setType" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <% if @include_independent_instructors %>
-  <div class="my-5">
+  <div class="my-5" data-person-target="independent">
     <%= form.label :independent %>
     <%= form.check_box :independent, class: "block h-10" %>
   </div>
   <% end %>
 
-  <div class="my-5">
+  <div class="my-5" data-person-target="level">
     <%= form.label :level_id %>
     <%= form.select :level_id, @levels, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <% if @track_ages %>
-  <div class="my-5">
+  <div class="my-5" data-person-target="age">
     <%= form.label :category, "Age" %>
     <%= form.select :age_id, @ages, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <% end %>
 
-  <div class="my-5">
+  <div class="my-5" data-person-target="role">
     <%= form.label :role %>
-    <%= form.select :role, @roles, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :role, @roles, {}, data: { action: "person#setRole" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5" data-person-target="back">
     <%= form.label :back, "Back Number" %>
     <%= form.number_field :back, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5" data-person-target="exclude">
     <%= form.label :exclude_id, "Avoid scheduling the same time as" %>
     <%= form.select :exclude_id, @exclude, { include_blank: true }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <% if @tables %>
-  <div class="my-5">
+  <div class="my-5" data-person-target="table">
     <%= form.label :table_id, "Table" %>
     <%= form.select :table_id, @tables, { include_blank: "No table assigned" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
