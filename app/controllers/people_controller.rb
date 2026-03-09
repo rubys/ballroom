@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   def index
     @event = Event.current
     @track_ages = @event.track_ages
-    @people = Person.includes(:studio, :level, :age).order(:name)
+    @people = Person.includes(:studio, :level, :age).order(sort_order)
   end
 
   # GET /people/1
@@ -90,6 +90,14 @@ class PeopleController < ApplicationController
       @exclude = @person.studio ? Person.where(studio_id: @person.studio_id).where.not(id: @person.id).order(:name).map { |p| [ p.display_name, p.id ] } : []
       @tables = Table.exists? ? Table.order(:number).map { |t| [ "Table #{t.number}", t.id ] } : nil
       @include_independent_instructors = @event.independent_instructors
+    end
+
+    def sort_order
+      order = params[:sort] || "name"
+      order = "studios.name" if order == "studio"
+      order = "age_id" if order == "age"
+      order = "level_id" if order == "level"
+      order
     end
 
     # Only allow a list of trusted parameters through.
