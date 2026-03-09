@@ -17,10 +17,10 @@ class DancesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create dance" do
     assert_difference("Dance.count") do
-      post dances_url, params: { dance: { closed_category_id: @dance.closed_category_id, col: @dance.col, cost_override: @dance.cost_override, heat_length: @dance.heat_length, limit: @dance.limit, multi_category_id: @dance.multi_category_id, name: @dance.name, open_category_id: @dance.open_category_id, order: @dance.order, pro_closed_category_id: @dance.pro_closed_category_id, pro_multi_category_id: @dance.pro_multi_category_id, pro_open_category_id: @dance.pro_open_category_id, pro_solo_category_id: @dance.pro_solo_category_id, row: @dance.row, semi_finals: @dance.semi_finals, solo_category_id: @dance.solo_category_id } }
+      post dances_url, params: { dance: { name: "New Dance", closed_category_id: @dance.closed_category_id, open_category_id: @dance.open_category_id, solo_category_id: @dance.solo_category_id } }
     end
 
-    assert_redirected_to dance_url(Dance.last)
+    assert_redirected_to dances_url
   end
 
   test "should show dance" do
@@ -34,12 +34,12 @@ class DancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update dance" do
-    patch dance_url(@dance), params: { dance: { closed_category_id: @dance.closed_category_id, col: @dance.col, cost_override: @dance.cost_override, heat_length: @dance.heat_length, limit: @dance.limit, multi_category_id: @dance.multi_category_id, name: @dance.name, open_category_id: @dance.open_category_id, order: @dance.order, pro_closed_category_id: @dance.pro_closed_category_id, pro_multi_category_id: @dance.pro_multi_category_id, pro_open_category_id: @dance.pro_open_category_id, pro_solo_category_id: @dance.pro_solo_category_id, row: @dance.row, semi_finals: @dance.semi_finals, solo_category_id: @dance.solo_category_id } }
-    assert_redirected_to dance_url(@dance)
+    patch dance_url(@dance), params: { dance: { name: @dance.name, closed_category_id: @dance.closed_category_id, open_category_id: @dance.open_category_id, solo_category_id: @dance.solo_category_id } }
+    assert_redirected_to dances_url
   end
 
   test "should destroy dance" do
-    dance = Dance.create!(name: "Deletable")
+    dance = Dance.create!(name: "Deletable", order: 999)
     assert_difference("Dance.count", -1) do
       delete dance_url(dance)
     end

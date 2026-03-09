@@ -1,29 +1,120 @@
-<% content_for :title, "Dances" %>
-
-<div class="w-full">
+<div class="mx-auto" id="dances">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Dances</h1>
-    <%= link_to "New dance", new_dance_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
+<div data-controller="info-box">
+<div class="info-button">&#x24D8;</div>
+<ul class="info-box">
+<li>The order dances appear on this list affects the order in which dances are scheduled within an agenda category.</li>
+<li>Clicking a dance name will let you edit that dance's names and assigned categories.</li>
+</ul>
+</div>
 
-  <div id="dances" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @dances.any? %>
-      <% @dances.each do |dance| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render dance %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", dance, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_dance_path(dance), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", dance, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No dances found.</p>
+  <h1 class="text-center font-bold text-4xl mb-8">Dances</h1>
+
+  <div class="min-w-full">
+  <table class="mx-auto table-fixed">
+    <thead>
+      <tr>
+        <th class="row-head">Dance</th>
+        <th class="row-head">Categories</th>
+        <th class="row-head">Entries</th>
+        <th class="row-head">Heats</th>
+        <% unless @songs.empty? %>
+        <th class="row-head">Songs</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% @dances.each do |dance| %>
+      <% next if dance.heat_length || dance.order < 0 %>
+      <tr>
+        <td class="row text-black font-medium"><%= link_to dance.name, edit_dance_path(dance) %></td>
+        <td class="row grid grid-cols-1">
+          <% ([dance] + (@separate[dance.name] || [])).each do |d| %>
+          <%= link_to d.closed_category.name, edit_category_path(d.closed_category) if d.closed_category_id %>
+          <%= link_to d.open_category.name, edit_category_path(d.open_category) if d.open_category_id %>
+          <%= link_to d.solo_category.name, edit_category_path(d.solo_category) if d.solo_category_id %>
+          <%= link_to d.pro_closed_category.name, edit_category_path(d.pro_closed_category) if d.pro_closed_category_id %>
+          <%= link_to d.pro_open_category.name, edit_category_path(d.pro_open_category) if d.pro_open_category_id %>
+          <%= link_to d.pro_solo_category.name, edit_category_path(d.pro_solo_category) if d.pro_solo_category_id %>
+          <% end %>
+        </td>
+        <td class="row text-right"><%= @entries[dance.id] || 0 %></td>
+        <td class="row text-right"><%= @heats[dance.id] || 0 %></td>
+        <% unless @songs.empty? %>
+        <% if (@songs[dance.id] || 0) < (@heats[dance.id] || 0) %>
+        <td class="row text-right text-red-600 font-bold">
+        <% else %>
+        <td class="row text-right">
+        <% end %>
+        <%= @songs[dance.id] || 0 %>
+        </td>
+        <% end %>
+      </tr>
     <% end %>
-  </div>
+    <tr>
+      <th colspan="2" class="border-t-2 border-gray-200 row text-center font-bold">total</th>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= @dances.map { |dance| dance.heat_length ? 0 : @entries[dance.id] || 0 }.sum %>
+      </td>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= @dances.map { |dance| dance.heat_length ? 0 : @heats[dance.id] || 0 }.sum %>
+      </td>
+      <% unless @songs.empty? %>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= @songs.values.sum %>
+      </td>
+      <% end %>
+    </tr>
+    </tbody>
+  </table>
+
+<% if @dances.any? { |dance| dance.heat_length } %>
+  <h1 class="text-center font-bold text-4xl my-8">Multi-Dances</h1>
+
+  <div class="min-w-full">
+  <table class="mx-auto table-fixed">
+    <thead>
+      <tr>
+        <th class="row-head">Dance</th>
+        <th class="row-head">Category</th>
+        <th class="row-head">Entries</th>
+        <th class="row-head">Heats</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @dances.each do |dance| %>
+      <% next unless dance.heat_length && dance.order >= 0 %>
+      <tr>
+        <td class="row text-black font-medium"><%= link_to dance.name, edit_dance_path(dance) %></td>
+        <td class="row grid grid-cols-1">
+          <%= link_to dance.multi_category.name, edit_category_path(dance.multi_category) if dance.multi_category %>
+          <%= link_to dance.pro_multi_category.name, edit_category_path(dance.pro_multi_category) if dance.pro_multi_category %>
+        </td>
+        <td class="row text-right"><%= @entries[dance.id] || 0 %></td>
+        <td class="row text-right"><%= @heats[dance.id] || 0 %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <th colspan="2" class="border-t-2 border-gray-200 row text-center font-bold">total</th>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= @dances.map { |dance| dance.heat_length ? @entries[dance.id] || 0 : 0 }.sum %>
+      </td>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= @dances.map { |dance| dance.heat_length ? @heats[dance.id] || 0 : 0 }.sum %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+<% end %>
+
+</div>
+
+<div class="mt-4 grid grid-cols-3 justify-between items-center">
+  <%= link_to "New dance", new_dance_path, class: "btn-blue" %>
+  <%= link_to "Categories", categories_path, class: "btn-green" %>
+  <%= link_to "Back to Event", root_path, class: "btn-green" %>
+</div>
 </div>

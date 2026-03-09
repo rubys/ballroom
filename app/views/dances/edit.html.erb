@@ -1,10 +1,13 @@
-<% content_for :title, "Editing dance" %>
-
-<div class="md:w-2/3 w-full">
+<div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing dance</h1>
 
   <%= render "form", dance: @dance %>
 
-  <%= link_to "Show this dance", @dance, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to dances", dances_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="mx-auto flex">
+    <button type="submit" class="btn-blue" form="dance-form">Update Dance</button>
+    <% unless @locked %>
+    <%= button_to "Remove this dance", dance_path(@dance), method: :delete, class: "btn-grey my-0", form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <% end %>
+    <%= link_to "Back to Dances", dances_path, class: "btn-grey my-0" %>
+  </div>
 </div>

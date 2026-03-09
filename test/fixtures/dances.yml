@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: Waltz
   order: 1
-  heat_length: 1
+  heat_length:
   limit: 1
   col: 1
   row: 1
@@ -15,9 +15,9 @@ one:
   multi_category: one
 
 two:
-  name: MyString
-  order: 1
-  heat_length: 1
+  name: Tango
+  order: 2
+  heat_length:
   limit: 1
   col: 1
   row: 1

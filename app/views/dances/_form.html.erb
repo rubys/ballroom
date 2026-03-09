@@ -1,9 +1,9 @@
-<%= form_with(model: dance, class: "contents") do |form| %>
+<%= form_with(model: dance, class: "contents", id: "dance-form") do |form| %>
   <% if dance.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(dance.errors.count, "error") %> prohibited this dance from being saved:</h2>
 
-      <ul class="list-disc ml-6">
+      <ul>
         <% dance.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,87 +11,61 @@
     </div>
   <% end %>
 
+<div data-controller="info-box">
+<div class="info-button">&#x24D8;</div>
+<ul class="info-box">
+<li>The dance name will appear on the entry forms and in various places including the final list of generated heats.
+<% if dance.id %>
+Changing the name here will change it everywhere.
+<% end %>
+<li>Categories affect where the dance appears in the agenda, and are defined on the <%= link_to "Category", categories_path, class: "x-2 rounded-lg py-1 px-2 text-white bg-blue-600 font-medium" %> page.
+<% if dance.id %>
+<li class="text-red-600">Removing a dance will remove it from the entry form and
+<span class="font-bold">delete any heats and scores that have been entered for that dance.</span>
+<% end %>
+</ul>
+</div>
+
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:name].none?, "border-red-400 focus:outline-red-600": dance.errors[:name].any?}] %>
+    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :order %>
-    <%= form.number_field :order, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:order].none?, "border-red-400 focus:outline-red-600": dance.errors[:order].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :heat_length %>
-    <%= form.number_field :heat_length, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:heat_length].none?, "border-red-400 focus:outline-red-600": dance.errors[:heat_length].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :limit %>
-    <%= form.number_field :limit, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:limit].none?, "border-red-400 focus:outline-red-600": dance.errors[:limit].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :col %>
-    <%= form.number_field :col, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:col].none?, "border-red-400 focus:outline-red-600": dance.errors[:col].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :row %>
-    <%= form.number_field :row, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:row].none?, "border-red-400 focus:outline-red-600": dance.errors[:row].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :cost_override %>
-    <%= form.text_field :cost_override, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:cost_override].none?, "border-red-400 focus:outline-red-600": dance.errors[:cost_override].any?}] %>
-  </div>
-
-  <div class="my-5 flex items-center gap-2">
-    <%= form.label :semi_finals %>
-    <%= form.checkbox :semi_finals, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": dance.errors[:semi_finals].none?, "border-red-400 focus:outline-red-600": dance.errors[:semi_finals].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :open_category_id %>
-    <%= form.text_field :open_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:open_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:open_category_id].any?}] %>
-  </div>
-
+  <% if @event.include_closed %>
   <div class="my-5">
     <%= form.label :closed_category_id %>
-    <%= form.text_field :closed_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:closed_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:closed_category_id].any?}] %>
+    <%= form.select :closed_category_id, @categories, { include_blank: true },
+       class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+  <% end %>
+
+  <% if @event.include_open %>
+  <div class="my-5">
+    <%= form.label :open_category_id %>
+    <%= form.select :open_category_id, @categories, { include_blank: true },
+       class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
 
   <div class="my-5">
     <%= form.label :solo_category_id %>
-    <%= form.text_field :solo_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:solo_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:solo_category_id].any?}] %>
+    <%= form.select :solo_category_id, @categories, { include_blank: true },
+       class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <% if (@event.heat_cost || 0.0) > 0.0 %>
   <div class="my-5">
-    <%= form.label :multi_category_id %>
-    <%= form.text_field :multi_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:multi_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:multi_category_id].any?}] %>
+    <%= form.label :cost_override, "Cost Override (if different)" %>
+    <%= form.number_field :cost_override, step: :any,
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+  <% end %>
 
+  <% if @event.dance_limit != nil %>
   <div class="my-5">
-    <%= form.label :pro_open_category_id %>
-    <%= form.text_field :pro_open_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:pro_open_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:pro_open_category_id].any?}] %>
+    <%= form.label :limit, "Dance limit (if different)" %>
+    <%= form.number_field :limit, step: :any,
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :pro_closed_category_id %>
-    <%= form.text_field :pro_closed_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:pro_closed_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:pro_closed_category_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :pro_solo_category_id %>
-    <%= form.text_field :pro_solo_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:pro_solo_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:pro_solo_category_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :pro_multi_category_id %>
-    <%= form.text_field :pro_multi_category_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dance.errors[:pro_multi_category_id].none?, "border-red-400 focus:outline-red-600": dance.errors[:pro_multi_category_id].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+  <% end %>
 <% end %>

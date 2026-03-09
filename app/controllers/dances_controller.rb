@@ -1,63 +1,94 @@
 class DancesController < ApplicationController
   before_action :set_dance, only: %i[ show edit update destroy ]
 
-  # GET /dances or /dances.json
+  # GET /dances
   def index
-    @dances = Dance.all
+    @dances = Dance.includes(:open_category, :closed_category, :solo_category, :multi_category,
+      :pro_open_category, :pro_closed_category, :pro_solo_category, :pro_multi_category).ordered.all
+    @heats = Heat.where(number: 1..).group(:dance_id).distinct.count(:number)
+    @entries = Heat.where(number: 1..).group(:dance_id).count
+    @songs = Song.group(:dance_id).count
+
+    @separate = @dances.select { |dance| dance.order < 0 }.group_by(&:name)
+
+    @dances.each do |dance|
+      next if dance.order < 0
+      split_dances = @separate[dance.name]
+      next unless split_dances
+      split_dances.each do |separate_dance|
+        @heats[dance.id] = (@heats[dance.id] || 0) + (@heats[separate_dance.id] || 0)
+        @entries[dance.id] = (@entries[dance.id] || 0) + (@entries[separate_dance.id] || 0)
+
+        if @songs[dance.id] || @songs[separate_dance.id]
+          @songs[dance.id] = (@songs[dance.id] || 0) + (@songs[separate_dance.id] || 0)
+        end
+      end
+    end
   end
 
-  # GET /dances/1 or /dances/1.json
+  # GET /dances/1
   def show
   end
 
   # GET /dances/new
   def new
-    @dance = Dance.new
+    @dance ||= Dance.new
+    setup_form
   end
 
   # GET /dances/1/edit
   def edit
+    setup_form
+    @locked = Event.current.locked?
   end
 
-  # POST /dances or /dances.json
+  # POST /dances
   def create
     @dance = Dance.new(dance_params)
+    @dance.order = (Dance.maximum(:order) || 0) + 1
 
     respond_to do |format|
       if @dance.save
-        format.html { redirect_to @dance, notice: "Dance was successfully created." }
+        format.html { redirect_to dances_url, notice: "#{@dance.name} was successfully created." }
         format.json { render :show, status: :created, location: @dance }
       else
+        setup_form
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @dance.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /dances/1 or /dances/1.json
+  # PATCH/PUT /dances/1
   def update
     respond_to do |format|
       if @dance.update(dance_params)
-        format.html { redirect_to @dance, notice: "Dance was successfully updated.", status: :see_other }
+        format.html { redirect_to dances_url, notice: "#{@dance.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @dance }
       else
+        setup_form
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @dance.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /dances/1 or /dances/1.json
+  # DELETE /dances/1
   def destroy
     @dance.destroy!
 
     respond_to do |format|
-      format.html { redirect_to dances_path, notice: "Dance was successfully destroyed.", status: :see_other }
+      format.html { redirect_to dances_url, notice: "#{@dance.name} was successfully removed.", status: :see_other }
       format.json { head :no_content }
     end
   end
 
   private
+    def setup_form
+      @event = Event.current
+      @categories = Category.order(:id).map { |c| [ c.name, c.id ] }
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_dance
       @dance = Dance.find(params.expect(:id))
@@ -65,6 +96,7 @@ class DancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dance_params
-      params.expect(dance: [ :name, :order, :heat_length, :limit, :col, :row, :cost_override, :semi_finals, :open_category_id, :closed_category_id, :solo_category_id, :multi_category_id, :pro_open_category_id, :pro_closed_category_id, :pro_solo_category_id, :pro_multi_category_id ])
+      params.expect(dance: [ :name, :closed_category_id, :open_category_id, :solo_category_id,
+        :heat_length, :multi_category_id, :limit, :cost_override ])
     end
 end
