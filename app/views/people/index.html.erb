@@ -37,7 +37,7 @@
       <% if @track_ages and @people.any? { |person| person.age_id } %>
       <td class="row text-center"><%= person.age&.description %></td>
       <% end %>
-      <td class="row"><%= link_to person.studio&.name || "", studio_path(person.studio) %></td>
+      <td class="row"><% if person.studio %><%= link_to person.studio.name, studio_path(person.studio) %><% end %></td>
     </tr>
   <% end %>
   </tbody>

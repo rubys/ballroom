@@ -82,13 +82,13 @@ class PeopleController < ApplicationController
       @event = Event.current
       @track_ages = @event.track_ages
       @locked = @event.locked
-      @studios = Studio.order(:name).map { |s| [s.name, s.id] }
+      @studios = Studio.order(:name).map { |s| [ s.name, s.id ] }
       @types = @person.studio_id != nil ? %w[Student Professional Guest Franchisee] : %w[Judge Emcee DJ]
-      @levels = Level.order(:id).map { |l| [l.name, l.id] }
-      @ages = Age.order(:id).map { |a| ["#{a.category} (#{a.description})", a.id] }
+      @levels = Level.order(:id).map { |l| [ l.name, l.id ] }
+      @ages = Age.order(:id).map { |a| [ "#{a.category} (#{a.description})", a.id ] }
       @roles = %w[Follower Leader Both]
-      @exclude = @person.studio_id != nil ? Person.where(studio_id: @person.studio_id).where.not(id: @person.id).order(:name).map { |p| [p.display_name, p.id] } : []
-      @tables = Table.exists? ? Table.order(:number).map { |t| ["Table #{t.number}", t.id] } : nil
+      @exclude = @person.studio_id != nil ? Person.where(studio_id: @person.studio_id).where.not(id: @person.id).order(:name).map { |p| [ p.display_name, p.id ] } : []
+      @tables = Table.exists? ? Table.order(:number).map { |t| [ "Table #{t.number}", t.id ] } : nil
       @include_independent_instructors = @event.independent_instructors
     end
 
