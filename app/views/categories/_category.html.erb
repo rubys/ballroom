@@ -1,58 +1,22 @@
-<div id="<%= dom_id category %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
+<div id="<%= dom_id category %>">
+  <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= category.name %>
-  </div>
-  <div>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Order:</strong>
     <%= category.order %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Day:</strong>
-    <%= category.day %>
-  </div>
-  <div>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Time:</strong>
     <%= category.time %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Duration:</strong>
-    <%= category.duration %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Ballrooms:</strong>
-    <%= category.ballrooms %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Split:</strong>
-    <%= category.split %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Cost override:</strong>
-    <%= category.cost_override %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Studio cost override:</strong>
-    <%= category.studio_cost_override %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Max heat size:</strong>
-    <%= category.max_heat_size %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Locked:</strong>
-    <%= category.locked? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Pro:</strong>
-    <%= category.pro? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Routines:</strong>
-    <%= category.routines? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Use category scoring:</strong>
-    <%= category.use_category_scoring? ? "Yes" : "No" %>
-  </div>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this category", category, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this category', edit_category_path(category), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
 </div>

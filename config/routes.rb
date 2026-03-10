@@ -36,7 +36,9 @@ Rails.application.routes.draw do
     post :drop, on: :collection
   end
   resources :cat_extensions
-  resources :categories
+  resources :categories do
+    post :drop, on: :collection
+  end
   resources :studios do
     member do
       post :unpair

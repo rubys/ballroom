@@ -1,29 +1,73 @@
-<% content_for :title, "Categories" %>
-
-<div class="w-full">
+<div class="mx-auto" id="categories">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Categories</h1>
-    <%= link_to "New category", new_category_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+<div data-controller="info-box">
+<div class="info-button">&#x24D8;</div>
+<ul class="info-box">
+<li>The order categories appear on this list affects the order they appear in the final agenda.  You can rearrange the order by using drag and drop.</li>
+<li>Clicking a category name will let you edit that category's name and identify which dances are included in that category.</li>
+</ul>
+</div>
+
+  <h1 class="text-center font-bold text-4xl mb-12">Agenda</h1>
+
+  <% entry_count = 0 %>
+  <% heat_count = 0 %>
+
+  <div class="min-w-full">
+  <table class="table-fixed ml-6 mb-8">
+    <thead>
+    <tr>
+      <th class="row-head">Category</th>
+      <th class="row-head">Entries</th>
+      <th class="row-head">Heats</th>
+      <% unless @categories.all? { |cat| cat.day.blank? } %>
+      <th class="row-head">Day</th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody <%= "data-controller=\"drop\" data-drop-action=\"#{drop_categories_path}\"".html_safe unless @locked %>>
+    <% @categories.each do |cat| %>
+      <% cat_entries = @cat_entries[cat.id] || 0 %>
+      <% cat_heats = @cat_heats[cat.id] || 0 %>
+      <% entry_count += cat_entries %>
+      <% heat_count += cat_heats %>
+      <tr class="hover:bg-yellow-200" draggable="true" data-drag-id="<%= cat.id %>">
+        <td class="row text-black font-medium"><%= link_to cat.name, edit_category_path(cat) %></td>
+        <td class="row text-right"><%= cat_entries %></td>
+        <td class="row text-right"><%= cat_heats %></td>
+        <% unless @categories.all? { |c| c.day.blank? } %>
+        <% unless cat.day.blank? %>
+        <td class="row"><%= cat.day %></td>
+        <% else %>
+        <td class="row"></td>
+        <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th class="border-t-2 border-gray-200 row text-center font-bold">total</th>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= entry_count %>
+      </td>
+      <td class="border-t-2 border-gray-200 row text-right">
+        <%= heat_count %>
+      </td>
+      <% unless @categories.all? { |cat| cat.day.blank? } %>
+      <th class="border-t-2"></th>
+      <% end %>
+    </tr>
+    </tfoot>
+  </table>
   </div>
 
-  <div id="categories" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @categories.any? %>
-      <% @categories.each do |category| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render category %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", category, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_category_path(category), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", category, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No categories found.</p>
-    <% end %>
+  <div class="mt-4 flex justify-between items-center">
+    <%= link_to 'New category', new_category_path, class: "btn-blue" %>
+    <%= link_to 'Dances', dances_path, class: "btn-green" %>
+    <%= link_to "Back to Event", root_path, class: "btn-green" %>
   </div>
 </div>
