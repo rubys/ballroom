@@ -2,6 +2,16 @@
 
 Ballroom is a test application for [Ruby2JS](https://github.com/ruby2js/ruby2js) and [Juntos](https://github.com/nicolo-ribaudo/ruby2js/tree/main/packages/juntos) — the same Ruby codebase runs as both a traditional Rails app and a JavaScript app via transpilation.  It is based on [showcase](https://github.com/rubys/showcase), which is a dance competition management system built with Rails 8. Manages events, studios, people, dances, heats, scoring, and results
 
+## Quick Start (no Ruby required)
+
+```bash
+npx github:ruby2js/juntos --demo ballroom
+cd ballroom
+npx juntos dev -d dexie
+```
+
+Open http://localhost:5173 to see the app.
+
 ## Getting Started
 
 ### Prerequisites
