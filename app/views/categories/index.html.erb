@@ -28,7 +28,11 @@
       <% end %>
     </tr>
     </thead>
-    <tbody <%= "data-controller=\"drop\" data-drop-action=\"#{drop_categories_path}\"".html_safe unless @locked %>>
+    <% if @locked %>
+    <tbody>
+    <% else %>
+    <tbody data-controller="drop" data-drop-action="<%= drop_categories_path() %>">
+    <% end %>
     <% @categories.each do |cat| %>
       <% cat_entries = @cat_entries[cat.id] || 0 %>
       <% cat_heats = @cat_heats[cat.id] || 0 %>
