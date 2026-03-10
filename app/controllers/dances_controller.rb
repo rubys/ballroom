@@ -73,6 +73,27 @@ class DancesController < ApplicationController
     end
   end
 
+  # POST /dances/drop
+  def drop
+    source = Dance.find(params[:source].to_i)
+    target = Dance.find(params[:target].to_i)
+
+    if source.order > target.order
+      dances = Dance.where(order: target.order..source.order).ordered
+      new_order = dances.map(&:order).rotate(1)
+    else
+      dances = Dance.where(order: source.order..target.order).ordered
+      new_order = dances.map(&:order).rotate(-1)
+    end
+
+    dances.each_with_index do |dance, i|
+      dance.order = new_order[i]
+      dance.save! validate: false
+    end
+
+    redirect_to dances_url, notice: "#{source.name} was successfully moved."
+  end
+
   # DELETE /dances/1
   def destroy
     @dance.destroy!

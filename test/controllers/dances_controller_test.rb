@@ -38,6 +38,21 @@ class DancesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to dances_url
   end
 
+  test "should reorder dances via drop" do
+    dance1 = dances(:one)
+    dance2 = dances(:two)
+    original_order1 = dance1.order
+    original_order2 = dance2.order
+
+    post drop_dances_url, params: { source: dance1.id, target: dance2.id }
+    assert_redirected_to dances_url
+
+    dance1.reload
+    dance2.reload
+    assert_equal original_order2, dance1.order
+    assert_equal original_order1, dance2.order
+  end
+
   test "should destroy dance" do
     dance = Dance.create!(name: "Deletable", order: 999)
     assert_difference("Dance.count", -1) do

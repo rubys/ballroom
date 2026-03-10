@@ -6,7 +6,8 @@
 <div data-controller="info-box">
 <div class="info-button">&#x24D8;</div>
 <ul class="info-box">
-<li>The order dances appear on this list affects the order in which dances are scheduled within an agenda category.</li>
+<li>The order dances appear on this list affects the order in which dances are scheduled within an agenda category.
+You can rearrange the order by using drag and drop.</li>
 <li>Clicking a dance name will let you edit that dance's names and assigned categories.</li>
 </ul>
 </div>
@@ -26,10 +27,10 @@
         <% end %>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-controller="drop" data-drop-action="<%= drop_dances_path() %>">
     <% @dances.each do |dance| %>
       <% next if dance.heat_length || dance.order < 0 %>
-      <tr>
+      <tr class="hover:bg-yellow-200" draggable="true" data-drag-id="<%= dance.id %>">
         <td class="row text-black font-medium"><%= link_to dance.name, edit_dance_path(dance) %></td>
         <td class="row grid grid-cols-1">
           <% ([dance] + (@separate[dance.name] || [])).each do |d| %>
@@ -84,10 +85,10 @@
         <th class="row-head">Heats</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-controller="drop" data-drop-action="<%= drop_dances_path() %>">
     <% @dances.each do |dance| %>
       <% next unless dance.heat_length && dance.order >= 0 %>
-      <tr>
+      <tr class="hover:bg-yellow-200" draggable="true" data-drag-id="<%= dance.id %>">
         <td class="row text-black font-medium"><%= link_to dance.name, edit_dance_path(dance) %></td>
         <td class="row grid grid-cols-1">
           <%= link_to dance.multi_category.name, edit_category_path(dance.multi_category) if dance.multi_category %>

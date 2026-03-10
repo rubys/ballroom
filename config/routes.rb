@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   get "event/publish", to: "events#publish", as: :publish_event_index
   get "event/settings", to: "events#settings", as: :settings_event_index
   resources :entries
-  resources :dances
+  resources :dances do
+    post :drop, on: :collection
+  end
   resources :cat_extensions
   resources :categories
   resources :studios do
