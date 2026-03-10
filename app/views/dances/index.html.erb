@@ -21,7 +21,7 @@
         <th class="row-head">Categories</th>
         <th class="row-head">Entries</th>
         <th class="row-head">Heats</th>
-        <% unless @songs.empty? %>
+        <% unless @songs.keys.empty? %>
         <th class="row-head">Songs</th>
         <% end %>
       </tr>
@@ -43,7 +43,7 @@
         </td>
         <td class="row text-right"><%= @entries[dance.id] || 0 %></td>
         <td class="row text-right"><%= @heats[dance.id] || 0 %></td>
-        <% unless @songs.empty? %>
+        <% unless @songs.keys.empty? %>
         <% if (@songs[dance.id] || 0) < (@heats[dance.id] || 0) %>
         <td class="row text-right text-red-600 font-bold">
         <% else %>
@@ -62,7 +62,7 @@
       <td class="border-t-2 border-gray-200 row text-right">
         <%= @dances.map { |dance| dance.heat_length ? 0 : @heats[dance.id] || 0 }.sum %>
       </td>
-      <% unless @songs.empty? %>
+      <% unless @songs.keys.empty? %>
       <td class="border-t-2 border-gray-200 row text-right">
         <%= @songs.values.sum %>
       </td>
