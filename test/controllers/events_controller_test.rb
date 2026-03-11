@@ -50,11 +50,10 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update settings" do
-    patch event_url(@event), params: { from_settings: "1", event: { name: "Updated Event", backnums: false } }
+    patch event_url(@event), params: { from_settings: "1", event: { name: "Updated Event" } }
     assert_redirected_to settings_events_url
     @event.reload
     assert_equal "Updated Event", @event.name
-    assert_equal false, @event.backnums
   end
 
   test "should destroy event" do
