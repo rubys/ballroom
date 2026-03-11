@@ -21,12 +21,12 @@ class EventsController < ApplicationController
   def summary
     @people = Person.includes(:level, :age, :lead_entries, :follow_entries,
       options: :option, package: { package_includes: :option })
-      .where.not(id: 0).group_by { |person| person.type }
+      .where.not(id: 0).to_a.group_by { |person| person.type }
 
-    @packages = Billable.where.not(type: "Option").ordered.group_by(&:type)
+    @packages = Billable.where.not(type: "Option").ordered.to_a.group_by(&:type)
       .map { |type, packages| [ type, packages.map { |package| [ package, 0 ] }.to_h ] }.to_h
 
-    @options = Billable.where(type: "Option").ordered.map { |package| [ package, 0 ] }.to_h
+    @options = Billable.where(type: "Option").ordered.to_a.map { |package| [ package, 0 ] }.to_h
 
     @people.each do |_type, people|
       people.each do |person|
@@ -49,7 +49,7 @@ class EventsController < ApplicationController
     @pro_heats = Event.current.pro_heats
     @track_ages = Event.current.track_ages
 
-    @heats_by_studio = Heat.includes(entry: [ :lead, :follow ])
+    @heats_by_studio = Heat.includes(entry: [ :lead, :follow ]).to_a
       .map { |heat| heat.subject.studio.name }
       .tally
       .sort_by { |_studio, count| -count }
