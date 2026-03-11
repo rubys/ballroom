@@ -5,7 +5,51 @@ class PeopleController < ApplicationController
   def index
     @event = Event.current
     @track_ages = @event.track_ages
-    @people = Person.includes(:studio, :level, :age).order(sort_order)
+    @people ||= Person.includes(:studio, :level, :age).order(sort_order)
+  end
+
+  # GET /people/students
+  def students
+    @event = Event.current
+    @track_ages = @event.track_ages
+    @people = Person.includes(:studio, :level, :age).where(type: 'Student').order(sort_order)
+    @title = 'Students'
+    render :index
+  end
+
+  # GET /people/backs
+  def backs
+    leaders = Entry.joins(:heats).where.not(heats: { category: 'Solo' }).distinct.pluck(:lead_id)
+    @people = Person.where(id: leaders)
+      .or(Person.where.not(back: nil)).includes(:lead_entries, :studio).order(:back, :type, :name)
+
+    @pro_numbers = Person.where(type: 'Professional').minimum(:back)
+    @student_numbers = Person.where(type: 'Student').minimum(:back)
+  end
+
+  # POST /people/backs
+  def assign_backs
+    leaders = Entry.joins(:heats).where.not(heats: { category: 'Solo' }).distinct.pluck(:lead_id)
+    people = Person.where(id: leaders).order(:name)
+
+    pro_numbers = (params[:pro_numbers] || 101).to_i
+    student_numbers = (params[:student_numbers] || 201).to_i
+
+    Person.where.not(back: nil).where.not(id: leaders).update_all(back: nil)
+
+    people.each do |person|
+      if person.type == "Student"
+        person.back = student_numbers
+        student_numbers += 1
+      else
+        person.back = pro_numbers
+        pro_numbers += 1
+      end
+
+      person.save! validate: false
+    end
+
+    redirect_to backs_people_path
   end
 
   # GET /people/1

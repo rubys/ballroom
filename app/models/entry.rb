@@ -1,4 +1,5 @@
 class Entry < ApplicationRecord
+  has_many :heats
   belongs_to :lead, class_name: "Person"
   belongs_to :follow, class_name: "Person"
   belongs_to :instructor, class_name: "Person", optional: true

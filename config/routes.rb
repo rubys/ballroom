@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :people do
     get "students", on: :collection
     get "backs", on: :collection
+    post "backs", on: :collection, action: "assign_backs"
   end
   resources :events do
     get "summary", on: :collection

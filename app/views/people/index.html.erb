@@ -6,20 +6,28 @@
   <div data-controller="info-box">
   <div class="info-button">&#x24D8;</div>
   <ul class="info-box">
+  <% if @title == 'Students' %>
+  <li>To add a student, go to the <%= link_to "Studios", studios_path %> page and add a person to a studio.</li>
+  <% else %>
   <li>Clicking on a column heading will sort the table by that column.</li>
+  <% end %>
   </ul>
   </div>
 
-  <h1 class="text-center font-bold text-4xl mb-4">Event Participants</h1>
+  <h1 class="text-center font-bold text-4xl mb-4"><%= @title || 'Event Participants' %></h1>
 
+  <% unless @title %>
   <input type="search" name="search" placeholder="search" autofocus data-controller="people-search"
     class="mt-0 mb-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mx-auto">
+  <% end %>
 
   <table class="table-fixed mx-auto">
   <thead>
     <tr>
       <td class="row-head"><a href="?sort=name">Name</a></td>
+      <% unless @title %>
       <td class="row-head"><a href="?sort=type">Type</a></td>
+      <% end %>
       <% if @people.any? { |person| person.role.present? } %>
       <td class="row-head"><a href="?sort=role">Role</a></td>
       <% end %>
@@ -37,7 +45,9 @@
   <% @people.each do |person| %>
     <tr>
       <td class="row-main"><%= link_to person.name, person %></td>
+      <% unless @title %>
       <td class="row"><%= person.type %></td>
+      <% end %>
       <% if @people.any? { |person| person.role.present? } %>
       <td class="row"><%= person.role %></td>
       <% end %>

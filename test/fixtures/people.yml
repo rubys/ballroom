@@ -1,17 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  type:
-  role: MyString
-  back: 1
-  available: MyString
+  name: "Doe, Jane"
+  type: Student
+  role: Follower
+  back:
+  available:
   independent: false
+  studio: one
 
 two:
-  name: MyString
-  type:
-  role: MyString
-  back: 1
-  available: MyString
+  name: "Smith, John"
+  type: Professional
+  role: Leader
+  back:
+  available:
   independent: false
+  studio: one

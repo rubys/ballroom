@@ -20,7 +20,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
       post people_url, params: { person: { age_id: @person.age_id, available: @person.available, back: @person.back, exclude_id: @person.exclude_id, independent: @person.independent, invoice_to_id: @person.invoice_to_id, level_id: @person.level_id, name: @person.name, package_id: @person.package_id, role: @person.role, studio_id: @person.studio_id, table_id: @person.table_id, type: @person.type } }
     end
 
-    assert_redirected_to person_url(Person.last)
+    person = Person.last
+    if person.studio
+      assert_redirected_to studio_url(person.studio)
+    else
+      assert_redirected_to person_url(person)
+    end
   end
 
   test "should show person" do
@@ -35,7 +40,21 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
 
   test "should update person" do
     patch person_url(@person), params: { person: { age_id: @person.age_id, available: @person.available, back: @person.back, exclude_id: @person.exclude_id, independent: @person.independent, invoice_to_id: @person.invoice_to_id, level_id: @person.level_id, name: @person.name, package_id: @person.package_id, role: @person.role, studio_id: @person.studio_id, table_id: @person.table_id, type: @person.type } }
-    assert_redirected_to person_url(@person)
+    if @person.studio
+      assert_redirected_to studio_url(@person.studio)
+    else
+      assert_redirected_to person_url(@person)
+    end
+  end
+
+  test "should get students" do
+    get students_people_url
+    assert_response :success
+  end
+
+  test "should get backs" do
+    get backs_people_url
+    assert_response :success
   end
 
   test "should destroy person" do

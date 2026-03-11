@@ -1,0 +1,64 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div data-controller="info-box">
+  <div class="info-button">&#x24D8;</div>
+  <ul class="info-box">
+  <li>Back numbers are assigned to leaders to identify them on the floor during heats.</li>
+  <li>Gray rows indicate people without entries defined.</li>
+  <li>Use the form at the bottom to reassign back numbers to all leaders in one operation.</li>
+  </ul>
+  </div>
+
+  <h1 class="mx-auto font-bold text-4xl mb-4">Back Numbers</h1>
+
+  <% if @people.empty? %>
+  <p>No heats are scheduled yet for this event.</p>
+  <% else %>
+  <table class="table-fixed mx-auto">
+    <thead>
+      <tr>
+        <th class="row-head">Number</th>
+        <th class="row-head">Person</th>
+        <th class="row-head">Studio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person| %>
+      <% if person.lead_entries.empty? %>
+      <tr class="bg-slate-200" title="no entries defined">
+      <% else %>
+      <tr>
+      <% end %>
+        <td class="row text-right"><%= person.back %></td>
+        <td class="row"><%= link_to person.name, person %></td>
+        <td class="row"><% if person.studio %><%= link_to person.studio.name, person.studio %><% end %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_with(url: backs_people_path()) do |form| %>
+    <div class="mt-4 flex justify-between items-center">
+    <%= form.submit 'Assign numbers', class: "mx-auto btn-blue" %>
+    <%= link_to 'Back to Event', root_path, class: "mx-auto btn-green" %>
+    </div>
+
+  <div class="my-5">
+    <%= form.label :pro_numbers, 'Professional Back Number start with' %>
+    <%= form.number_field :pro_numbers, value: @pro_numbers || 101,
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :student_numbers, 'Student Back Number start with' %>
+    <%= form.number_field :student_numbers, value: @student_numbers || 201,
+      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <% end %>
+  <% end %>
+  </div>
+</div>
