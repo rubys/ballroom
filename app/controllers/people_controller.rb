@@ -12,24 +12,24 @@ class PeopleController < ApplicationController
   def students
     @event = Event.current
     @track_ages = @event.track_ages
-    @people = Person.includes(:studio, :level, :age).where(type: 'Student').order(sort_order)
-    @title = 'Students'
+    @people = Person.includes(:studio, :level, :age).where(type: "Student").order(sort_order)
+    @title = "Students"
     render :index
   end
 
   # GET /people/backs
   def backs
-    leaders = Entry.joins(:heats).where.not(heats: { category: 'Solo' }).distinct.pluck(:lead_id)
+    leaders = Entry.joins(:heats).where.not(heats: { category: "Solo" }).distinct.pluck(:lead_id)
     @people = Person.where(id: leaders)
       .or(Person.where.not(back: nil)).includes(:lead_entries, :studio).order(:back, :type, :name)
 
-    @pro_numbers = Person.where(type: 'Professional').minimum(:back)
-    @student_numbers = Person.where(type: 'Student').minimum(:back)
+    @pro_numbers = Person.where(type: "Professional").minimum(:back)
+    @student_numbers = Person.where(type: "Student").minimum(:back)
   end
 
   # POST /people/backs
   def assign_backs
-    leaders = Entry.joins(:heats).where.not(heats: { category: 'Solo' }).distinct.pluck(:lead_id)
+    leaders = Entry.joins(:heats).where.not(heats: { category: "Solo" }).distinct.pluck(:lead_id)
     people = Person.where(id: leaders).order(:name)
 
     pro_numbers = (params[:pro_numbers] || 101).to_i

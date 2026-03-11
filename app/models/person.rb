@@ -9,7 +9,7 @@ class Person < ApplicationRecord
   belongs_to :package, class_name: "Billable", optional: true
   belongs_to :table, optional: true
 
-  has_many :lead_entries, class_name: 'Entry', foreign_key: :lead_id
+  has_many :lead_entries, class_name: "Entry", foreign_key: :lead_id
   has_one :judge
 
   scope :by_name, -> { order(:name) }

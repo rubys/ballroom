@@ -13,4 +13,15 @@ class EventsSystemTest < ApplicationSystemTestCase
     assert_text "Options"
     assert_text "Scoring"
   end
+
+  test "settings page updates event" do
+    visit settings_events_url
+    fill_in "Name", with: "Updated Showcase"
+    choose "Two ballrooms (split)"
+    check "Use back numbers?"
+    uncheck "Include pro heats?"
+    click_button "Save Settings"
+    assert_text "Settings were successfully updated."
+    assert_field "Name", with: "Updated Showcase"
+  end
 end

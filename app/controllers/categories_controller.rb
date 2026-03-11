@@ -15,9 +15,9 @@ class CategoriesController < ApplicationController
     @cat_heats = {}
 
     Dance.all.each do |dance|
-      [dance.open_category_id, dance.closed_category_id, dance.solo_category_id,
+      [ dance.open_category_id, dance.closed_category_id, dance.solo_category_id,
        dance.multi_category_id, dance.pro_open_category_id, dance.pro_closed_category_id,
-       dance.pro_solo_category_id, dance.pro_multi_category_id].each do |cat_id|
+       dance.pro_solo_category_id, dance.pro_multi_category_id ].each do |cat_id|
         next unless cat_id
 
         @cat_entries[cat_id] = (@cat_entries[cat_id] || 0) + (entry_counts[dance.id] || 0)

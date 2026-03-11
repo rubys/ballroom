@@ -71,25 +71,25 @@
   <div class="my-5">
     <%= form.label :column_order, 'Heat list column order' %>
     <ul class="ml-6">
-      <li class="my-2"><%= form.radio_button :column_order, 1 %> Lead, Follow</li>
-      <li class="my-2"><%= form.radio_button :column_order, 2 %> Student, Instructor</li>
+      <li class="my-2"><label><%= form.radio_button :column_order, 1 %> Lead, Follow</label></li>
+      <li class="my-2"><label><%= form.radio_button :column_order, 2 %> Student, Instructor</label></li>
     </ul>
   </div>
 
   <div class="my-5">
     <%= form.label :ballrooms %>
     <ul class="ml-6">
-      <li class="my-2"><%= form.radio_button :ballrooms, 1 %> One ballroom</li>
-      <li class="my-2"><%= form.radio_button :ballrooms, 2 %> Two ballrooms (split)</li>
-      <li class="my-2"><%= form.radio_button :ballrooms, 3 %> Two ballrooms (rotating)</li>
+      <li class="my-2"><label><%= form.radio_button :ballrooms, 1 %> One ballroom</label></li>
+      <li class="my-2"><label><%= form.radio_button :ballrooms, 2 %> Two ballrooms (split)</label></li>
+      <li class="my-2"><label><%= form.radio_button :ballrooms, 3 %> Two ballrooms (rotating)</label></li>
     </ul>
   </div>
 
   <div class="my-5">
     <%= form.label :heat_order %>
     <ul class="ml-6">
-      <li class="my-2"><%= form.radio_button :heat_order, 'L' %> Newcomer to Advanced</li>
-      <li class="my-2"><%= form.radio_button :heat_order, 'R' %> Random</li>
+      <li class="my-2"><label><%= form.radio_button :heat_order, 'L' %> Newcomer to Advanced</label></li>
+      <li class="my-2"><label><%= form.radio_button :heat_order, 'R' %> Random</label></li>
     </ul>
   </div>
 
@@ -133,19 +133,19 @@
   <div class="my-5">
     <%= form.label :open_scoring %>
     <ul class="ml-6">
-      <li class="my-2"><%= form.radio_button :open_scoring, '1' %> 1/2/3/F</li>
-      <li class="my-2"><%= form.radio_button :open_scoring, 'G' %> GH/G/S/B</li>
-      <li class="my-2"><%= form.radio_button :open_scoring, '#' %> Number (85, 95, ...)</li>
-      <li class="my-2"><%= form.radio_button :open_scoring, '0' %> None</li>
+      <li class="my-2"><label><%= form.radio_button :open_scoring, '1' %> 1/2/3/F</label></li>
+      <li class="my-2"><label><%= form.radio_button :open_scoring, 'G' %> GH/G/S/B</label></li>
+      <li class="my-2"><label><%= form.radio_button :open_scoring, '#' %> Number (85, 95, ...)</label></li>
+      <li class="my-2"><label><%= form.radio_button :open_scoring, '0' %> None</label></li>
     </ul>
   </div>
 
   <div class="my-5">
     <%= form.label :multi_scoring %>
     <ul class="ml-6">
-      <li class="my-2"><%= form.radio_button :multi_scoring, '1' %> 1/2/3/F</li>
-      <li class="my-2"><%= form.radio_button :multi_scoring, 'G' %> GH/G/S/B</li>
-      <li class="my-2"><%= form.radio_button :multi_scoring, '#' %> Number</li>
+      <li class="my-2"><label><%= form.radio_button :multi_scoring, '1' %> 1/2/3/F</label></li>
+      <li class="my-2"><label><%= form.radio_button :multi_scoring, 'G' %> GH/G/S/B</label></li>
+      <li class="my-2"><label><%= form.radio_button :multi_scoring, '#' %> Number</label></li>
     </ul>
   </div>
 
