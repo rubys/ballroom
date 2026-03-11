@@ -46,16 +46,16 @@ Both serve the same application at `http://localhost:3000`.
 
 ## Testing
 
-**Rails tests (221 tests):**
+**Rails tests (227 tests):**
 
 ```bash
 bin/rails test
 ```
 
-**Juntos tests (224 tests via Vitest):**
+**Juntos tests (227 tests via Vitest):**
 
 ```bash
-npx vitest run
+npx juntos test
 ```
 
 **End-to-end tests (Playwright):**
@@ -72,7 +72,7 @@ Core domain: Event, Studio, Person, Dance, Heat, Entry, Score, Judge, Category, 
 
 ### Controllers (29)
 
-Standard RESTful controllers. EventsController has a `root` dashboard action. StudiosController has `unpair` for pair management. PeopleController has sortable columns and search.
+Standard RESTful controllers. EventsController has `root` dashboard and `settings` actions. StudiosController has `unpair` for pair management. PeopleController has sortable columns, search, `students` list, and `backs` assignment. DancesController and CategoriesController have drag-drop reorder.
 
 ### Stimulus Controllers
 
