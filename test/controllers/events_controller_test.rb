@@ -43,6 +43,20 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to event_url(@event)
   end
 
+  test "should get settings" do
+    get settings_events_url
+    assert_response :success
+    assert_select "h1", "Event Settings"
+  end
+
+  test "should update settings" do
+    patch event_url(@event), params: { from_settings: "1", event: { name: "Updated Event", backnums: false } }
+    assert_redirected_to settings_events_url
+    @event.reload
+    assert_equal "Updated Event", @event.name
+    assert_equal false, @event.backnums
+  end
+
   test "should destroy event" do
     assert_difference("Event.count", -1) do
       delete event_url(@event)

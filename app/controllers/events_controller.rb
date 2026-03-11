@@ -17,6 +17,11 @@ class EventsController < ApplicationController
     @unscheduled = Heat.where(number: 0).count
   end
 
+  # GET /events/settings
+  def settings
+    @event = Event.current
+  end
+
   # GET /events or /events.json
   def index
     @events = Event.all
@@ -52,13 +57,17 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @event }
+    if @event.update(event_params)
+      if params[:from_settings]
+        redirect_to settings_events_path, notice: "Settings were successfully updated."
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        redirect_to @event, notice: "Event was successfully updated.", status: :see_other
+      end
+    else
+      if params[:from_settings]
+        render :settings, status: :unprocessable_entity
+      else
+        render :edit, status: :unprocessable_entity
       end
     end
   end
