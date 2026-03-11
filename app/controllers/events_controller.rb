@@ -57,17 +57,21 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    if @event.update(event_params)
-      if params[:from_settings]
-        redirect_to settings_events_path, notice: "Settings were successfully updated."
+    respond_to do |format|
+      if @event.update(event_params)
+        if params[:from_settings]
+          format.html { redirect_to settings_events_path, notice: "Settings were successfully updated." }
+        else
+          format.html { redirect_to @event, notice: "Event was successfully updated.", status: :see_other }
+        end
+        format.json { render :show, status: :ok, location: @event }
       else
-        redirect_to @event, notice: "Event was successfully updated.", status: :see_other
-      end
-    else
-      if params[:from_settings]
-        render :settings, status: :unprocessable_entity
-      else
-        render :edit, status: :unprocessable_entity
+        if params[:from_settings]
+          format.html { render :settings, status: :unprocessable_entity }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
