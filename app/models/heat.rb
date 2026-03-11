@@ -7,4 +7,8 @@ class Heat < ApplicationRecord
     value = 0 if value.nil?
     value.to_i == value ? value.to_i : value
   end
+
+  def subject
+    entry.subject
+  end
 end

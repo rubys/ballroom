@@ -17,6 +17,44 @@ class EventsController < ApplicationController
     @unscheduled = Heat.where(number: 0).count
   end
 
+  # GET /events/summary
+  def summary
+    @people = Person.includes(:level, :age, :lead_entries, :follow_entries,
+      options: :option, package: { package_includes: :option })
+      .where.not(id: 0).group_by { |person| person.type }
+
+    @packages = Billable.where.not(type: "Option").ordered.group_by(&:type)
+      .map { |type, packages| [ type, packages.map { |package| [ package, 0 ] }.to_h ] }.to_h
+
+    @options = Billable.where(type: "Option").ordered.map { |package| [ package, 0 ] }.to_h
+
+    @people.each do |_type, people|
+      people.each do |person|
+        options = person.options
+
+        if person.package_id && @packages[person.type]
+          @packages[person.type][person.package] += 1
+          person.package.package_includes.map(&:option).each do |option|
+            @options[option] += 1 if @options[option] && !options.include?(option)
+          end
+        end
+
+        options.map(&:option).each do |option|
+          @options[option] += 1 if @options[option]
+        end
+      end
+    end
+
+    @multi = Dance.where.not(multi_category: nil).count
+    @pro_heats = Event.current.pro_heats
+    @track_ages = Event.current.track_ages
+
+    @heats_by_studio = Heat.includes(entry: [ :lead, :follow ])
+      .map { |heat| heat.subject.studio.name }
+      .tally
+      .sort_by { |_studio, count| -count }
+  end
+
   # GET /events/settings
   def settings
     @event = Event.current

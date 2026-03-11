@@ -1,0 +1,105 @@
+<div class="mx-auto">
+
+<div data-controller="info-box">
+  <div class="info-button">&#x24D8;</div>
+  <ul class="info-box">
+  <li>This summary provides a comprehensive overview of all participants, packages, and heats for your event.
+  <li><strong>People section</strong>: Click any type or role to filter the people list. Shows total counts by type (Professional, Student, Guest, Judge, etc.) and role (Leader, Follower).
+  <li><strong>Packages</strong>: View registration package distribution.
+  <li><strong>Options</strong>: Track optional add-ons (meals, social events, etc.).
+  <li><strong>Students by level/age</strong>: Quick filtering by dance level or age category.
+  <li><strong>Heats by Studio</strong>: Shows total heat count for each participating studio.
+  </ul>
+</div>
+
+<h1 class="font-bold text-center text-4xl mb-6">Event Summary</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div>
+    <h2 class="font-bold text-2xl mb-4">People</h2>
+    <ul class="list-disc list-inside">
+      <% @people.sort.each do |type, people| %>
+        <li><%= link_to type, people_path(type: type) %>: <%= people.length %></li>
+
+        <% if %w[Professional Student].include? type %>
+        <ul class="ml-4 list-disc list-inside">
+          <% people.group_by { |person| person.role }.sort_by { |role, _| role || "" }.each do |role, role_people| %>
+            <li><%= link_to role, people_path(type: type, role: role) %>: <%= role_people.length %></li>
+          <% end %>
+        </ul>
+        <% end %>
+      <% end %>
+    </ul>
+
+    <% if @packages.values.map(&:values).flatten.any? { |count| count > 0 } %>
+    <h2 class="font-bold text-2xl mt-6 mb-4">Packages</h2>
+    <ul class="list-disc list-inside">
+      <% @packages.each do |type, packages| %>
+        <% next if packages.values.all? { |count| count == 0 } %>
+        <li><%= type %>
+        <ul class="ml-4 list-disc list-inside">
+        <% packages.each do |package, count| %>
+          <% next if count == 0 %>
+          <li><%= package.name %>: <%= count %></li>
+        <% end %>
+        </ul>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if @options.values.any? { |count| count > 0 } %>
+    <h2 class="font-bold text-2xl mt-6 mb-4">Options</h2>
+    <ul class="list-disc list-inside">
+      <% @options.each do |option, count| %>
+        <% next if count == 0 %>
+        <li><%= option.name %>: <%= count %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if Question.exists? %>
+    <div class="mt-6">
+      <%= link_to "View Question Answers", answers_path, class: "btn-pale-blue" %>
+    </div>
+    <% end %>
+  </div>
+
+  <div>
+    <% if @people["Student"] %>
+    <h2 class="font-bold text-2xl mb-4">Students, by level</h2>
+    <ul class="list-disc list-inside">
+      <% @people["Student"].group_by { |person| person.level || Level.first }.sort.each do |level, level_people| %>
+        <li><%= link_to level.name, people_path(level: level.id) %>: <%= level_people.length %></li>
+      <% end %>
+    </ul>
+
+    <% if @track_ages %>
+    <h2 class="font-bold text-2xl mt-6 mb-4">Students, by age</h2>
+    <ul class="list-disc list-inside">
+      <% @people["Student"].select { |person| person.age }.group_by { |person| person.age }.sort.each do |age, age_people| %>
+        <li><%= link_to "#{age.category} (#{age.description})", people_path(age: age.id) %>: <%= age_people.length %></li>
+      <% end %>
+    </ul>
+    <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <h2 class="font-bold text-2xl mb-4">Heats, by Studio</h2>
+    <ul class="list-disc list-inside">
+      <% @heats_by_studio.each do |studio, count| %>
+        <li><%= studio %>: <%= count %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<h2 class="font-bold text-2xl my-4">See also:</h2>
+
+<div class="grid grid-cols-3 gap-1">
+<%= link_to "Dances", dances_path, class: "btn-pale-blue" %>
+<%= link_to "Categories", categories_path, class: "btn-pale-blue" %>
+<%= link_to "Settings", settings_events_path, class: "btn-pale-blue" %>
+</div>
+
+</div>

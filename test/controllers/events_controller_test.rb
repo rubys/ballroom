@@ -43,6 +43,12 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to event_url(@event)
   end
 
+  test "should get summary" do
+    get summary_events_url
+    assert_response :success
+    assert_select "h1", "Event Summary"
+  end
+
   test "should get settings" do
     get settings_events_url
     assert_response :success

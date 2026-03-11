@@ -6,4 +6,14 @@ class Entry < ApplicationRecord
   belongs_to :age
   belongs_to :level
   belongs_to :studio, optional: true
+
+  def subject
+    if lead.type == "Professional"
+      follow
+    elsif lead.id == 0
+      follow
+    else
+      lead
+    end
+  end
 end

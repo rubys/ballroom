@@ -6,6 +6,13 @@ class EventsSystemTest < ApplicationSystemTestCase
     assert_text "Studios"
   end
 
+  test "summary page renders" do
+    visit summary_events_url
+    assert_text "Event Summary"
+    assert_text "People"
+    assert_text "See also"
+  end
+
   test "settings page renders" do
     visit settings_events_url
     assert_text "Event Settings"

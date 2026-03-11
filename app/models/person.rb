@@ -10,6 +10,8 @@ class Person < ApplicationRecord
   belongs_to :table, optional: true
 
   has_many :lead_entries, class_name: "Entry", foreign_key: :lead_id
+  has_many :follow_entries, class_name: "Entry", foreign_key: :follow_id
+  has_many :options, class_name: "PersonOption", foreign_key: :person_id
   has_one :judge
 
   scope :by_name, -> { order(:name) }
