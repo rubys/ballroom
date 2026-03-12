@@ -66,7 +66,9 @@ class EventsController < ApplicationController
       studio_counts[name] ||= 0
       studio_counts[name] += 1
     end
-    @heats_by_studio = studio_counts.to_a.sort_by { |_studio, count| -count }
+    @heats_by_studio = studio_counts.keys
+      .sort_by { |name| -studio_counts[name] }
+      .map { |name| [ name, studio_counts[name] ] }
   end
 
   # GET /events/settings
