@@ -19,45 +19,108 @@ class EventsController < ApplicationController
 
   # GET /events/summary
   def summary
-    @people = Person.includes(:level, :age, :lead_entries, :follow_entries,
+    people = Person.includes(:level, :age, :lead_entries, :follow_entries,
       options: :option, package: { package_includes: :option })
-      .where.not(id: 0).to_a.group_by { |person| person.type }
+      .where.not(id: 0).to_a
+
+    people_by_type = {}
+    people.each do |person|
+      people_by_type[person.type] ||= []
+      people_by_type[person.type].push(person)
+    end
 
     all_billables = Billable.where.not(type: "Option").ordered.to_a
-    @packages = {}
+    package_counts = {}
     all_billables.each do |billable|
-      @packages[billable.type] ||= {}
-      @packages[billable.type][billable] = 0
+      package_counts[billable.type] ||= {}
+      package_counts[billable.type][billable.id] = { billable: billable, count: 0 }
     end
 
     option_billables = Billable.where(type: "Option").ordered.to_a
-    @options = {}
+    option_counts = {}
     option_billables.each do |option|
-      @options[option] = 0
+      option_counts[option.id] = { billable: option, count: 0 }
     end
 
-    @people.values.each do |group|
-      group.each do |person|
-        person_options = person.options
+    people.each do |person|
+      person_options = person.options
 
-        if person.package_id && @packages[person.type]
-          @packages[person.type][person.package] += 1
-          person.package.package_includes.each do |pi|
-            option = pi.option
-            @options[option] += 1 if @options[option] && !person_options.include?(option)
-          end
+      if person.package_id && package_counts[person.type]
+        pkg = package_counts[person.type][person.package_id]
+        pkg[:count] += 1 if pkg
+        person.package&.package_includes&.each do |pi|
+          opt = option_counts[pi.option_id]
+          opt[:count] += 1 if opt && !person_options.any? { |po| po.option_id == pi.option_id }
         end
+      end
 
-        person_options.each do |po|
-          option = po.option
-          @options[option] += 1 if @options[option]
-        end
+      person_options.each do |po|
+        opt = option_counts[po.option_id]
+        opt[:count] += 1 if opt
       end
     end
 
     @multi = Dance.where.not(multi_category: nil).count
     @pro_heats = Event.current.pro_heats
     @track_ages = Event.current.track_ages
+    @has_questions = Question.exists?
+
+    # Build view-friendly arrays
+    @people_summary = people_by_type.keys.sort.map do |type|
+      members = people_by_type[type]
+      roles = nil
+      if %w[Professional Student].include?(type)
+        role_counts = {}
+        members.each do |person|
+          role_counts[person.role] ||= 0
+          role_counts[person.role] += 1
+        end
+        roles = role_counts.keys.sort.map do |role|
+          { role: role, count: role_counts[role] }
+        end
+      end
+      { type: type, count: members.length, roles: roles }
+    end
+
+    @package_summary = []
+    package_counts.keys.each do |type|
+      entries = []
+      package_counts[type].values.each do |entry|
+        entries.push({ name: entry[:billable].name, count: entry[:count] }) if entry[:count] > 0
+      end
+      @package_summary.push({ type: type, packages: entries }) if entries.length > 0
+    end
+
+    @option_summary = []
+    option_counts.values.each do |entry|
+      @option_summary.push({ name: entry[:billable].name, count: entry[:count] }) if entry[:count] > 0
+    end
+
+    students = people_by_type["Student"] || []
+    @level_summary = []
+    if students.length > 0
+      level_counts = {}
+      students.each do |person|
+        level = person.level || Level.first
+        level_counts[level.id] ||= { level: level, count: 0 }
+        level_counts[level.id][:count] += 1
+      end
+      level_counts.values.sort_by { |e| e[:level].name }.each do |entry|
+        @level_summary.push({ id: entry[:level].id, name: entry[:level].name, count: entry[:count] })
+      end
+    end
+
+    @age_summary = []
+    if students.length > 0 && @track_ages
+      age_counts = {}
+      students.select { |person| person.age }.each do |person|
+        age_counts[person.age.id] ||= { age: person.age, count: 0 }
+        age_counts[person.age.id][:count] += 1
+      end
+      age_counts.values.sort_by { |e| e[:age].category }.each do |entry|
+        @age_summary.push({ id: entry[:age].id, category: entry[:age].category, description: entry[:age].description, count: entry[:count] })
+      end
+    end
 
     heats = Heat.includes(entry: [ :lead, :follow ]).to_a
     studio_counts = {}

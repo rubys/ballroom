@@ -18,46 +18,43 @@
   <div>
     <h2 class="font-bold text-2xl mb-4">People</h2>
     <ul class="list-disc list-inside">
-      <% @people.sort.each do |type, people| %>
-        <li><%= link_to type, people_path(type: type) %>: <%= people.length %></li>
+      <% @people_summary.each do |entry| %>
+        <li><%= link_to entry[:type], people_path(type: entry[:type]) %>: <%= entry[:count] %></li>
 
-        <% if %w[Professional Student].include? type %>
+        <% if entry[:roles] %>
         <ul class="ml-4 list-disc list-inside">
-          <% people.group_by { |person| person.role }.sort_by { |role, _| role || "" }.each do |role, role_people| %>
-            <li><%= link_to role, people_path(type: type, role: role) %>: <%= role_people.length %></li>
+          <% entry[:roles].each do |role_entry| %>
+            <li><%= link_to role_entry[:role], people_path(type: entry[:type], role: role_entry[:role]) %>: <%= role_entry[:count] %></li>
           <% end %>
         </ul>
         <% end %>
       <% end %>
     </ul>
 
-    <% if @packages.values.map(&:values).flatten.any? { |count| count > 0 } %>
+    <% if @package_summary.length > 0 %>
     <h2 class="font-bold text-2xl mt-6 mb-4">Packages</h2>
     <ul class="list-disc list-inside">
-      <% @packages.each do |type, packages| %>
-        <% next if packages.values.all? { |count| count == 0 } %>
-        <li><%= type %>
+      <% @package_summary.each do |pkg_group| %>
+        <li><%= pkg_group[:type] %>
         <ul class="ml-4 list-disc list-inside">
-        <% packages.each do |package, count| %>
-          <% next if count == 0 %>
-          <li><%= package.name %>: <%= count %></li>
+        <% pkg_group[:packages].each do |pkg| %>
+          <li><%= pkg[:name] %>: <%= pkg[:count] %></li>
         <% end %>
         </ul>
       <% end %>
     </ul>
     <% end %>
 
-    <% if @options.values.any? { |count| count > 0 } %>
+    <% if @option_summary.length > 0 %>
     <h2 class="font-bold text-2xl mt-6 mb-4">Options</h2>
     <ul class="list-disc list-inside">
-      <% @options.each do |option, count| %>
-        <% next if count == 0 %>
-        <li><%= option.name %>: <%= count %></li>
+      <% @option_summary.each do |opt| %>
+        <li><%= opt[:name] %>: <%= opt[:count] %></li>
       <% end %>
     </ul>
     <% end %>
 
-    <% if Question.exists? %>
+    <% if @has_questions %>
     <div class="mt-6">
       <%= link_to "View Question Answers", answers_path, class: "btn-pale-blue" %>
     </div>
@@ -65,19 +62,19 @@
   </div>
 
   <div>
-    <% if @people["Student"] %>
+    <% if @level_summary.length > 0 %>
     <h2 class="font-bold text-2xl mb-4">Students, by level</h2>
     <ul class="list-disc list-inside">
-      <% @people["Student"].group_by { |person| person.level || Level.first }.sort.each do |level, level_people| %>
-        <li><%= link_to level.name, people_path(level: level.id) %>: <%= level_people.length %></li>
+      <% @level_summary.each do |entry| %>
+        <li><%= link_to entry[:name], people_path(level: entry[:id]) %>: <%= entry[:count] %></li>
       <% end %>
     </ul>
 
-    <% if @track_ages %>
+    <% if @track_ages && @age_summary.length > 0 %>
     <h2 class="font-bold text-2xl mt-6 mb-4">Students, by age</h2>
     <ul class="list-disc list-inside">
-      <% @people["Student"].select { |person| person.age }.group_by { |person| person.age }.sort.each do |age, age_people| %>
-        <li><%= link_to "#{age.category} (#{age.description})", people_path(age: age.id) %>: <%= age_people.length %></li>
+      <% @age_summary.each do |entry| %>
+        <li><%= link_to "#{entry[:category]} (#{entry[:description]})", people_path(age: entry[:id]) %>: <%= entry[:count] %></li>
       <% end %>
     </ul>
     <% end %>
@@ -87,8 +84,8 @@
   <div>
     <h2 class="font-bold text-2xl mb-4">Heats, by Studio</h2>
     <ul class="list-disc list-inside">
-      <% @heats_by_studio.each do |studio, count| %>
-        <li><%= studio %>: <%= count %></li>
+      <% @heats_by_studio.each do |entry| %>
+        <li><%= entry[0] %>: <%= entry[1] %></li>
       <% end %>
     </ul>
   </div>
