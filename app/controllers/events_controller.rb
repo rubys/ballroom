@@ -23,23 +23,33 @@ class EventsController < ApplicationController
       options: :option, package: { package_includes: :option })
       .where.not(id: 0).to_a.group_by { |person| person.type }
 
-    @packages = Billable.where.not(type: "Option").ordered.to_a.group_by(&:type)
-      .map { |type, packages| [ type, packages.map { |package| [ package, 0 ] }.to_h ] }.to_h
+    all_billables = Billable.where.not(type: "Option").ordered.to_a
+    @packages = {}
+    all_billables.each do |billable|
+      @packages[billable.type] ||= {}
+      @packages[billable.type][billable] = 0
+    end
 
-    @options = Billable.where(type: "Option").ordered.to_a.map { |package| [ package, 0 ] }.to_h
+    option_billables = Billable.where(type: "Option").ordered.to_a
+    @options = {}
+    option_billables.each do |option|
+      @options[option] = 0
+    end
 
-    @people.each do |_type, people|
+    @people.values.each do |people|
       people.each do |person|
-        options = person.options
+        person_options = person.options
 
         if person.package_id && @packages[person.type]
           @packages[person.type][person.package] += 1
-          person.package.package_includes.map(&:option).each do |option|
-            @options[option] += 1 if @options[option] && !options.include?(option)
+          person.package.package_includes.each do |pi|
+            option = pi.option
+            @options[option] += 1 if @options[option] && !person_options.include?(option)
           end
         end
 
-        options.map(&:option).each do |option|
+        person_options.each do |po|
+          option = po.option
           @options[option] += 1 if @options[option]
         end
       end
@@ -49,10 +59,14 @@ class EventsController < ApplicationController
     @pro_heats = Event.current.pro_heats
     @track_ages = Event.current.track_ages
 
-    @heats_by_studio = Heat.includes(entry: [ :lead, :follow ]).to_a
-      .map { |heat| heat.subject.studio.name }
-      .tally
-      .sort_by { |_studio, count| -count }
+    heats = Heat.includes(entry: [ :lead, :follow ]).to_a
+    studio_counts = {}
+    heats.each do |heat|
+      name = heat.subject.studio.name
+      studio_counts[name] ||= 0
+      studio_counts[name] += 1
+    end
+    @heats_by_studio = studio_counts.to_a.sort_by { |_studio, count| -count }
   end
 
   # GET /events/settings
