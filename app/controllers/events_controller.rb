@@ -36,8 +36,8 @@ class EventsController < ApplicationController
       @options[option] = 0
     end
 
-    @people.values.each do |people|
-      people.each do |person|
+    @people.values.each do |group|
+      group.each do |person|
         person_options = person.options
 
         if person.package_id && @packages[person.type]
