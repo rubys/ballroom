@@ -7,23 +7,51 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Heats</h1>
-    <%= link_to "New heat", new_heat_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
-  <div id="heats" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @heats.any? %>
-      <% @heats.each do |heat| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render heat %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", heat, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_heat_path(heat), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", heat, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No heats found.</p>
-    <% end %>
-  </div>
+  <% if @agenda.values.all? { |v| v.empty? } %>
+    <p class="text-center my-10">No heats found.</p>
+  <% end %>
+
+  <% @agenda.each do |cat, heats| %>
+  <% next if heats.empty? %>
+    <div class="mt-8">
+      <h2 class="font-bold text-2xl <%= %w[Uncategorized Unscheduled].include?(cat) ? 'text-red-600' : '' %>"><%= cat %></h2>
+
+      <table class="min-w-full text-sm mt-2">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-2 py-1 text-left">Heat</th>
+            <th class="px-2 py-1 text-left">Dance</th>
+            <th class="px-2 py-1 text-left">Lead</th>
+            <th class="px-2 py-1 text-left">Follow</th>
+            <th class="px-2 py-1 text-left">Level</th>
+            <th class="px-2 py-1 text-left">Studio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% last_number = nil %>
+          <% heats.each do |heat| %>
+            <% new_heat = heat.number != last_number %>
+            <% last_number = heat.number %>
+            <tr class="<%= new_heat ? 'border-t border-gray-200' : '' %> <%= heat.number < 0 ? 'line-through opacity-50' : '' %>">
+              <td class="px-2 py-1"><%= heat.number if new_heat %></td>
+              <td class="px-2 py-1"><%= heat.dance.name %></td>
+              <%
+                if @column_order == 1 || heat.entry.lead.type == "Student"
+                  p1, p2 = heat.entry.lead, heat.entry.follow
+                else
+                  p1, p2 = heat.entry.follow, heat.entry.lead
+                end
+              %>
+              <td class="px-2 py-1"><%= p1.display_name if p1.id != 0 %></td>
+              <td class="px-2 py-1"><%= p2.display_name if p2.id != 0 %></td>
+              <td class="px-2 py-1"><%= heat.entry.level&.name %></td>
+              <td class="px-2 py-1"><%= heat.subject.studio&.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>

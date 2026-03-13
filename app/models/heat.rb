@@ -11,4 +11,16 @@ class Heat < ApplicationRecord
   def subject
     entry.subject
   end
+
+  def dance_category
+    if category == "Open"
+      dance.open_category
+    elsif category == "Solo"
+      dance.solo_category
+    elsif category == "Multi"
+      dance.multi_category
+    else
+      dance.closed_category
+    end
+  end
 end

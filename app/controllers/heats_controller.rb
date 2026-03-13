@@ -3,7 +3,31 @@ class HeatsController < ApplicationController
 
   # GET /heats or /heats.json
   def index
-    @heats = Heat.all
+    heats = Heat.includes(
+      dance: [
+        :open_category, :closed_category, :solo_category, :multi_category,
+        :pro_open_category, :pro_closed_category, :pro_solo_category, :pro_multi_category
+      ],
+      entry: [ :age, :level, { lead: :studio }, { follow: :studio } ]
+    ).to_a.sort_by { |h| h.number.abs }
+
+    by_number = heats.group_by { |h| h.number.abs }
+
+    categories = Category.all.to_a.sort_by(&:order).map { |c| [ c.name, [] ] }.to_h
+
+    by_number.each do |number, group|
+      if number == 0
+        (categories["Unscheduled"] ||= []).concat(group)
+      else
+        cat = group.first.dance_category
+        name = cat ? cat.name : "Uncategorized"
+        (categories[name] ||= []).concat(group)
+      end
+    end
+
+    @agenda = categories
+    @track_ages = Event.current.track_ages
+    @column_order = Event.current.column_order
   end
 
   # GET /heats/1 or /heats/1.json
