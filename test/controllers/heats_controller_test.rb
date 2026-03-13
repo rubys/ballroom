@@ -10,6 +10,11 @@ class HeatsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index with category filter" do
+    get heats_url(cat: "closed-smooth")
+    assert_response :success
+  end
+
   test "should get new" do
     get new_heat_url
     assert_response :success
