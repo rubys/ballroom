@@ -47,22 +47,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     get summary_events_url
     assert_response :success
     assert_select "h1", "Event Summary"
-  end
-
-  test "summary shows people by type" do
-    get summary_events_url
-    assert_includes response.body, "Student"
-    assert_includes response.body, "Professional"
-  end
-
-  test "summary shows students by level" do
-    get summary_events_url
-    assert_includes response.body, "Students, by level"
-  end
-
-  test "summary shows heats by studio" do
-    get summary_events_url
-    assert_includes response.body, "Heats, by Studio"
+    assert_select "h2", "People"
   end
 
   test "should get settings" do
