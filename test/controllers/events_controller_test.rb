@@ -44,21 +44,21 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get summary" do
-    get summary_events_url
+    get summary_event_index_url
     assert_response :success
     assert_select "h1", "Event Summary"
     assert_select "h2", "People"
   end
 
   test "should get settings" do
-    get settings_events_url
+    get settings_event_index_url
     assert_response :success
     assert_select "h1", "Event Settings"
   end
 
   test "should update settings" do
     patch event_url(@event), params: { from_settings: "1", event: { name: "Updated Event" } }
-    assert_redirected_to settings_events_url
+    assert_redirected_to settings_event_index_url
     @event.reload
     assert_equal "Updated Event", @event.name
   end

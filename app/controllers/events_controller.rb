@@ -146,7 +146,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         if params[:from_settings]
-          format.html { redirect_to settings_events_path, notice: "Settings were successfully updated." }
+          format.html { redirect_to settings_event_index_path, notice: "Settings were successfully updated." }
         else
           format.html { redirect_to @event, notice: "Event was successfully updated.", status: :see_other }
         end

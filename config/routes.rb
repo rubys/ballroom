@@ -22,11 +22,7 @@ Rails.application.routes.draw do
     get "backs", on: :collection
     post "backs", on: :collection, action: "assign_backs"
   end
-  resources :events do
-    get "summary", on: :collection
-    get "publish", on: :collection
-    get "settings", on: :collection
-  end
+  resources :events
 
   # Match showcase's singular /event/* URLs
   get "event/summary", to: "events#summary", as: :summary_event_index

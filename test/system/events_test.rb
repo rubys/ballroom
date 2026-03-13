@@ -7,14 +7,14 @@ class EventsSystemTest < ApplicationSystemTestCase
   end
 
   test "summary page renders" do
-    visit summary_events_url
+    visit summary_event_index_url
     assert_text "Event Summary"
     assert_text "People"
     assert_text "See also"
   end
 
   test "settings page renders" do
-    visit settings_events_url
+    visit settings_event_index_url
     assert_text "Event Settings"
     assert_text "Description"
     assert_text "Options"
@@ -22,7 +22,7 @@ class EventsSystemTest < ApplicationSystemTestCase
   end
 
   test "settings page updates event" do
-    visit settings_events_url
+    visit settings_event_index_url
     fill_in "Name", with: "Updated Showcase"
     choose "Two ballrooms (split)"
     check "Use back numbers?"
