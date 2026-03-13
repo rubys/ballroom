@@ -28,6 +28,12 @@ class HeatsController < ApplicationController
     @agenda = categories
     @track_ages = Event.current.track_ages
     @column_order = Event.current.column_order
+
+    @selected_category = params[:cat]
+    if @selected_category
+      key = @agenda.keys.find { |k| k.downcase.gsub(/[^\w]+/, "-") == @selected_category }
+      @filtered_agenda = key ? { key => @agenda[key] } : {}
+    end
   end
 
   # GET /heats/1 or /heats/1.json
