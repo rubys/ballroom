@@ -78,41 +78,29 @@ class EventsController < ApplicationController
     end
 
     students = people_by_type["Student"] || []
+
     @level_summary = []
     if students.length > 0
-      level_counts = {}
-      students.each do |person|
-        level = person.level || Level.first
-        level_counts[level.id] ||= { level: level, count: 0 }
-        level_counts[level.id][:count] += 1
-      end
-      level_counts.values.sort_by { |e| e[:level].name }.each do |entry|
-        @level_summary.push({ id: entry[:level].id, name: entry[:level].name, count: entry[:count] })
+      default_level = Level.first
+      by_level = students.group_by { |p| p.level || default_level }
+      by_level.keys.sort_by(&:name).each do |level|
+        @level_summary.push({ id: level.id, name: level.name, count: by_level[level].length })
       end
     end
 
     @age_summary = []
     if students.length > 0 && @track_ages
-      age_counts = {}
-      students.select { |person| person.age }.each do |person|
-        age_counts[person.age.id] ||= { age: person.age, count: 0 }
-        age_counts[person.age.id][:count] += 1
-      end
-      age_counts.values.sort_by { |e| e[:age].category }.each do |entry|
-        @age_summary.push({ id: entry[:age].id, category: entry[:age].category, description: entry[:age].description, count: entry[:count] })
+      by_age = students.select { |p| p.age }.group_by(&:age)
+      by_age.keys.sort_by(&:category).each do |age|
+        @age_summary.push({ id: age.id, category: age.category, description: age.description, count: by_age[age].length })
       end
     end
 
     heats = Heat.includes(entry: [ :lead, :follow ]).to_a
-    studio_counts = {}
-    heats.each do |heat|
-      name = heat.subject.studio.name
-      studio_counts[name] ||= 0
-      studio_counts[name] += 1
-    end
-    @heats_by_studio = studio_counts.keys
-      .sort_by { |name| -studio_counts[name] }
-      .map { |name| [ name, studio_counts[name] ] }
+    by_studio = heats.group_by { |h| h.subject.studio.name }
+    @heats_by_studio = by_studio.keys
+      .sort_by { |name| -by_studio[name].length }
+      .map { |name| [name, by_studio[name].length] }
   end
 
   # GET /events/settings
