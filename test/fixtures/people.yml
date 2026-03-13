@@ -17,3 +17,21 @@ two:
   available:
   independent: false
   studio: one
+
+student_lead:
+  name: "Jones, Bob"
+  type: Student
+  role: Leader
+  back:
+  available:
+  independent: false
+  studio: two
+
+pro_follow:
+  name: "Lee, Sarah"
+  type: Professional
+  role: Follower
+  back:
+  available:
+  independent: false
+  studio: two

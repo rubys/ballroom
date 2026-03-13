@@ -17,3 +17,18 @@ two:
   bad: MyString
   comments: MyString
   slot: 1
+
+# Category score: heat_id is negative (negated category id)
+category_score:
+  judge: one
+  heat_id: -1
+  person: one
+  value: "5"
+  slot: 1
+
+# JSON value score
+json_score:
+  judge: two
+  heat: one
+  value: '{"Part1": "5", "Part2": "4"}'
+  slot: 1

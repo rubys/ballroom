@@ -15,3 +15,19 @@ two:
   age: two
   level: two
   studio: two
+
+# Student lead + Professional follow (pro-am, follow leads)
+student_pro:
+  lead: student_lead
+  follow: pro_follow
+  age: A
+  level: FG
+  studio: one
+
+# Professional lead + Student follow (pro-am, lead leads)
+pro_student:
+  lead: two
+  follow: one
+  age: B
+  level: FS
+  studio: one
