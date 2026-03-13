@@ -33,14 +33,12 @@ class EntryTest < ActiveSupport::TestCase
 
   test "subject_category returns L when follow is Professional" do
     entry = entries(:student_pro)
-    result = entry.subject_category()
-    assert_equal "L - #{entry.age.category}", result
+    assert_equal "L - #{entry.age.category}", entry.subject_category
   end
 
   test "subject_category returns F when lead is Professional" do
     entry = entries(:pro_student)
-    result = entry.subject_category()
-    assert_equal "F - #{entry.age.category}", result
+    assert_equal "F - #{entry.age.category}", entry.subject_category
   end
 
   test "subject_category without ages" do
@@ -52,15 +50,12 @@ class EntryTest < ActiveSupport::TestCase
     entry = entries(:one)
     entry.lead.type = "Professional"
     entry.follow.type = "Professional"
-    result = entry.subject_category()
-    assert_equal "-", result
+    assert_equal "-", entry.subject_category
   end
 
   test "subject_lvlcat includes level initials" do
     entry = entries(:student_pro)
-    result = entry.subject_lvlcat()
-    expected = "L - #{entry.level.initials} - #{entry.age.category}"
-    assert_equal expected, result
+    assert_equal "L - #{entry.level.initials} - #{entry.age.category}", entry.subject_lvlcat
   end
 
   test "subject_lvlcat without ages" do
@@ -73,8 +68,7 @@ class EntryTest < ActiveSupport::TestCase
     entry = entries(:one)
     entry.lead.type = "Professional"
     entry.follow.type = "Professional"
-    result = entry.subject_lvlcat()
-    assert_equal "- PRO -", result
+    assert_equal "- PRO -", entry.subject_lvlcat
   end
 
   test "level_name returns level name for student entries" do
