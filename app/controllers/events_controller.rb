@@ -23,11 +23,7 @@ class EventsController < ApplicationController
       options: :option, package: { package_includes: :option })
       .where.not(id: 0).to_a
 
-    people_by_type = {}
-    people.each do |person|
-      people_by_type[person.type] ||= []
-      people_by_type[person.type].push(person)
-    end
+    people_by_type = people.group_by(&:type)
 
     all_billables = Billable.where.not(type: "Option").ordered.to_a
     package_counts = {}
@@ -65,22 +61,7 @@ class EventsController < ApplicationController
     @track_ages = Event.current.track_ages
     @has_questions = Question.exists?
 
-    # Build view-friendly arrays
-    @people_summary = people_by_type.keys.sort.map do |type|
-      members = people_by_type[type]
-      roles = nil
-      if %w[Professional Student].include?(type)
-        role_counts = {}
-        members.each do |person|
-          role_counts[person.role] ||= 0
-          role_counts[person.role] += 1
-        end
-        roles = role_counts.keys.sort.map do |role|
-          { role: role, count: role_counts[role] }
-        end
-      end
-      { type: type, count: members.length, roles: roles }
-    end
+    @people_by_type = people_by_type
 
     @package_summary = []
     package_counts.keys.each do |type|

@@ -18,13 +18,15 @@
   <div>
     <h2 class="font-bold text-2xl mb-4">People</h2>
     <ul class="list-disc list-inside">
-      <% @people_summary.each do |entry| %>
-        <li><%= link_to entry[:type], people_path(type: entry[:type]) %>: <%= entry[:count] %></li>
+      <% @people_by_type.keys.sort.each do |type| %>
+        <% members = @people_by_type[type] %>
+        <li><%= link_to type, people_path(type: type) %>: <%= members.length %></li>
 
-        <% if entry[:roles] %>
+        <% if %w[Professional Student].include?(type) %>
+        <% roles = members.group_by(&:role) %>
         <ul class="ml-4 list-disc list-inside">
-          <% entry[:roles].each do |role_entry| %>
-            <li><%= link_to role_entry[:role], people_path(type: entry[:type], role: role_entry[:role]) %>: <%= role_entry[:count] %></li>
+          <% roles.keys.sort.each do |role| %>
+            <li><%= link_to role, people_path(type: type, role: role) %>: <%= roles[role].length %></li>
           <% end %>
         </ul>
         <% end %>
