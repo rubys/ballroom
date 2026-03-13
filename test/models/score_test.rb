@@ -13,7 +13,7 @@ class ScoreTest < ActiveSupport::TestCase
 
   test "display_value returns nil when value is nil" do
     score = Score.new
-    assert_equal false, score.display_value.present?
+    assert_nil score.display_value
   end
 
   test "category_score? returns true for negative heat_id" do
@@ -41,8 +41,8 @@ class ScoreTest < ActiveSupport::TestCase
     assert_equal 1, score.actual_category_id
   end
 
-  test "actual_category_id returns falsy for heat scores" do
+  test "actual_category_id returns nil for heat scores" do
     score = scores(:one)
-    assert_not score.actual_category_id
+    assert_nil score.actual_category_id
   end
 end
