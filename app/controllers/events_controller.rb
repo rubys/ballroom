@@ -100,7 +100,7 @@ class EventsController < ApplicationController
     by_studio = heats.group_by { |h| h.subject.studio.name }
     @heats_by_studio = by_studio.keys
       .sort_by { |name| -by_studio[name].length }
-      .map { |name| [name, by_studio[name].length] }
+      .map { |name| [ name, by_studio[name].length ] }
   end
 
   # GET /events/settings
