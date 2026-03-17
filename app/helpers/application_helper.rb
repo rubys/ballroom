@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def as_pdf(options = {})
+    options.merge(format: :pdf)
+  end
+
   def localized_date(date_string, locale = nil)
     return date_string unless date_string.present?
 

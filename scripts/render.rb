@@ -103,7 +103,11 @@ paths.each do |path|
   env = {
     "PATH_INFO" => path_info,
     "REQUEST_METHOD" => "GET",
-    "QUERY_STRING" => query_string || ""
+    "QUERY_STRING" => query_string || "",
+    "SERVER_NAME" => "localhost",
+    "SERVER_PORT" => "3000",
+    "HTTP_HOST" => "localhost:3000",
+    "rack.url_scheme" => "http"
   }
 
   begin

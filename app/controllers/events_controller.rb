@@ -103,6 +103,25 @@ class EventsController < ApplicationController
       .map { |name| [ name, by_studio[name].length ] }
   end
 
+  FONTS = {
+    "Algerian" => "Algerian Regular",
+    "Arial" => "Helvetica, Arial",
+    "Berlin Sans FB" => "Berlin Sans FB Demi Bold",
+    "Bevan" => "Bevan Regular",
+    "Courier New" => "Courier New, Courier",
+    "Georgia" => "Georgia",
+    "Times New Roman" => "Times New Roman, Times",
+    "Trebuchet MS" => "Trebuchet MS",
+    "Verdana" => "Verdana"
+  }
+
+  # GET /events/publish
+  def publish
+    @event = Event.current
+    @public_url = URI.join(request.original_url, "../public")
+    @fonts = FONTS
+  end
+
   # GET /events/settings
   def settings
     @event = Event.current

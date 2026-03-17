@@ -50,6 +50,15 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h2", "People"
   end
 
+  test "should get publish" do
+    get publish_event_index_url
+    assert_response :success
+    assert_select "h1", "Publish"
+    assert_select "h2", "Web"
+    assert_select "h2", "Print"
+    assert_select "h2", "Export"
+  end
+
   test "should get settings" do
     get settings_event_index_url
     assert_response :success

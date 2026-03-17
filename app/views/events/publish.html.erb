@@ -1,0 +1,101 @@
+<div class="mx-auto md:w-2/3 w-full">
+
+<div data-controller="info-box">
+  <div class="info-button">&#x24D8;</div>
+  <ul class="info-box">
+  <li>Printed materials can be downloaded or printed directly from your browser.
+  <li><strong>QR Code</strong>: Click the QR code image to generate a printable version. Participants can scan it to view live heats on their phones.
+  <li><strong>Font customization</strong>: Change font family and size for web views (Heats and Counter pages). Settings apply to public-facing pages.
+  <li><strong>Include times</strong>: Show scheduled heat start times on public heat list (requires start time in Settings).
+  <li><strong>Include studio heats</strong>: Add studio-specific heat sheets to public view.
+  <li>Labels have been tested with Avery 8168 3-1/2" x 5" paper. Or export names and studios to use mail merge software.
+  <li>Exported spreadsheets work in Microsoft Excel or Mac Numbers. Database export is SQLite format.
+  </ul>
+</div>
+
+  <h1 class="text-center font-bold text-4xl mb-8">Publish</h1>
+
+  <h2 class="font-bold text-2xl mb-8">Web</h1>
+  <ul class="ml-8">
+  <li class="my-2"><%= link_to "Heats", @public_url.to_s + '/heats', class: "btn-green w-60" %>
+  <li class="my-2"><%= link_to "Counter", @public_url.to_s + '/counter', class: "btn-green w-60" %>
+
+  <div class="float-right w-1/3">
+  <a href="<%= qrcode_events_path %>">
+  <% if defined?(RQRCode) %>
+  <%= RQRCode::QRCode.new(@public_url.to_s + '/heats').as_svg(viewbox: true).html_safe %>
+  <% else %>
+  <div class="border p-4 text-center text-gray-500">QR Code</div>
+  <% end %>
+  </a>
+
+  <%= form_with model: @event, data: {controller: "autoform"} do |form| %>
+  <div class="mt-12">
+  <%= form.label :font_family %>
+  <%= form.select :font_family, @fonts, {},
+    class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="mt-12">
+  <%= form.label :font_size %>
+  <%= form.text_field :font_size, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5 flex items-center">
+  <%= form.check_box :include_times, class: "entry-count h-10" %>
+  <%= form.label :include_times %>
+  </div>
+
+  <div class="my-5 flex items-center">
+  <%= form.check_box :print_studio_heats, class: "entry-count h-10" %>
+  <%= form.label :print_studio_heats, 'include studio heats' %>
+  </div>
+  <% end %>
+  </div>
+
+  </ul>
+
+  <h2 class="font-bold text-2xl my-8">Print</h1>
+
+  <ul class="ml-8">
+  <li class=""><%= link_to "Invoices", invoices_studios_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Master Heat Book", book_heats_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Judge Heat Book", book_heats_path(as_pdf(type: 'judge')), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Emcee Heat Book", book_heats_path(as_pdf(type: 'emcee')), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "DJ Dance list", djlist_heats_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Individual Heat Sheets", heats_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+
+  <% if @event.backnums %>
+  <li class=""><%= link_to "Back Numbers", back_numbers_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <% else %>
+  <li class=""><a role="link" aria-disabled="true" class="btn-pale-orange w-60 btn-disabled">Back Numbers</a>
+  <% end %>
+
+  <li class=""><%= link_to "Labels", labels_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Guest Passes", guest_passes_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <% if Table.any? %>
+  <li class=""><%= link_to "Table List", list_tables_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Tables by Studio", by_studio_tables_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <% end %>
+  <li class=""><%= link_to "Student Scores", scores_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <li class=""><%= link_to "Staff", staff_people_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <% if Question.exists? %>
+  <li class=""><%= link_to "Question Answers", report_answers_path(as_pdf), class: "btn-pale-orange w-60" %>
+  <% end %>
+  <li class=""><%= link_to "Certificates", certificates_people_path, class: "btn-blue w-60" %>
+  </ul>
+
+  <h2 class="font-bold text-2xl my-8">Export</h1>
+
+  <ul class="ml-8">
+  <li class=""><%= link_to "Labels", labels_studios_path(format: :csv), class: "btn-green w-60" %>
+  <li class=""><%= link_to "Spreadsheet", event_spreadsheet_path, class: "btn-green w-60" %>
+  <% if @event.assign_judges? and Score.any? %>
+  <li class=""><%= link_to "Judge Spreadsheet", judge_spreadsheet_path, class: "btn-green w-60" %>
+  <% end %>
+  <% if @event.judge_comments? and Score.any? %>
+  <li class=""><%= link_to "Judge Comments", comments_scores_path(format: :csv), class: "btn-green w-60" %>
+  <% end %>
+  <li class=""><%= link_to "Database", event_database_path, class: "btn-green w-60" %>
+  </ul>
+</div>
